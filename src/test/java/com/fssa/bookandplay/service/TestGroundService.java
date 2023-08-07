@@ -9,8 +9,8 @@ import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import com.fssa.bookandplay.dao.DAOException;
 import com.fssa.bookandplay.dao.GroundDao;
+import com.fssa.bookandplay.exceptions.DAOException;
 import com.fssa.bookandplay.model.Ground;
 import com.fssa.bookandplay.validator.GroundValidator;
 
@@ -38,7 +38,7 @@ public class TestGroundService {
 	public void testDeleteGround() throws DAOException, SQLException {
 		Ground ground=getGround();
 		GroundService groundService=getGroundService();
-		Assertions.assertTrue(groundService.deleteGround(3));
+		Assertions.assertTrue(groundService.deleteGround(2));
 		
 	}
 	public Ground getGround2() {
@@ -46,7 +46,7 @@ public class TestGroundService {
 		List<String> validsports = Arrays.asList("cricket", "football", "tennis");
 		LocalTime startTime = LocalTime.of(10, 30); // 10:00 AM
 		LocalTime endTime = LocalTime.of(11, 30);   // 5:00 PM
-		Ground ground=new Ground(2,"sample name", "sample main area", "sampleaddress", "http://google.com", "sampledistrict", validImages, validsports, startTime, endTime, "samplerules", 200, 200, 3);
+		Ground ground=new Ground(4,"sample name", "sample main area", "sampleaddress", "http://google.com", "sampledistrict", validImages, validsports, startTime, endTime, "samplerules", 200, 200, 3);
 		return ground;
 		
 	}

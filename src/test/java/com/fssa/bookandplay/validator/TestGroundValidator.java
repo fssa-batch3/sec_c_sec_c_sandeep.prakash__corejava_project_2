@@ -8,7 +8,7 @@ import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import com.fssa.bookandplay.dao.InvalidGroundDetailException;
+import com.fssa.bookandplay.exceptions.InvalidGroundDetailException;
 import com.fssa.bookandplay.model.Ground;
 
 
@@ -229,6 +229,8 @@ public class TestGroundValidator {
 
 		List<String> invalidImages = Arrays.asList("image1.jpg", "https://example.com/image2.jpg",
 				"https://example.com/image3");
+		List<String> invalidImages2 =  null;
+		List<String> invalidImages3 = Arrays.asList();
 
 		try {
 			GroundValidator.groundImagesValidator(invalidImages);
@@ -236,6 +238,22 @@ public class TestGroundValidator {
 		} catch (InvalidGroundDetailException ex) {
 			Assertions.assertEquals(GroundValidatorsErrors.INVALID_GROUNDIMAGES, ex.getMessage());
 		}
+		
+		
+		try {
+			GroundValidator.groundImagesValidator(invalidImages2);
+			Assertions.fail("Validateimages failed");
+		} catch (InvalidGroundDetailException ex) {
+			Assertions.assertEquals(GroundValidatorsErrors.INVALID_GROUNDIMAGES_NULL, ex.getMessage());
+		}
+		
+		try {
+			GroundValidator.groundImagesValidator(invalidImages3);
+			Assertions.fail("Validateimages failed");
+		} catch (InvalidGroundDetailException ex) {
+			Assertions.assertEquals(GroundValidatorsErrors.INVALID_GROUNDIMAGES_NULL, ex.getMessage());
+		}
+
 
 	}
 
@@ -249,6 +267,8 @@ public class TestGroundValidator {
 			GroundValidator.sportsAvailableValidator(validsports);
 		});
 	}
+	
+
 
 //  for invalid sportsAvailable
 	@Test
@@ -262,6 +282,17 @@ public class TestGroundValidator {
 		} catch (InvalidGroundDetailException ex) {
 			Assertions.assertEquals(GroundValidatorsErrors.INVALID_SPORTSTYPE, ex.getMessage());
 		}
+		
+		List<String> invalidsports2= Arrays.asList("i", "https://example.com/image2.jpg",
+				"https://example.com/image3");
+		
+		try {
+			GroundValidator.sportsAvailableValidator(invalidsports2);
+			Assertions.fail("Validatesports failed");
+		} catch (InvalidGroundDetailException ex) {
+			Assertions.assertEquals(GroundValidatorsErrors.INVALID_SPORTSTYPE_PATTERN, ex.getMessage());
+		}
+
 
 	}
 
@@ -364,7 +395,7 @@ public class TestGroundValidator {
 	@Test
 
 	public void testValidprice() {
-		Assertions.assertTrue(GroundValidator.priceValidator(200));
+		Assertions.assertTrue(GroundValidator.priceValidator((double) 200));
 	}
 
 //  for invalid price

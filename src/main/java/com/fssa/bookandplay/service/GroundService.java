@@ -6,11 +6,12 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fssa.bookandplay.dao.DAOException;
 import com.fssa.bookandplay.dao.GroundDao;
+import com.fssa.bookandplay.exceptions.DAOException;
 import com.fssa.bookandplay.model.Ground;
 import com.fssa.bookandplay.validator.GroundValidator;
-
+/**
+ * The GroundService class which calls validator and dao class. */
 public class GroundService {
 	private GroundValidator groundvalidator;
 	private GroundDao groundDao;
@@ -23,7 +24,8 @@ public class GroundService {
 	public GroundService() {
 		// TODO Auto-generated constructor stub
 	}
-
+	/**
+	 * The  add ground */
 	public boolean addGround(Ground ground) throws DAOException, SQLException {
 		if (this.groundvalidator.validate(ground)) {
 			this.groundDao.addGround(ground);
@@ -31,7 +33,8 @@ public class GroundService {
 		return true; 
 
 	}
-
+	/**
+	 * The  update ground */
 	public boolean updateGround(Ground ground) throws DAOException, SQLException {
 		if (this.groundvalidator.validate(ground)) {
 			 this.groundDao.updateGround(ground);
@@ -40,6 +43,8 @@ public class GroundService {
 
 	}
 
+	/**
+	 * The  delete ground */
 	public boolean deleteGround(int groundId) throws DAOException, SQLException {
 
 		GroundValidator ground = new GroundValidator();
@@ -48,7 +53,8 @@ public class GroundService {
 		}
 		return true;
 	}
-
+	/**
+	 * The  get the  ground details */
 	public boolean getGroundDetails() throws DAOException, SQLException {
 		GroundDao grounddao = new GroundDao();
 		grounddao.getAllGround();

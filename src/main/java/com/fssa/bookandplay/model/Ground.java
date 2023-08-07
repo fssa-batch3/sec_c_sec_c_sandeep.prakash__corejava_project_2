@@ -1,11 +1,16 @@
 package com.fssa.bookandplay.model;
 
-
 import java.time.LocalTime;
+
 import java.util.List;
 
+/**
+ * Ground Detail module Created Ground Class and its Associated
+ * attributes,constructors and getters and setters
+ *
+ */
 public class Ground {
-    private int groundId;
+	private int groundId;
 	private String groundName;
 	private String groundMainArea;
 	private String groundAddress;
@@ -19,6 +24,10 @@ public class Ground {
 	private double price;
 	private double increasingPriceForExtraHours;
 	private int courtsAvailable;
+
+	/**
+	 * Constructor 1
+	 */
 
 	public Ground(String groundName, String groundMainArea, String groundAddress, String groundLocationLink,
 			String district, List<String> groundImages, List<String> sportsAvailable, LocalTime startTime,
@@ -40,12 +49,16 @@ public class Ground {
 		this.courtsAvailable = courtsAvailable;
 	}
 
-	public Ground(int groundId,String groundName, String groundMainArea, String groundAddress, String groundLocationLink,
-			String district, List<String> groundImages, List<String> sportsAvailable, LocalTime startTime,
-			LocalTime endTime, String groundRules, double price, double increasingPriceForExtraHours,
-			int courtsAvailable) {
+	/**
+	 * Constructor 2 for id
+	 */
+
+	public Ground(int groundId, String groundName, String groundMainArea, String groundAddress,
+			String groundLocationLink, String district, List<String> groundImages, List<String> sportsAvailable,
+			LocalTime startTime, LocalTime endTime, String groundRules, double price,
+			double increasingPriceForExtraHours, int courtsAvailable) {
 		super();
-		this.groundId=groundId;
+		this.groundId = groundId;
 		this.groundName = groundName;
 		this.groundMainArea = groundMainArea;
 		this.groundAddress = groundAddress;
@@ -60,17 +73,28 @@ public class Ground {
 		this.increasingPriceForExtraHours = increasingPriceForExtraHours;
 		this.courtsAvailable = courtsAvailable;
 	}
+	/**
+	 *  Default Constructor 
+	 */
+
 	public Ground() {
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * Setters and Getters Method
+	 */
+
+	
+	
 	public void setgroundId(int groundId) {
 		this.groundId = groundId;
 	}
-	
+
 	public int getgroundId() {
 		return groundId;
 	}
+
 	public String getGroundName() {
 		return groundName;
 	}

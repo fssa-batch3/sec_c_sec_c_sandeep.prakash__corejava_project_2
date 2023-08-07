@@ -1,16 +1,17 @@
 package com.fssa.bookandplay.validator;
 
-import com.fssa.bookandplay.dao.InvalidGroundDetailException;
-import java.time.format.DateTimeFormatter;
-
-import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.fssa.bookandplay.exceptions.InvalidGroundDetailException;
 import com.fssa.bookandplay.model.Ground;
 
+/**
+ * Ground Validator class has many methods which validate the attribute
+ */
 public class GroundValidator {
 
 	public static boolean validate(Ground ground) throws InvalidGroundDetailException {
@@ -84,7 +85,7 @@ public class GroundValidator {
 			throw new InvalidGroundDetailException(GroundValidatorsErrors.INVALID_ADDRESS_NULL);
 		}
 
-		String nameregex =  "^[A-Za-z0-9'.,\\-\\s]{5,170}$";
+		String nameregex = "^[A-Za-z0-9'.,\\-\\s]{5,170}$";
 		Pattern pattern = Pattern.compile(nameregex);
 		Matcher matcher = pattern.matcher(groundAddress);
 		Boolean isMatch = matcher.matches();
@@ -141,10 +142,10 @@ public class GroundValidator {
 
 	// images validate
 	public static boolean groundImagesValidator(List<String> groundImages) throws InvalidGroundDetailException {
-//
-//			if (groundImages == null) {
-//				throw new IllegalArgumentException("Images cannot " + "be empty or null");
-//			}
+
+		if (groundImages == null || groundImages.isEmpty()) {
+			throw new InvalidGroundDetailException(GroundValidatorsErrors.INVALID_GROUNDIMAGES_NULL);
+		}
 
 		for (String image : groundImages) {
 			// "^https?://[\\w.-]+(?:/\\S*)?$"
@@ -168,11 +169,15 @@ public class GroundValidator {
 			throw new InvalidGroundDetailException(GroundValidatorsErrors.INVALID_SPORTSTYPE);
 		}
 
-//		for (String sport : sportsAvailable) {
-//			if (sport == null || sport.isEmpty()) {
-//				throw new InvalidGroundDetailException("Invalid sport" + sport);
-//			}
-//		}
+		for (String sports : sportsAvailable) {
+
+			String urlRegex = "^[a-zA-Z]{2,35}$";
+			Pattern pattern = Pattern.compile(urlRegex);
+			Matcher matcher = pattern.matcher(sports);
+			if (!matcher.matches()) {
+				throw new InvalidGroundDetailException(GroundValidatorsErrors.INVALID_SPORTSTYPE_PATTERN);
+			}
+		}
 
 		return true;
 	}
@@ -274,7 +279,6 @@ public class GroundValidator {
 
 		if (groundId <= 0) {
 			throw new InvalidGroundDetailException(GroundValidatorsErrors.INVALID_PRODUCT_ID);
-			
 
 		}
 		return true;
