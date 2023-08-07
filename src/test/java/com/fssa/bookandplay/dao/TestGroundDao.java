@@ -23,7 +23,7 @@ public class TestGroundDao {
 		LocalTime endTime = LocalTime.of(11, 30);   // 5:00 PM
 
 		Ground ground = new Ground();
-		ground.setgroundId(6);
+		ground.setgroundId(7);
 		ground.setGroundName("sample name");
 		ground.setGroundMainArea("sample main area");
 		ground.setGroundAddress("sample address");
@@ -93,7 +93,8 @@ public class TestGroundDao {
 	@Test
 
 	public void testValidDeleteGround() throws DAOException, SQLException {
-		Assertions.assertTrue(GroundDao.deleteGround(groundValidate().getgroundId()));
+	//	Assertions.assertTrue(GroundDao.deleteGround(groundValidate().getgroundId()));
+		Assertions.assertTrue(GroundDao.deleteGround(10));
 	}
 
 
