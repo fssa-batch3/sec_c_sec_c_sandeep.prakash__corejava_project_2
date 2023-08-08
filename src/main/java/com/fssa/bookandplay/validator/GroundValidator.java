@@ -36,13 +36,20 @@ public class GroundValidator {
 
 	}
 
-	// name validate
+	/**
+	 * Ground name Validator
+	 */
 	public static boolean groundNameValidator(String groundName) throws InvalidGroundDetailException {
-
+		/**
+		 * Ground name null and empty string check
+		 */
 		if (groundName == null || "".equals(groundName.trim())) {
 			throw new InvalidGroundDetailException(GroundValidatorsErrors.INVALID_GROUNDNAME_NULL);
 		}
-		// minimum 2 charcter and max 35 charcter
+		/**
+		 * Ground name regex pattern minimum 2 charcter and max 35 charcter
+		 */
+		//
 		String nameregex = "^[a-zA-Z ]{2,35}$";
 		Pattern pattern = Pattern.compile(nameregex);
 		Matcher matcher = pattern.matcher(groundName);
@@ -59,11 +66,15 @@ public class GroundValidator {
 
 	// main area
 	public static boolean groundAreaValidator(String groundMainArea) throws InvalidGroundDetailException {
-		// minimum 2 charcter and max 27 charcter
+		/**
+		 * Groundmain area null and empty string check
+		 */
 		if (groundMainArea == null || "".equals(groundMainArea.trim())) {
 			throw new InvalidGroundDetailException(GroundValidatorsErrors.INVALID_MAINGROUNDAREA_NULL);
 		}
-
+		/**
+		 * Groundmain area regex pattern minimum 2 charcter and max 27 charcter
+		 */
 		String nameregex = "^[a-zA-Z ]{2,35}$";
 		Pattern pattern = Pattern.compile(nameregex);
 		Matcher matcher = pattern.matcher(groundMainArea);
@@ -78,13 +89,20 @@ public class GroundValidator {
 
 	}
 
-	// address
+	/**
+	 * groundAddressValidator
+	 */
 	public static boolean groundAddressValidator(String groundAddress) throws InvalidGroundDetailException {
 		// minimum 2 charcter and max 150 charcter
+		/**
+		 * groundAddress null and empty string check
+		 */
 		if (groundAddress == null || "".equals(groundAddress.trim())) {
 			throw new InvalidGroundDetailException(GroundValidatorsErrors.INVALID_ADDRESS_NULL);
 		}
-
+		/**
+		 * groundAddress regex pattern minimum 5 charcter and max 170 charcter
+		 */
 		String nameregex = "^[A-Za-z0-9'.,\\-\\s]{5,170}$";
 		Pattern pattern = Pattern.compile(nameregex);
 		Matcher matcher = pattern.matcher(groundAddress);
@@ -99,12 +117,19 @@ public class GroundValidator {
 
 	}
 
+	/**
+	 * groundLocationLinkValidator
+	 */
 	public static boolean groundLocationLink(String groundLocationLink) throws InvalidGroundDetailException {
-
+		/**
+		 * groundLocationLink null and empty string check
+		 */
 		if (groundLocationLink == null) {
 			throw new InvalidGroundDetailException(GroundValidatorsErrors.INVALID_LOCATION_NULL);
 		}
-
+		/**
+		 * groundLocationLink regex pattern check
+		 */
 		String nameregex = "\\b(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
 		Pattern pattern = Pattern.compile(nameregex);
 		Matcher matcher = pattern.matcher(groundLocationLink);
@@ -119,13 +144,19 @@ public class GroundValidator {
 
 	}
 
-	// district validate
+	/**
+	 * districtNameValidator
+	 */
 	public static boolean districtNameValidator(String district) throws InvalidGroundDetailException {
-
+		/**
+		 * groundistrict null and empty string check
+		 */
 		if (district == null || "".equals(district.trim())) {
 			throw new InvalidGroundDetailException(GroundValidatorsErrors.INVALID_GROUNDDISNAME_NULL);
 		}
-
+		/**
+		 * groundistrict regex pattern minimum 2 charcter and max 35 charcter
+		 */
 		String nameregex = "^[a-zA-Z ]{2,35}$";
 		Pattern pattern = Pattern.compile(nameregex);
 		Matcher matcher = pattern.matcher(district);
@@ -140,12 +171,20 @@ public class GroundValidator {
 
 	}
 
-	// images validate
+	/**
+	 * groundImagesValidator
+	 */
 	public static boolean groundImagesValidator(List<String> groundImages) throws InvalidGroundDetailException {
-
+		/**
+		 * groundImages null and empty check
+		 */
 		if (groundImages == null || groundImages.isEmpty()) {
 			throw new InvalidGroundDetailException(GroundValidatorsErrors.INVALID_GROUNDIMAGES_NULL);
 		}
+
+		/**
+		 * groundImages regex pattern check
+		 */
 
 		for (String image : groundImages) {
 			// "^https?://[\\w.-]+(?:/\\S*)?$"
@@ -162,12 +201,20 @@ public class GroundValidator {
 
 	}
 
-	// sports validate
+	/**
+	 * sportsAvailableValidator
+	 */
 	public static boolean sportsAvailableValidator(List<String> sportsAvailable) throws InvalidGroundDetailException {
-
+		/**
+		 * sportsAvailable empty check
+		 */
 		if (sportsAvailable.isEmpty()) {
 			throw new InvalidGroundDetailException(GroundValidatorsErrors.INVALID_SPORTSTYPE);
 		}
+
+		/**
+		 * sportsAvailable regex pattern check
+		 */
 
 		for (String sports : sportsAvailable) {
 
@@ -182,13 +229,20 @@ public class GroundValidator {
 		return true;
 	}
 
-	// starttime validate
-	public static boolean startTimeValidator(LocalTime startTime) throws InvalidGroundDetailException {
+	/**
+	 * startTimeValidator
+	 */
 
+	public static boolean startTimeValidator(LocalTime startTime) throws InvalidGroundDetailException {
+		/**
+		 * starttime null check
+		 */
 		if (startTime == null) {
 			throw new InvalidGroundDetailException(GroundValidatorsErrors.INVALID_STARTTIME_NULL);
 		}
-
+		/**
+		 * starttime format check hours or minutes in AM/PM format
+		 */
 		int hour = startTime.getHour();
 		int minute = startTime.getMinute();
 		String amPm = startTime.format(DateTimeFormatter.ofPattern("a"));
@@ -202,12 +256,20 @@ public class GroundValidator {
 
 	}
 
-	// endTime validate
+	/**
+	 * endTimeValidator
+	 */
 	public static boolean endTimeValidator(LocalTime endTime) throws InvalidGroundDetailException {
-
+		/**
+		 * endTime null check
+		 */
 		if (endTime == null) {
 			throw new InvalidGroundDetailException(GroundValidatorsErrors.INVALID_ENDTIME_NULL);
 		}
+
+		/**
+		 * endTime format check hours or minutes in AM/PM format
+		 */
 
 		int hour = endTime.getHour();
 		int minute = endTime.getMinute();
@@ -222,8 +284,13 @@ public class GroundValidator {
 
 	}
 
-	// groundRules
+	/**
+	 * groundRulesValidator
+	 */
 	public static boolean groundRulesValidator(String groundRules) throws InvalidGroundDetailException {
+		/**
+		 * groundRules null and empty string check
+		 */
 
 		String nameregex = "^[a-zA-Z0-9\\\\p{Punct}\\\\s]{10,250}$";
 		Pattern pattern = Pattern.compile(nameregex);
@@ -234,6 +301,10 @@ public class GroundValidator {
 			throw new InvalidGroundDetailException(GroundValidatorsErrors.INVALID_GROUNDRULES_NULL);
 		}
 
+		/**
+		 * groundRules regex pattern check
+		 */
+
 		else if (!isMatch) {
 			throw new InvalidGroundDetailException(GroundValidatorsErrors.INVALID_GROUNDRULES_NAME);
 
@@ -243,9 +314,14 @@ public class GroundValidator {
 
 	}
 
-	// price
-	public static boolean priceValidator(double price) throws InvalidGroundDetailException {
+	/**
+	 * priceValidator
+	 */
 
+	public static boolean priceValidator(double price) throws InvalidGroundDetailException {
+		/**
+		 * groundprice should be greater than 150 and lesser than 2000.
+		 */
 		if (price >= 150 && price <= 2000) {
 			return true;
 		}
@@ -253,10 +329,16 @@ public class GroundValidator {
 
 	}
 
-	// increasingPriceForExtraHours
+	/**
+	 * increasingPriceForExtraHoursValidator
+	 */
+
 	public static boolean increasingPriceForExtraHoursValidator(double increasingPriceForExtraHours)
 			throws InvalidGroundDetailException {
-
+		/**
+		 * groundincreasingPriceForExtraHours should be greater than 150 and lesser than
+		 * 2000.
+		 */
 		if (increasingPriceForExtraHours >= 150 && increasingPriceForExtraHours <= 2000) {
 			return true;
 		}
@@ -264,8 +346,14 @@ public class GroundValidator {
 
 	}
 
-	// courtsAvailable
+	/**
+	 * courtsAvailableValidator
+	 */
+
 	public static boolean courtsAvailableValidator(int courtsAvailable) throws InvalidGroundDetailException {
+		/**
+		 * groundcourtsAvailable should be within 6.
+		 */
 		// contain max 6
 		List<Integer> validOptions = List.of(1, 2, 3, 4, 5, 6);
 		if (!validOptions.contains(courtsAvailable)) {
@@ -274,9 +362,13 @@ public class GroundValidator {
 		return true;
 	}
 
-	// price
+	/**
+	 * groundIdValidator
+	 */
 	public static boolean groundIdValidator(int groundId) throws InvalidGroundDetailException {
-
+		/**
+		 * groundId should be greaterthan 1.
+		 */
 		if (groundId <= 0) {
 			throw new InvalidGroundDetailException(GroundValidatorsErrors.INVALID_PRODUCT_ID);
 
