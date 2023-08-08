@@ -81,7 +81,7 @@ public class TestGroundDao {
 	@Test
 
 	public void testValidAddGround() throws DAOException, SQLException {
-		Assertions.assertTrue(GroundDao.addGround(groundValidate()));
+		Assertions.assertTrue(GroundDao.addGround(groundValidate2()));
 	}
 
 	@Test
@@ -94,7 +94,7 @@ public class TestGroundDao {
 
 	public void testValidDeleteGround() throws DAOException, SQLException {
 	//	Assertions.assertTrue(GroundDao.deleteGround(groundValidate().getgroundId()));
-		Assertions.assertTrue(GroundDao.deleteGround(10));
+		Assertions.assertTrue(GroundDao.deleteGround(11));
 	}
 
 
