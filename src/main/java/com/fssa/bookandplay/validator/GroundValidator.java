@@ -292,21 +292,23 @@ public class GroundValidator {
 		/**
 		 * groundRules null and empty string check
 		 */
+		
+		if (groundRules == null || "".equals(groundRules.trim())) {
+			throw new InvalidGroundDetailException(GroundValidatorsErrors.INVALID_GROUNDRULES_NULL);
+		}
 
 		String nameregex = GroundDetailRegexPattern.GROUND_RULES_REGEX;
 		Pattern pattern = Pattern.compile(nameregex);
 		Matcher matcher = pattern.matcher(groundRules);
 		Boolean isMatch = matcher.matches();
 
-		if (groundRules == null || "".equals(groundRules.trim())) {
-			throw new InvalidGroundDetailException(GroundValidatorsErrors.INVALID_GROUNDRULES_NULL);
-		}
+	
 
 		/**
 		 * groundRules regex pattern check
 		 */
 
-		else if (Boolean.FALSE.equals(isMatch)) {
+		if (Boolean.FALSE.equals(isMatch)) {
 			throw new InvalidGroundDetailException(GroundValidatorsErrors.INVALID_GROUNDRULES_NAME);
 
 		}
