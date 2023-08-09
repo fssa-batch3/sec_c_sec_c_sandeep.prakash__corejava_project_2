@@ -80,27 +80,27 @@ public class TestGroundDao {
 
 	@Test
 
-	public void testValidAddGround() throws DAOException, SQLException {
+	 void testValidAddGround() throws DAOException, SQLException {
 		Assertions.assertTrue(GroundDao.addGround(groundValidate2()));
 	}
 
 	@Test
 
-	public void testValidUpdateGround() throws DAOException, SQLException {
+	 void testValidUpdateGround() throws DAOException, SQLException {
 		Assertions.assertTrue(GroundDao.updateGround(groundValidate()));
 	}
 
 	@Test
 
-	public void testValidDeleteGround() throws DAOException, SQLException {
+	 void testValidDeleteGround() throws DAOException, SQLException {
 	//	Assertions.assertTrue(GroundDao.deleteGround(groundValidate().getgroundId()));
-		Assertions.assertTrue(GroundDao.deleteGround(11));
+		Assertions.assertTrue(GroundDao.deleteGround(12));
 	}
 
 
 	@Test
 
-	public void testValidGetGroundDetails() throws DAOException, SQLException {
+	 void testValidGetGroundDetails() throws DAOException, SQLException {
 	GroundDao grounddao=new GroundDao();
 		Assertions.assertTrue(grounddao.getAllGround());
 	}
@@ -110,7 +110,7 @@ public class TestGroundDao {
 	@Test
 
 	
-	public void testInValidAddGround() throws SQLException {
+	 void testInValidAddGround() throws SQLException {
 		try {
 			GroundDao.addGround(groundValidate2());
 		} catch (DAOException ex) {
@@ -123,7 +123,7 @@ public class TestGroundDao {
 
 	
 @Test
-	public void testInValidUpdateGround1() throws SQLException, DAOException {
+	 void testInValidUpdateGround1() throws SQLException, DAOException {
 		try {
 			Ground ground = new Ground();
 			ground.setgroundId(-1);
@@ -136,7 +136,7 @@ public class TestGroundDao {
 
 	@Test
 
-	public void testInValidUpdateGround2() throws SQLException, DAOException {
+	 void testInValidUpdateGround2() throws SQLException, DAOException {
 		try {
 			GroundDao.updateGround(InvalidGround());
 		} catch (InvalidGroundDetailException ex) {
@@ -148,7 +148,7 @@ public class TestGroundDao {
 	
 	@Test
 
-	public void testInValidDeleteGround() throws SQLException,InvalidGroundDetailException, DAOException {
+	 void testInValidDeleteGround() throws SQLException,InvalidGroundDetailException, DAOException {
 		try {
 			GroundDao.deleteGround(InvalidGround().getgroundId());
 		} catch (InvalidGroundDetailException ex) {

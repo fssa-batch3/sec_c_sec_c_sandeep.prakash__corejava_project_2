@@ -19,7 +19,7 @@ public class TestGroundService {
 	
 
 	@Test
-	public void testAddGround() throws DAOException, SQLException {
+	 void testAddGround() throws DAOException, SQLException {
 		Ground ground=getGround();
 		GroundService groundService=getGroundService();
 		Assertions.assertTrue(groundService.addGround(ground));
@@ -28,17 +28,17 @@ public class TestGroundService {
 
 	
 	@Test
-	public void testUpdateGround() throws DAOException, SQLException {
+	 void testUpdateGround() throws DAOException, SQLException {
 		Ground ground=getGround2();
 		GroundService groundService=getGroundService();
 		Assertions.assertTrue(groundService.updateGround(ground));
 		
 	}
 	@Test
-	public void testDeleteGround() throws DAOException, SQLException {
+	 void testDeleteGround() throws DAOException, SQLException {
 		Ground ground=getGround();
 		GroundService groundService=getGroundService();
-		Assertions.assertTrue(groundService.deleteGround(8));
+		Assertions.assertTrue(groundService.deleteGround(16));
 		
 	}
 	public Ground getGround2() {
@@ -71,7 +71,7 @@ public class TestGroundService {
 	}
 	
 	@Test
-	public void testGetGroundDetail() throws DAOException, SQLException {
+	 void testGetGroundDetail() throws DAOException, SQLException {
 		Ground ground=getGround();
 		GroundService groundService=getGroundService();
 		Assertions.assertTrue(groundService.getGroundDetails());

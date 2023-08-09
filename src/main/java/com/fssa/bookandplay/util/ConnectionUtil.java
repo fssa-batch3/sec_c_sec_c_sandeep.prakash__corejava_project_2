@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import com.fssa.bookandplay.exceptions.DAOException;
+
 import io.github.cdimascio.dotenv.Dotenv;
 /**
  * The ConnectionUtil Class has a method  get connection which help to connect  with database
@@ -15,9 +17,10 @@ import io.github.cdimascio.dotenv.Dotenv;
 public class ConnectionUtil {
 	/**
 	 * Creating a Logger Class For Display Message
+	 * @throws DAOException 
 	 */
-
-	public static Connection getConnection() {
+	static Logger logger = new Logger();
+	public static Connection getConnection() throws DAOException {
         Connection con = null;
 
         String url, userName, passWord;
@@ -35,12 +38,12 @@ public class ConnectionUtil {
         }
 
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
+           // Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(url, userName, passWord);
-            System.out.println("connected");
+           logger.info("connected");
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("Unable to connect to the database");
+            throw new DAOException("Unable to connect to the database");
         }
         return con;
     }
@@ -72,9 +75,6 @@ public class ConnectionUtil {
 		}
 	}
 
-public static void main(String[] args) {
-		Connection con = getConnection();
 
-	}
 
 }

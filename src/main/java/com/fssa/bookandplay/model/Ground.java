@@ -78,7 +78,7 @@ public class Ground {
 	 */
 
 	public Ground() {
-		// TODO Auto-generated constructor stub
+	
 	}
 
 	/**

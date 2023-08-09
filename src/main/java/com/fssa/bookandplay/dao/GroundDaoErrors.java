@@ -5,6 +5,10 @@ package com.fssa.bookandplay.dao;
  */
 
 public class GroundDaoErrors {
+	
+	private GroundDaoErrors() {
+
+	}
 	/**
 	 * While Inserting the GroundDetails into the database
 	 */

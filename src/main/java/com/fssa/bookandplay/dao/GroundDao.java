@@ -22,6 +22,11 @@ import com.fssa.bookandplay.validator.GroundValidatorsErrors;
  * The GroundDao class contains the crud operations for sql database
  */
 public class GroundDao {
+	
+	public GroundDao() {
+	
+	}
+
 	/**
 	 * The Logger Class is created
 	 */
@@ -42,7 +47,7 @@ public class GroundDao {
 		 * The Query for calling insertground from sql
 		 */
 		String storedProcedureCall = "{call InsertGround(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)}";
-		boolean rows;
+	
 
 		/**
 		 * Getting the ground details and inserting in sql
@@ -68,8 +73,7 @@ public class GroundDao {
 
 				callableStatement.setString(12, groundImagesStr);
 				callableStatement.setString(13, sportsAvailableStr);
-
-				rows = callableStatement.execute();
+				  callableStatement.execute();
 
 			}
 		} catch (SQLException e) {
@@ -105,7 +109,7 @@ public class GroundDao {
 		 */
 
 		String storedProcedureCall = "{call UpdateGround(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)}";
-		boolean rows;
+		
 
 		try (Connection con = ConnectionUtil.getConnection()) {
 			try (CallableStatement callableStatement = con.prepareCall(storedProcedureCall)) {
@@ -129,7 +133,7 @@ public class GroundDao {
 				callableStatement.setString(13, groundImagesStr);
 				callableStatement.setString(14, sportsAvailableStr);
 
-				rows = callableStatement.execute();
+			 callableStatement.execute();
 
 			}
 		} catch (SQLException e) {
@@ -160,15 +164,14 @@ public class GroundDao {
 		 */
 
 		String storedProcedureCall = "{call DeleteGround(?)}";
-		boolean rows;
+
 
 		try (Connection con = ConnectionUtil.getConnection()) {
 
 			try (CallableStatement callableStatement = con.prepareCall(storedProcedureCall)) {
 
 				callableStatement.setInt(1, groundId);
-
-				rows = callableStatement.execute();
+           callableStatement.execute();
 
 			}
 		} catch (SQLException e) {
@@ -264,78 +267,6 @@ public class GroundDao {
 
 		return true;
 	}
-//
-////	public static void main(String[] args) throws DAOException, SQLException {
-//////		int groundId = 1;
-////		List<String> groundImages = new ArrayList<>();
-////		groundImages.add("image199.jpg");
-////		groundImages.add("image299.jpg");
-////
-////		List<String> sportsAvailable = new ArrayList<>();
-////		sportsAvailable.add("Football");
-////		sportsAvailable.add("Cricket");
-////
-////		// Create LocalDateTime objects for startTime and endTime
-////		LocalTime startTime = LocalTime.of(10, 30); // 10:00 AM
-////		LocalTime endTime = LocalTime.of(11, 30); // 5:00 PM
-////
-////		// Create a Ground object using the constructor
-////		Ground ground1 = new Ground("danny data Ground", "danny  Area 1", "danny don Street",
-////				"https://danny .example.com/ground", "danny  District", groundImages, sportsAvailable, startTime,
-////				endTime, "Some rules for the ground", 200.00, 30.00, 3);
-////		// Call the addGround method to insert data
-////		boolean dataInserted = addGround(ground1);
-////
-////		if (dataInserted) {
-////			System.out.println("Data inserted successfully.");
-////		} else {
-////			System.out.println("Failed to insert data.");
-////		}
-////		try {
-////			
-////		
-////
-////			List<Ground> groundlist = getAllGround();
-////			for (Ground ground : groundlist) {
-////
-////				System.out.println("Ground ID: " + ground.getgroundId());
-////				System.out.println("Ground Name: " + ground.getGroundName());
-////				System.out.println("Ground Mainarea: " + ground.getGroundMainArea());
-////				System.out.println("Ground Address: " + ground.getGroundAddress());
-////				System.out.println("Ground Locationlink: " + ground.getGroundLocationLink());
-////				System.out.println("Ground district: " + ground.getDistrict());
-////				System.out.println("Ground starttime: " + ground.getStartTime());
-////				System.out.println("Ground endtime: " + ground.getEndTime());
-////				System.out.println("Ground rules: " + ground.getGroundRules());
-////				System.out.println("Ground price: " + ground.getPrice());
-////				System.out.println("Ground increasingPriceForExtraHours: " + ground.getIncreasingPriceForExtraHours());
-////				System.out.println("Ground courtsAvailable : " + ground.getCourtsAvailable());
-////
-////				List<String> groundImagesList = ground.getGroundImages();
-////				for (String imageurl : groundImagesList) {
-////
-////					System.out.println(imageurl);
-////				}
-////
-////				List<String> groundsportsAvailable = ground.getSportsAvailable();
-////				for (String sportsAvail : groundsportsAvailable) {
-////					System.out.println(sportsAvail);
-////				}
-////
-////			}
-////		} catch (DAOException ex) {
-////			ex.printStackTrace();
-////		}
-//////		boolean data=deleteGround(1);
-//////		if (data) {
-//////			System.out.println("Data inserted successfully.");
-//////		}
-//////	 else {
-//////		System.out.println("Failed to insert data.");
-//////	}
-//////	
-////
-////	}
-//	
+
 
 }

@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 import com.fssa.bookandplay.exceptions.InvalidGroundDetailException;
 import com.fssa.bookandplay.model.Ground;
+import com.fssa.bookandplay.regexpattern.GroundDetailRegexPattern;
 
 /**
  * Ground Validator class has many methods which validate the attribute
@@ -50,12 +51,12 @@ public class GroundValidator {
 		 * Ground name regex pattern minimum 2 charcter and max 35 charcter
 		 */
 		//
-		String nameregex = "^[a-zA-Z ]{2,35}$";
+		String nameregex =GroundDetailRegexPattern.GROUND_CHARACTER_REGEX;
 		Pattern pattern = Pattern.compile(nameregex);
 		Matcher matcher = pattern.matcher(groundName);
 		Boolean isMatch = matcher.matches();
 
-		if (!isMatch) {
+		if (Boolean.FALSE.equals(isMatch)) {
 			throw new InvalidGroundDetailException(GroundValidatorsErrors.INVALID_GROUND_NAME);
 
 		}
@@ -75,12 +76,12 @@ public class GroundValidator {
 		/**
 		 * Groundmain area regex pattern minimum 2 charcter and max 27 charcter
 		 */
-		String nameregex = "^[a-zA-Z ]{2,35}$";
+		String nameregex = GroundDetailRegexPattern.GROUND_CHARACTER_REGEX;
 		Pattern pattern = Pattern.compile(nameregex);
 		Matcher matcher = pattern.matcher(groundMainArea);
 		Boolean isMatch = matcher.matches();
 
-		if (!isMatch) {
+		if (Boolean.FALSE.equals(isMatch)) {
 			throw new InvalidGroundDetailException(GroundValidatorsErrors.INVALID_MAINGROUNDAREA_NAME);
 
 		}
@@ -103,12 +104,12 @@ public class GroundValidator {
 		/**
 		 * groundAddress regex pattern minimum 5 charcter and max 170 charcter
 		 */
-		String nameregex = "^[A-Za-z0-9'.,\\-\\s]{5,170}$";
+		String nameregex = GroundDetailRegexPattern.GROUND_ADDRESS_REGEX;
 		Pattern pattern = Pattern.compile(nameregex);
 		Matcher matcher = pattern.matcher(groundAddress);
 		Boolean isMatch = matcher.matches();
 
-		if (!isMatch) {
+		if (Boolean.FALSE.equals(isMatch)) {
 			throw new InvalidGroundDetailException(GroundValidatorsErrors.INVALID_ADDRESS_TYPE);
 
 		}
@@ -130,12 +131,12 @@ public class GroundValidator {
 		/**
 		 * groundLocationLink regex pattern check
 		 */
-		String nameregex = "\\b(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
+		String nameregex =GroundDetailRegexPattern.GROUND_LOCATION_REGEX;
 		Pattern pattern = Pattern.compile(nameregex);
 		Matcher matcher = pattern.matcher(groundLocationLink);
 		Boolean isMatch = matcher.matches();
 
-		if (!isMatch) {
+		if (Boolean.FALSE.equals(isMatch)) {
 			throw new InvalidGroundDetailException(GroundValidatorsErrors.INVALID_LOCATION_TYPE);
 
 		}
@@ -157,12 +158,12 @@ public class GroundValidator {
 		/**
 		 * groundistrict regex pattern minimum 2 charcter and max 35 charcter
 		 */
-		String nameregex = "^[a-zA-Z ]{2,35}$";
+		String nameregex =GroundDetailRegexPattern.GROUND_CHARACTER_REGEX;
 		Pattern pattern = Pattern.compile(nameregex);
 		Matcher matcher = pattern.matcher(district);
 		Boolean isMatch = matcher.matches();
 
-		if (!isMatch) {
+		if (Boolean.FALSE.equals(isMatch)) {
 			throw new InvalidGroundDetailException(GroundValidatorsErrors.INVALID_GROUNDDIS_NAME);
 
 		}
@@ -187,9 +188,9 @@ public class GroundValidator {
 		 */
 
 		for (String image : groundImages) {
-			// "^https?://[\\w.-]+(?:/\\S*)?$"
-			// "(?i)\\b((https?|ftp)://)?[a-z0-9-]+(\\.[a-z0-9-]+)+([/?].*)?\\.(jpg|jpeg|gif|png|bmp)\\b"
-			String urlRegex = "(?i)\\b((https?|ftp)://)?[a-z0-9-]+(\\.[a-z0-9-]+)+([/?].*)?\\.(jpg|jpeg|gif|png|bmp)\\b";
+
+			
+			String urlRegex =GroundDetailRegexPattern.GROUND_IMAGES_REGEX;
 			Pattern pattern = Pattern.compile(urlRegex);
 			Matcher matcher = pattern.matcher(image);
 			if (!matcher.matches()) {
@@ -218,7 +219,7 @@ public class GroundValidator {
 
 		for (String sports : sportsAvailable) {
 
-			String urlRegex = "^[a-zA-Z]{2,35}$";
+			String urlRegex = GroundDetailRegexPattern.GROUND_CHARACTER_REGEX;
 			Pattern pattern = Pattern.compile(urlRegex);
 			Matcher matcher = pattern.matcher(sports);
 			if (!matcher.matches()) {
@@ -292,7 +293,7 @@ public class GroundValidator {
 		 * groundRules null and empty string check
 		 */
 
-		String nameregex = "^[a-zA-Z0-9\\\\p{Punct}\\\\s]{10,250}$";
+		String nameregex = GroundDetailRegexPattern.GROUND_RULES_REGEX;
 		Pattern pattern = Pattern.compile(nameregex);
 		Matcher matcher = pattern.matcher(groundRules);
 		Boolean isMatch = matcher.matches();
@@ -305,7 +306,7 @@ public class GroundValidator {
 		 * groundRules regex pattern check
 		 */
 
-		else if (!isMatch) {
+		else if (Boolean.FALSE.equals(isMatch)) {
 			throw new InvalidGroundDetailException(GroundValidatorsErrors.INVALID_GROUNDRULES_NAME);
 
 		}

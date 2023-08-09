@@ -18,7 +18,7 @@ public class TestGroundValidator {
 	
 	@Test
 
-	public void testValidgroundobject() {
+	 void testValidgroundobject() {
 		List<String> validImages = Arrays.asList("https://example.com/image1.jpg", "https://example.com/image2.jpg");
 		List<String> validsports = Arrays.asList("cricket", "football", "tennis");
 		LocalTime startTime = LocalTime.of(10, 30); // 10:00 AM
@@ -30,7 +30,7 @@ public class TestGroundValidator {
 
 	@Test
 
-	public void testValidgroundobject2() {
+	 void testValidgroundobject2() {
 		List<String> validImages = Arrays.asList("https://example.com/image1.jpg", "https://example.com/image2.jpg");
 		List<String> validsports = Arrays.asList("cricket", "football", "tennis");
 		LocalTime startTime = LocalTime.of(10, 30); // 10:00 AM
@@ -41,7 +41,7 @@ public class TestGroundValidator {
 	
 	@Test
 
-	public void testInValidgroundobject() {
+	 void testInValidgroundobject() {
 		try {
 			GroundValidator.validate(null);
 			Assertions.fail("Validateobject failed");
@@ -54,13 +54,13 @@ public class TestGroundValidator {
 //  for valid  ground  name
 	@Test
 
-	public void testValidName() {
+	 void testValidName() {
 		Assertions.assertTrue(GroundValidator.groundNameValidator("sandeep    ok"));
 	}
 
 //  for invalid ground name
 	@Test
-	public void testInvalidName() {
+	 void testInvalidName() {
 
 		try {
 			GroundValidator.groundNameValidator(null);
@@ -89,13 +89,13 @@ public class TestGroundValidator {
 //  for valid groundarea
 	@Test
 
-	public void testValidareaName() {
+ void testValidareaName() {
 		Assertions.assertTrue(GroundValidator.groundAreaValidator("sandeep  ok"));
 	}
 
 //  for invalid groundarea
 	@Test
-	public void testInvalidareaName() {
+	 void testInvalidareaName() {
 
 		try {
 			GroundValidator.groundAreaValidator(null);
@@ -125,13 +125,13 @@ public class TestGroundValidator {
 //  for valid groundaddress
 	@Test
 
-	public void testValidaddress() {
+	 void testValidaddress() {
 		Assertions.assertTrue(GroundValidator.groundAddressValidator("123 Main St."));
 	}
 
 //  for invalid groundaddress
 	@Test
-	public void testInvalidaddress() {
+ void testInvalidaddress() {
 
 		try {
 			GroundValidator.groundAddressValidator(null);
@@ -159,13 +159,13 @@ public class TestGroundValidator {
 //  for valid groundLocationLink
 	@Test
 
-	public void testValidlocation() {
+	 void testValidlocation() {
 		Assertions.assertTrue(GroundValidator.groundLocationLink("http://google.com"));
 	}
 
 //  for invalid groundLocationLink
 	@Test
-	public void testInvalidlocation() {
+	 void testInvalidlocation() {
 
 		try {
 			GroundValidator.groundLocationLink(null);
@@ -185,13 +185,13 @@ public class TestGroundValidator {
 //  for valid districtname
 	@Test
 
-	public void testValiddistrict() {
+ void testValiddistrict() {
 		Assertions.assertTrue(GroundValidator.districtNameValidator("sandeepok"));
 	}
 
 //  for invalid districtname
 	@Test
-	public void testInvaliddistrict() {
+	void testInvaliddistrict() {
 
 		try {
 
@@ -214,7 +214,7 @@ public class TestGroundValidator {
 //  for valid groundImages
 	@Test
 
-	public void testValidimages() {
+	 void testValidimages() {
 		List<String> validImages = Arrays.asList("https://example.com/image1.jpg", "https://example.com/image2.jpg");
 
 		Assertions.assertDoesNotThrow(() -> {
@@ -225,7 +225,7 @@ public class TestGroundValidator {
 
 //  for invalid groundImages
 	@Test
-	public void testInvalidimages() {
+	 void testInvalidimages() {
 
 		List<String> invalidImages = Arrays.asList("image1.jpg", "https://example.com/image2.jpg",
 				"https://example.com/image3");
@@ -260,7 +260,7 @@ public class TestGroundValidator {
 //  for valid sportsAvailable
 	@Test
 
-	public void testValidsports() {
+	void testValidsports() {
 		List<String> validsports = Arrays.asList("cricket", "football", "tennis");
 
 		Assertions.assertDoesNotThrow(() -> {
@@ -272,7 +272,7 @@ public class TestGroundValidator {
 
 //  for invalid sportsAvailable
 	@Test
-	public void testInvalidsports() {
+	void testInvalidsports() {
 
 		List<String> invalidsports = Arrays.asList();
 
@@ -299,7 +299,7 @@ public class TestGroundValidator {
 //  for valid startTime
 	@Test
 
-	public void testValidstarttime() {
+void testValidstarttime() {
 		LocalTime startTime = LocalTime.of(10, 0); // 10:00 AM
 		
 		Assertions.assertTrue(GroundValidator.startTimeValidator(startTime));
@@ -307,7 +307,7 @@ public class TestGroundValidator {
 
 //  for invalid startTime
 	@Test
-	public void testInvalidstarttime() {
+	 void testInvalidstarttime() {
 		try {
 			GroundValidator.startTimeValidator(null);
 			Assertions.fail("Validatetime failed");
@@ -328,7 +328,7 @@ public class TestGroundValidator {
 //  for valid endTime
 	@Test
 
-	public void testValidendtime() {
+ void testValidendtime() {
 
 		LocalTime endTime = LocalTime.of(12, 0);   // 5:00 PM
 		Assertions.assertTrue(GroundValidator.endTimeValidator(endTime));
@@ -336,7 +336,7 @@ public class TestGroundValidator {
 
 //  for invalid endTime
 	@Test
-	public void testInvalidendtime() {
+ void testInvalidendtime() {
 		try {
 			GroundValidator.endTimeValidator(null);
 			Assertions.fail("Validatetime failed");
@@ -355,13 +355,13 @@ public class TestGroundValidator {
 //  for valid groundRules
 	@Test
 
-	public void testValidrules() {
+ void testValidrules() {
 		Assertions.assertTrue(GroundValidator.groundRulesValidator("hellohellook"));
 	}
 
 //  for invalid groundRules
 	@Test
-	public void testInvalidrules() {
+	 void testInvalidrules() {
 
 		try {
 			GroundValidator.groundRulesValidator("sssdd");
@@ -379,8 +379,8 @@ public class TestGroundValidator {
 					ex.getMessage());
 		}
 	}
-
-	public void testInvalidrulesnull() {
+	@Test
+	 void testInvalidrulesnull() {
 
 		try {
 			GroundValidator.groundRulesValidator(null);
@@ -394,13 +394,13 @@ public class TestGroundValidator {
 //  for valid price
 	@Test
 
-	public void testValidprice() {
+	 void testValidprice() {
 		Assertions.assertTrue(GroundValidator.priceValidator((double) 200));
 	}
 
 //  for invalid price
 	@Test
-	public void testInvalidprice() {
+	 void testInvalidprice() {
 		try {
 			GroundValidator.priceValidator(90);
 			Assertions.fail("Validateprice failed");
@@ -413,13 +413,13 @@ public class TestGroundValidator {
 //  for valid price
 	@Test
 
-	public void testValidincreaseprice() {
+ void testValidincreaseprice() {
 		Assertions.assertTrue(GroundValidator.increasingPriceForExtraHoursValidator(200));
 	}
 
 //  for invalid price
 	@Test
-	public void testInvalidincreaseprice() {
+	 void testInvalidincreaseprice() {
 		try {
 			GroundValidator.increasingPriceForExtraHoursValidator(89);
 			Assertions.fail("Validateprice failed");
@@ -432,13 +432,13 @@ public class TestGroundValidator {
 //  for valid courts
 	@Test
 
-	public void testValidcourt() {
+ void testValidcourt() {
 		Assertions.assertTrue(GroundValidator.courtsAvailableValidator(2));
 	}
 
 //  for invalid courts
 	@Test
-	public void testInvalidcourt() {
+	 void testInvalidcourt() {
 		try {
 			GroundValidator.courtsAvailableValidator(7);
 			Assertions.fail("Validatecourts failed");
@@ -449,13 +449,13 @@ public class TestGroundValidator {
 	}
 
 	@Test
-	public void testValidgroundId() {
+	 void testValidgroundId() {
 		Assertions.assertTrue(GroundValidator.groundIdValidator(2));
 	}
 	
 //  for invalid courts
 	@Test
-	public void testInvalidgroundId() {
+	 void testInvalidgroundId() {
 		try {
 			GroundValidator.groundIdValidator(-2);
 			Assertions.fail("Validatecourts failed");
