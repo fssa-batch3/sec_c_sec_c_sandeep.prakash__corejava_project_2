@@ -1,7 +1,7 @@
 package com.fssa.bookandplay.dao;
 
 import java.sql.SQLException;
-import java.time.LocalDateTime;
+
 import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
@@ -20,7 +20,7 @@ public class TestGroundDao {
 		List<String> validImages = Arrays.asList("https://example.com/image1.jpg", "https://example.com/image2.jpg");
 		List<String> validsports = Arrays.asList("cricket", "football", "tennis");
 		LocalTime startTime = LocalTime.of(10, 30); // 10:00 AM
-		LocalTime endTime = LocalTime.of(11, 30);   // 5:00 PM
+		LocalTime endTime = LocalTime.of(11, 30); // 5:00 PM
 
 		Ground ground = new Ground();
 		ground.setgroundId(7);
@@ -39,7 +39,6 @@ public class TestGroundDao {
 		ground.setGroundRules("ground rules");
 
 		return ground;
-		
 
 	}
 
@@ -47,10 +46,10 @@ public class TestGroundDao {
 		List<String> validImages = Arrays.asList("https://example.com/image1.jpg", "https://example.com/image2.jpg");
 		List<String> validsports = Arrays.asList("cricket", "football", "tennis");
 		LocalTime startTime = LocalTime.of(10, 30); // 10:00 AM
-		LocalTime endTime = LocalTime.of(11, 30);   // 5:00 PM
+		LocalTime endTime = LocalTime.of(11, 30); // 5:00 PM
 
 		Ground ground = new Ground();
-		
+
 		ground.setGroundName("s");
 		ground.setGroundMainArea("sample main area");
 		ground.setGroundAddress("sample address");
@@ -66,12 +65,9 @@ public class TestGroundDao {
 		ground.setGroundRules("ground rules");
 
 		return ground;
-		
 
 	}
 
-	
-	
 	public static Ground InvalidGround() {
 		Ground ground = new Ground();
 		ground.setgroundId(-1);
@@ -80,37 +76,35 @@ public class TestGroundDao {
 
 	@Test
 
-	 void testValidAddGround() throws DAOException, SQLException {
+	void testValidAddGround() throws DAOException, SQLException {
 		Assertions.assertTrue(GroundDao.addGround(groundValidate2()));
 	}
 
 	@Test
 
-	 void testValidUpdateGround() throws DAOException, SQLException {
+	void testValidUpdateGround() throws DAOException, SQLException {
 		Assertions.assertTrue(GroundDao.updateGround(groundValidate()));
 	}
 
 	@Test
 
-	 void testValidDeleteGround() throws DAOException, SQLException {
-	//	Assertions.assertTrue(GroundDao.deleteGround(groundValidate().getgroundId()));
-		Assertions.assertTrue(GroundDao.deleteGround(31));
+	void testValidDeleteGround() throws DAOException, SQLException {
+	
+		Assertions.assertTrue(GroundDao.deleteGround(32));
 	}
-
 
 	@Test
 
-	 void testValidGetGroundDetails() throws DAOException, SQLException {
-	GroundDao grounddao=new GroundDao();
-		Assertions.assertTrue(grounddao.getAllGround());
+	void testValidGetGroundDetails() throws DAOException, SQLException {
+
+		Assertions.assertTrue(GroundDao.getAllGround());
 	}
 
 	// Invalid TestCase
 
 	@Test
 
-	
-	 void testInValidAddGround() throws SQLException {
+	void testInValidAddGround() throws SQLException {
 		try {
 			GroundDao.addGround(groundValidate2());
 		} catch (DAOException ex) {
@@ -118,12 +112,9 @@ public class TestGroundDao {
 
 		}
 	}
-	
-	
 
-	
-@Test
-	 void testInValidUpdateGround1() throws SQLException, DAOException {
+	@Test
+	void testInValidUpdateGround1() throws SQLException, DAOException {
 		try {
 			Ground ground = new Ground();
 			ground.setgroundId(-1);
@@ -136,7 +127,7 @@ public class TestGroundDao {
 
 	@Test
 
-	 void testInValidUpdateGround2() throws SQLException, DAOException {
+	void testInValidUpdateGround2() throws SQLException, DAOException {
 		try {
 			GroundDao.updateGround(InvalidGround());
 		} catch (InvalidGroundDetailException ex) {
@@ -145,10 +136,9 @@ public class TestGroundDao {
 		}
 	}
 
-	
 	@Test
 
-	 void testInValidDeleteGround() throws SQLException,InvalidGroundDetailException, DAOException {
+	void testInValidDeleteGround() throws SQLException, InvalidGroundDetailException, DAOException {
 		try {
 			GroundDao.deleteGround(InvalidGround().getgroundId());
 		} catch (InvalidGroundDetailException ex) {

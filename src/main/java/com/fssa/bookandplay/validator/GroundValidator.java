@@ -14,6 +14,11 @@ import com.fssa.bookandplay.regexpattern.GroundDetailRegexPattern;
  * Ground Validator class has many methods which validate the attribute
  */
 public class GroundValidator {
+	
+
+	private GroundValidator() {
+		// private construtor
+	}
 
 	public static boolean validate(Ground ground) throws InvalidGroundDetailException {
 		if (ground == null) {

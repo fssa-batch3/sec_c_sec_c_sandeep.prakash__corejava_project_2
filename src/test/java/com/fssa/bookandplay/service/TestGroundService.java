@@ -33,7 +33,7 @@ class TestGroundService {
 	@Test
 	void testDeleteGround() throws DAOException, SQLException {
 
-		Assertions.assertTrue(GroundService.deleteGround(30));
+		Assertions.assertTrue(GroundService.deleteGround(33));
 
 	}
 

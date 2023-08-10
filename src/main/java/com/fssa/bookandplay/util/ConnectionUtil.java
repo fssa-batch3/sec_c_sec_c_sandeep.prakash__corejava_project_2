@@ -15,6 +15,10 @@ import io.github.cdimascio.dotenv.Dotenv;
  * The ConnectionUtil Class has a method  get connection which help to connect  with database
  */
 public class ConnectionUtil {
+	
+	private ConnectionUtil() {
+	// private constructor
+	}
 	/**
 	 * Creating a Logger Class For Display Message
 	 * @throws DAOException 

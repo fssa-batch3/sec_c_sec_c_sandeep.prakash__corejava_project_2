@@ -23,6 +23,10 @@ import com.fssa.bookandplay.validator.GroundValidatorsErrors;
  */
 public class GroundDao {
 
+	private GroundDao() {
+		// private constructor
+	}
+
 	/**
 	 * The Logger Class is created
 	 */
@@ -33,17 +37,16 @@ public class GroundDao {
 	 */
 	public static boolean addGround(Ground ground) throws DAOException, SQLException {
 
-		LocalTime startTime = ground.getStartTime();
-		Time startTimeTs = Time.valueOf(startTime);
+		LocalTime startTime1 = ground.getStartTime();
+		Time startTimeTs1 = Time.valueOf(startTime1);
 
-		LocalTime endTime = ground.getEndTime();
-		Time endTimeTs = Time.valueOf(endTime);
+		LocalTime endTime1 = ground.getEndTime();
+		Time endTimeTs1 = Time.valueOf(endTime1);
 
 		/**
 		 * The Query for calling insertground from sql
 		 */
 		String storedProcedureCall = "{call InsertGround(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)}";
-	
 
 		/**
 		 * Getting the ground details and inserting in sql
@@ -57,8 +60,8 @@ public class GroundDao {
 				callableStatement.setString(3, ground.getGroundAddress());
 				callableStatement.setString(4, ground.getGroundLocationLink());
 				callableStatement.setString(5, ground.getDistrict());
-				callableStatement.setTime(6, startTimeTs);
-				callableStatement.setTime(7, endTimeTs);
+				callableStatement.setTime(6, startTimeTs1);
+				callableStatement.setTime(7, endTimeTs1);
 				callableStatement.setString(8, ground.getGroundRules());
 				callableStatement.setDouble(9, ground.getPrice());
 				callableStatement.setDouble(10, ground.getIncreasingPriceForExtraHours());
@@ -69,7 +72,7 @@ public class GroundDao {
 
 				callableStatement.setString(12, groundImagesStr);
 				callableStatement.setString(13, sportsAvailableStr);
-				  callableStatement.execute();
+				callableStatement.execute();
 
 			}
 		} catch (SQLException e) {
@@ -94,18 +97,17 @@ public class GroundDao {
 
 		}
 
-		LocalTime startTime = ground.getStartTime();
-		Time startTimeTs = Time.valueOf(startTime);
+		LocalTime startTime2 = ground.getStartTime();
+		Time startTimeTs2 = Time.valueOf(startTime2);
 
-		LocalTime endTime = ground.getEndTime();
-		Time endTimeTs = Time.valueOf(endTime);
+		LocalTime endTime2 = ground.getEndTime();
+		Time endTimeTs2 = Time.valueOf(endTime2);
 
 		/**
 		 * The Query for calling UpdateGround from sql
 		 */
 
 		String storedProcedureCall = "{call UpdateGround(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)}";
-		
 
 		try (Connection con = ConnectionUtil.getConnection()) {
 			try (CallableStatement callableStatement = con.prepareCall(storedProcedureCall)) {
@@ -116,8 +118,8 @@ public class GroundDao {
 				callableStatement.setString(4, ground.getGroundAddress());
 				callableStatement.setString(5, ground.getGroundLocationLink());
 				callableStatement.setString(6, ground.getDistrict());
-				callableStatement.setTime(7, startTimeTs);
-				callableStatement.setTime(8, endTimeTs);
+				callableStatement.setTime(7, startTimeTs2);
+				callableStatement.setTime(8, endTimeTs2);
 				callableStatement.setString(9, ground.getGroundRules());
 				callableStatement.setDouble(10, ground.getPrice());
 				callableStatement.setDouble(11, ground.getIncreasingPriceForExtraHours());
@@ -129,7 +131,7 @@ public class GroundDao {
 				callableStatement.setString(13, groundImagesStr);
 				callableStatement.setString(14, sportsAvailableStr);
 
-			 callableStatement.execute();
+				callableStatement.execute();
 
 			}
 		} catch (SQLException e) {
@@ -161,13 +163,12 @@ public class GroundDao {
 
 		String storedProcedureCall = "{call DeleteGround(?)}";
 
-
 		try (Connection con = ConnectionUtil.getConnection()) {
 
 			try (CallableStatement callableStatement = con.prepareCall(storedProcedureCall)) {
 
 				callableStatement.setInt(1, groundId);
-           callableStatement.execute();
+				callableStatement.execute();
 
 			}
 		} catch (SQLException e) {
@@ -263,6 +264,5 @@ public class GroundDao {
 
 		return true;
 	}
-
 
 }

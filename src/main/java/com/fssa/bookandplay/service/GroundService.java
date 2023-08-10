@@ -12,6 +12,10 @@ import com.fssa.bookandplay.validator.GroundValidator;
 public class GroundService {
 
 
+	private GroundService() {
+		// private constructor
+	}
+
 	/**
 	 * The add ground
 	 */
