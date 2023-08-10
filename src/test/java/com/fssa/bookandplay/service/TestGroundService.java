@@ -38,7 +38,7 @@ class TestGroundService {
 	 void testDeleteGround() throws DAOException, SQLException {
 		Ground ground=getGround();
 		GroundService groundService=getGroundService();
-		Assertions.assertTrue(groundService.deleteGround(25));
+		Assertions.assertTrue(groundService.deleteGround(14));
 		
 	}
 	public Ground getGround2() {

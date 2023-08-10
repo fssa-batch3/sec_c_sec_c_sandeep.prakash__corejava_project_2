@@ -20,10 +20,12 @@ public class ConnectionUtil {
 	 * @throws DAOException 
 	 */
 	static Logger logger = new Logger();
-	public static Connection getConnection() throws DAOException {
+	public static Connection getConnection() throws DAOException, SQLException {
         Connection con = null;
 
-        String url, userName, passWord;
+        String url;
+        String userName;
+        String passWord;
 
         if (System.getenv("CI") != null) {
             url = System.getenv("DATABASE_HOST");
@@ -44,6 +46,11 @@ public class ConnectionUtil {
         } catch (Exception e) {
             e.printStackTrace();
             throw new DAOException("Unable to connect to the database");
+        }
+        
+        finally {
+        	con.close(); 	
+        	logger.info("get connection method is executed");
         }
         return con;
     }
