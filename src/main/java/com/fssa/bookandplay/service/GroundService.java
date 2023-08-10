@@ -10,22 +10,12 @@ import com.fssa.bookandplay.validator.GroundValidator;
  * The GroundService class which calls validator and dao class.
  */
 public class GroundService {
-	private static GroundValidator groundvalidator;
-	private static GroundDao groundDao;
 
-	public GroundService(GroundValidator groundvalidator, GroundDao groundDao) {
-		GroundService.groundvalidator = groundvalidator;
-		GroundService.groundDao = groundDao;
-	}
-
-	public GroundService() {
-
-	}
 
 	/**
 	 * The add ground
 	 */
-	public boolean addGround(Ground ground) throws DAOException, SQLException {
+	public static boolean addGround(Ground ground) throws DAOException, SQLException {
 		if (GroundValidator.validate(ground)) {
 			GroundDao.addGround(ground);
 		}
@@ -36,7 +26,7 @@ public class GroundService {
 	/**
 	 * The update ground
 	 */
-	public boolean updateGround(Ground ground) throws DAOException, SQLException {
+	public static boolean updateGround(Ground ground) throws DAOException, SQLException {
 		if (GroundValidator.validate(ground)) {
 			GroundDao.updateGround(ground);
 		}
@@ -47,7 +37,7 @@ public class GroundService {
 	/**
 	 * The delete ground
 	 */
-	public boolean deleteGround(int groundId) throws DAOException, SQLException {
+	public static boolean deleteGround(int groundId) throws DAOException, SQLException {
 
 		if (GroundValidator.groundIdValidator(groundId)) {
 			GroundDao.deleteGround(groundId);
@@ -58,7 +48,7 @@ public class GroundService {
 	/**
 	 * The get the ground details
 	 */
-	public boolean getGroundDetails() throws DAOException, SQLException {
+	public static boolean getGroundDetails() throws DAOException, SQLException {
 //		GroundDao grounddao = new GroundDao();
 		GroundDao.getAllGround();
 		return true;
