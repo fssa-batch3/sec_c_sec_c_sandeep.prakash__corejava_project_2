@@ -49,7 +49,7 @@ public class ConnectionUtil {
         }
         
         finally {
-        	con.close(); 	
+        	
         	logger.info("get connection method is executed");
         }
         return con;
