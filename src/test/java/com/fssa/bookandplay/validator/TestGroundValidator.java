@@ -1,6 +1,6 @@
 package com.fssa.bookandplay.validator;
 
-import java.time.LocalDateTime;
+
 import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
@@ -12,7 +12,7 @@ import com.fssa.bookandplay.exceptions.InvalidGroundDetailException;
 import com.fssa.bookandplay.model.Ground;
 
 
-public class TestGroundValidator {
+class TestGroundValidator {
 	
 	
 	

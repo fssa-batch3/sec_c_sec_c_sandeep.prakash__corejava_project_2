@@ -94,7 +94,7 @@ public class TestGroundDao {
 
 	 void testValidDeleteGround() throws DAOException, SQLException {
 	//	Assertions.assertTrue(GroundDao.deleteGround(groundValidate().getgroundId()));
-		Assertions.assertTrue(GroundDao.deleteGround(15));
+		Assertions.assertTrue(GroundDao.deleteGround(24));
 	}
 
 

@@ -1,6 +1,12 @@
 package com.fssa.bookandplay.validator;
 
-public interface GroundValidatorsErrors {
+public class GroundValidatorsErrors {
+	
+	
+	private GroundValidatorsErrors() {
+		// privatye constructor
+		
+	}
 	/**
 	 * Error message when a ground object is null.
 	 */

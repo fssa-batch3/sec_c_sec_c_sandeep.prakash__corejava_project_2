@@ -24,6 +24,11 @@ import com.fssa.bookandplay.validator.GroundValidatorsErrors;
 public class GroundDao {
 	
 	public GroundDao() {
+		
+		/**
+		 * This method is intentionally left empty.
+		 *  It might serve as a placeholder for future implementations
+		 */
 	
 	}
 
