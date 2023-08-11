@@ -24,7 +24,7 @@ public class ConnectionUtil {
 	 * @throws DAOException 
 	 */
 	static Logger logger = new Logger();
-	public static Connection getConnection() throws DAOException, SQLException {
+	public static Connection getConnection()  {
         Connection con = null;
 
         String url;
@@ -44,18 +44,13 @@ public class ConnectionUtil {
         }
 
         try {
-        	Class.forName("com.mysql.cj.jdbc.Driver");
+    
             con = DriverManager.getConnection(url, userName, passWord);
            logger.info("connected");
         } catch (Exception e) {
-           
-            throw new DAOException("Unable to connect to the database");
+            throw new RuntimeException("Unable to connect to the database");
         }
         
-        finally {
-        	
-        	logger.info("get connection method is executed");
-        }
         return con;
     }
 	public static void close(Connection conn, Statement stmt, ResultSet rs,PreparedStatement ps,CallableStatement cs) throws DAOException {
