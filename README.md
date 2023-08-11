@@ -1,9 +1,9 @@
 # sec_c_sec_c_sandeep.prakash__corejava_project_2
-# BookandPlay Backend Core Java Project
-# Milestone -1
-# In Milestone-1, we will focus on implementing the backend logic and functionalities to support the Ground CRUD operations.
-# Ground Model:
-# Design a Ground model to represent the properties of a product, such as groundname, Address, price, district,sportsAvailable,timings,courtsAvailable images list and Ground type relevant attributes.
+# BookandPlay Backend CoreJava Project
+## Milestone-1
+## In  Milestone-1, we will  focusing on implementing the backend logic and functionalities to support the Ground crud operations
+## Ground Model:
+## Design a Ground model to represent the properties of ground, such as groundname, Address, price, district,sportsAvailable,timings,courtsAvailable,Ground Images and Ground type relevent attributes.
 
 | Table: Ground          |             |                   |               |                 |              |                  |               |             |                     |                               |
 |------------------------|-------------|-------------------|---------------|-----------------|--------------|------------------|---------------|-------------|---------------------|-------------------------------|
