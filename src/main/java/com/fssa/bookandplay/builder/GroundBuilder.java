@@ -21,72 +21,72 @@ public class GroundBuilder {
 	private double increasingPriceForExtraHours;
 	private int courtsAvailable;
 
-	public GroundBuilder groundId(int groundId) {
+	public GroundBuilder groundIdBuild(int groundId) {
 		this.groundId=groundId;
 		return this;
 	}
 
-	public GroundBuilder groundName(String groundName) {
+	public GroundBuilder groundNameBuild(String groundName) {
 		this.groundName = groundName;
 		return this;
 	}
 
-	public GroundBuilder groundMainArea(String groundMainArea) {
+	public GroundBuilder groundMainAreaBuild(String groundMainArea) {
 		this.groundMainArea = groundMainArea;
 		return this;
 	}
 
-	public GroundBuilder groundAddress(String groundAddress) {
+	public GroundBuilder groundAddressBuild(String groundAddress) {
 		this.groundAddress = groundAddress;
 		return this;
 	}
 
-	public GroundBuilder groundLocationLink(String groundLocationLink) {
+	public GroundBuilder groundLocationLinkBuild(String groundLocationLink) {
 		this.groundLocationLink = groundLocationLink;
 		return this;
 	}
 
-	public GroundBuilder district(String district) {
+	public GroundBuilder districtBuild(String district) {
 		this.district = district;
 		return this;
 	}
 
-	public GroundBuilder groundImages(List<String> groundImages) {
+	public GroundBuilder groundImagesBuild(List<String> groundImages) {
 		this.groundImages = groundImages;
 		return this;
 	}
 
-	public GroundBuilder sportsAvailable(List<String> sportsAvailable) {
+	public GroundBuilder sportsAvailableBuild(List<String> sportsAvailable) {
 		this.sportsAvailable = sportsAvailable;
 		return this;
 	}
 
-	public GroundBuilder startTime(LocalTime startTime) {
+	public GroundBuilder startTimeBuild(LocalTime startTime) {
 		this.startTime = startTime;
 		return this;
 	}
 
-	public GroundBuilder endTime(LocalTime endTime) {
+	public GroundBuilder endTimeBuild(LocalTime endTime) {
 		this.endTime = endTime;
 		return this;
 	}
 
-	public GroundBuilder groundRules(String groundRules) {
+	public GroundBuilder groundRulesBuild(String groundRules) {
 		this.groundRules = groundRules;
 		return this;
 	}
 
-	public GroundBuilder price(double price) {
+	public GroundBuilder priceBuild(double price) {
 		this.price = price;
 		return this;
 	}
 
-	public GroundBuilder increasingPriceForExtraHours(double increasingPriceForExtraHours) {
+	public GroundBuilder increasingPriceForExtraHoursBuild(double increasingPriceForExtraHours) {
 		this.increasingPriceForExtraHours = increasingPriceForExtraHours;
 		return this;
 	}
 
-	public GroundBuilder courtsAvailable(int courtsAvailable) {
+	public GroundBuilder courtsAvailableBuild(int courtsAvailable) {
 		this.courtsAvailable = courtsAvailable;
 		return this;
 	}

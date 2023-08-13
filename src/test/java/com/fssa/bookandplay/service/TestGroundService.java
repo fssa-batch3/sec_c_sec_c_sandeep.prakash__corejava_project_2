@@ -45,21 +45,22 @@ class TestGroundService {
 			LocalTime endTime = LocalTime.of(11, 30);   // 5:00 PM
 			//Ground ground=new Ground(1,"samplename", "samplemainarea", "sampleaddress", "http://google.com", "sampledistrict", validImages, validsports, startTime, endTime, "samplerules", 200, 200, 3);
 			Ground ground1=new GroundBuilder()
-					.groundId(1)
-				  	  .groundName("ExampleGround")
-				    .groundMainArea("Main Area")
-				    .groundAddress("123ExampleStreet")
-				    .groundLocationLink("https://maps.example.com")
-				    .district("SampleDistrict")
-				    .groundImages(validImages)
-				    .sportsAvailable(validsports)
-				    .startTime(startTime)
-				    .endTime(endTime)
-				    .groundRules("Nosmokingallowed")
-				    .price(170)
-				    .increasingPriceForExtraHours(200)
-				    .courtsAvailable(2)
+					.groundIdBuild(1)
+				  	  .groundNameBuild("ExampleGround")
+				    .groundMainAreaBuild("Main Area")
+				    .groundAddressBuild("123ExampleStreet")
+				    .groundLocationLinkBuild("https://maps.example.com")
+				    .districtBuild("SampleDistrict")
+				    .groundImagesBuild(validImages)
+				    .sportsAvailableBuild(validsports)
+				    .startTimeBuild(startTime)
+				    .endTimeBuild(endTime)
+				    .groundRulesBuild("Nosmokingallowed")
+				    .priceBuild(170)
+				    .increasingPriceForExtraHoursBuild(200)
+				    .courtsAvailableBuild(2)
 				    .build();
+		
 		
 		return ground1;
 

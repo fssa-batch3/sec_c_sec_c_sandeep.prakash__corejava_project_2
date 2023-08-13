@@ -3,7 +3,7 @@ package com.fssa.bookandplay.model;
 import java.time.LocalTime;
 import java.util.List;
 
-import com.fssa.bookandplay.builder.GroundBuilder;
+
 
 /**
  * Ground Detail module Created Ground Class and its Associated

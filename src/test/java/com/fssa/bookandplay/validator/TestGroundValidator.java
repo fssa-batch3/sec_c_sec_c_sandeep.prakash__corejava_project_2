@@ -1,6 +1,5 @@
 package com.fssa.bookandplay.validator;
 
-
 import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
@@ -12,72 +11,66 @@ import com.fssa.bookandplay.builder.GroundBuilder;
 import com.fssa.bookandplay.exceptions.InvalidGroundDetailException;
 import com.fssa.bookandplay.model.Ground;
 
-
 class TestGroundValidator {
-	
-	
+
 	/**
+	 * @Test
+	 * 
+	 *       void testValidgroundobject() { List<String> validImages =
+	 *       Arrays.asList("https://example.com/image1.jpg",
+	 *       "https://example.com/image2.jpg"); List<String> validsports =
+	 *       Arrays.asList("cricket", "football", "tennis"); LocalTime startTime =
+	 *       LocalTime.of(10, 30); // 10:00 AM LocalTime endTime = LocalTime.of(11,
+	 *       30); // 5:00 PM Ground ground=new Ground("samplename",
+	 *       "samplemainarea", "sampleaddress", "http://google.com",
+	 *       "sampledistrict", validImages, validsports, startTime, endTime,
+	 *       "samplerules", 200, 200, 3);
+	 *       Assertions.assertTrue(GroundValidator.validate(ground)); }
+	 */
+
 	@Test
 
-	 void testValidgroundobject() {
+	void testValidgroundobject2() {
 		List<String> validImages = Arrays.asList("https://example.com/image1.jpg", "https://example.com/image2.jpg");
 		List<String> validsports = Arrays.asList("cricket", "football", "tennis");
 		LocalTime startTime = LocalTime.of(10, 30); // 10:00 AM
-		LocalTime endTime = LocalTime.of(11, 30);   // 5:00 PM
-		Ground ground=new Ground("samplename", "samplemainarea", "sampleaddress", "http://google.com", "sampledistrict", validImages, validsports, startTime, endTime, "samplerules", 200, 200, 3);
-		Assertions.assertTrue(GroundValidator.validate(ground));
-	}
-	*/
+		LocalTime endTime = LocalTime.of(11, 30); // 5:00 PM
+		// Ground ground=new Ground(1,"samplename", "samplemainarea", "sampleaddress",
+		// "http://google.com", "sampledistrict", validImages, validsports, startTime,
+		// endTime, "samplerules", 200, 200, 3);
+		Ground ground1 = new GroundBuilder()
 
-	@Test
+				.groundIdBuild(1).groundNameBuild("ExampleGround").groundMainAreaBuild("Main Area")
+				.groundAddressBuild("123ExampleStreet").groundLocationLinkBuild("https://maps.example.com")
+				.districtBuild("SampleDistrict").groundImagesBuild(validImages).sportsAvailableBuild(validsports)
+				.startTimeBuild(startTime).endTimeBuild(endTime).groundRulesBuild("Nosmokingallowed").priceBuild(170)
+				.increasingPriceForExtraHoursBuild(200).courtsAvailableBuild(2).build();
 
-	 void testValidgroundobject2() {
-		List<String> validImages = Arrays.asList("https://example.com/image1.jpg", "https://example.com/image2.jpg");
-		List<String> validsports = Arrays.asList("cricket", "football", "tennis");
-		LocalTime startTime = LocalTime.of(10, 30); // 10:00 AM
-		LocalTime endTime = LocalTime.of(11, 30);   // 5:00 PM
-		//Ground ground=new Ground(1,"samplename", "samplemainarea", "sampleaddress", "http://google.com", "sampledistrict", validImages, validsports, startTime, endTime, "samplerules", 200, 200, 3);
-		Ground ground1=new GroundBuilder()
-				.groundId(1)
-			  	  .groundName("ExampleGround")
-			    .groundMainArea("Main Area")
-			    .groundAddress("123ExampleStreet")
-			    .groundLocationLink("https://maps.example.com")
-			    .district("SampleDistrict")
-			    .groundImages(validImages)
-			    .sportsAvailable(validsports)
-			    .startTime(startTime)
-			    .endTime(endTime)
-			    .groundRules("Nosmokingallowed")
-			    .price(170)
-			    .increasingPriceForExtraHours(200)
-			    .courtsAvailable(2)
-			    .build();
 		Assertions.assertTrue(GroundValidator.validate(ground1));
 	}
-	
+
 	@Test
 
-	 void testInValidgroundobject() {
+	void testInValidgroundobject() {
 		try {
 			GroundValidator.validate(null);
 			Assertions.fail("Validateobject failed");
 		} catch (InvalidGroundDetailException ex) {
 			Assertions.assertEquals(GroundValidatorsErrors.INVALID_OBJECT_NULL, ex.getMessage());
 		}
-		
-		
+
 	}
+
 //  for valid  ground  name
 	@Test
 
-	 void testValidName() {
+	void testValidName() {
 		Assertions.assertTrue(GroundValidator.groundNameValidator("sandeep    ok"));
 	}
 
 //  for invalid ground name
 	@Test
-	 void testInvalidName() {
+	void testInvalidName() {
 
 		try {
 			GroundValidator.groundNameValidator(null);
@@ -85,7 +78,6 @@ class TestGroundValidator {
 		} catch (InvalidGroundDetailException ex) {
 			Assertions.assertEquals(GroundValidatorsErrors.INVALID_GROUNDNAME_NULL, ex.getMessage());
 		}
-
 
 		try {
 			GroundValidator.groundNameValidator("");
@@ -106,13 +98,13 @@ class TestGroundValidator {
 //  for valid groundarea
 	@Test
 
- void testValidareaName() {
+	void testValidareaName() {
 		Assertions.assertTrue(GroundValidator.groundAreaValidator("sandeep  ok"));
 	}
 
 //  for invalid groundarea
 	@Test
-	 void testInvalidareaName() {
+	void testInvalidareaName() {
 
 		try {
 			GroundValidator.groundAreaValidator(null);
@@ -124,31 +116,28 @@ class TestGroundValidator {
 			GroundValidator.groundAreaValidator("a");
 			Assertions.fail("Validatemainarea name failed");
 		} catch (InvalidGroundDetailException ex) {
-			Assertions.assertEquals(GroundValidatorsErrors.INVALID_MAINGROUNDAREA_NAME,
-					ex.getMessage());
+			Assertions.assertEquals(GroundValidatorsErrors.INVALID_MAINGROUNDAREA_NAME, ex.getMessage());
 		}
-		
+
 		try {
 			GroundValidator.groundAreaValidator("");
 			Assertions.fail("Validatemainarea name failed");
 		} catch (InvalidGroundDetailException ex) {
-			Assertions.assertEquals(GroundValidatorsErrors.INVALID_MAINGROUNDAREA_NULL,
-					ex.getMessage());
+			Assertions.assertEquals(GroundValidatorsErrors.INVALID_MAINGROUNDAREA_NULL, ex.getMessage());
 		}
-
 
 	}
 
 //  for valid groundaddress
 	@Test
 
-	 void testValidaddress() {
+	void testValidaddress() {
 		Assertions.assertTrue(GroundValidator.groundAddressValidator("123 Main St."));
 	}
 
 //  for invalid groundaddress
 	@Test
- void testInvalidaddress() {
+	void testInvalidaddress() {
 
 		try {
 			GroundValidator.groundAddressValidator(null);
@@ -167,8 +156,7 @@ class TestGroundValidator {
 			GroundValidator.groundAddressValidator("a");
 			Assertions.fail("Validateaddress failed");
 		} catch (InvalidGroundDetailException ex) {
-			Assertions.assertEquals(GroundValidatorsErrors.INVALID_ADDRESS_TYPE,
-					ex.getMessage());
+			Assertions.assertEquals(GroundValidatorsErrors.INVALID_ADDRESS_TYPE, ex.getMessage());
 		}
 
 	}
@@ -176,13 +164,13 @@ class TestGroundValidator {
 //  for valid groundLocationLink
 	@Test
 
-	 void testValidlocation() {
+	void testValidlocation() {
 		Assertions.assertTrue(GroundValidator.groundLocationLink("http://google.com"));
 	}
 
 //  for invalid groundLocationLink
 	@Test
-	 void testInvalidlocation() {
+	void testInvalidlocation() {
 
 		try {
 			GroundValidator.groundLocationLink(null);
@@ -202,7 +190,7 @@ class TestGroundValidator {
 //  for valid districtname
 	@Test
 
- void testValiddistrict() {
+	void testValiddistrict() {
 		Assertions.assertTrue(GroundValidator.districtNameValidator("sandeepok"));
 	}
 
@@ -222,8 +210,7 @@ class TestGroundValidator {
 			GroundValidator.districtNameValidator("1");
 			Assertions.fail("Validatedistrictname failed");
 		} catch (InvalidGroundDetailException ex) {
-			Assertions.assertEquals(GroundValidatorsErrors.INVALID_GROUNDDIS_NAME,
-					ex.getMessage());
+			Assertions.assertEquals(GroundValidatorsErrors.INVALID_GROUNDDIS_NAME, ex.getMessage());
 		}
 
 	}
@@ -231,7 +218,7 @@ class TestGroundValidator {
 //  for valid groundImages
 	@Test
 
-	 void testValidimages() {
+	void testValidimages() {
 		List<String> validImages = Arrays.asList("https://example.com/image1.jpg", "https://example.com/image2.jpg");
 
 		Assertions.assertDoesNotThrow(() -> {
@@ -242,11 +229,11 @@ class TestGroundValidator {
 
 //  for invalid groundImages
 	@Test
-	 void testInvalidimages() {
+	void testInvalidimages() {
 
 		List<String> invalidImages = Arrays.asList("image1.jpg", "https://example.com/image2.jpg",
 				"https://example.com/image3");
-		List<String> invalidImages2 =  null;
+		List<String> invalidImages2 = null;
 		List<String> invalidImages3 = Arrays.asList();
 
 		try {
@@ -255,22 +242,20 @@ class TestGroundValidator {
 		} catch (InvalidGroundDetailException ex) {
 			Assertions.assertEquals(GroundValidatorsErrors.INVALID_GROUNDIMAGES, ex.getMessage());
 		}
-		
-		
+
 		try {
 			GroundValidator.groundImagesValidator(invalidImages2);
 			Assertions.fail("Validateimages failed");
 		} catch (InvalidGroundDetailException ex) {
 			Assertions.assertEquals(GroundValidatorsErrors.INVALID_GROUNDIMAGES_NULL, ex.getMessage());
 		}
-		
+
 		try {
 			GroundValidator.groundImagesValidator(invalidImages3);
 			Assertions.fail("Validateimages failed");
 		} catch (InvalidGroundDetailException ex) {
 			Assertions.assertEquals(GroundValidatorsErrors.INVALID_GROUNDIMAGES_NULL, ex.getMessage());
 		}
-
 
 	}
 
@@ -284,8 +269,6 @@ class TestGroundValidator {
 			GroundValidator.sportsAvailableValidator(validsports);
 		});
 	}
-	
-
 
 //  for invalid sportsAvailable
 	@Test
@@ -299,10 +282,10 @@ class TestGroundValidator {
 		} catch (InvalidGroundDetailException ex) {
 			Assertions.assertEquals(GroundValidatorsErrors.INVALID_SPORTSTYPE, ex.getMessage());
 		}
-		
-		List<String> invalidsports2= Arrays.asList("i", "https://example.com/image2.jpg",
+
+		List<String> invalidsports2 = Arrays.asList("i", "https://example.com/image2.jpg",
 				"https://example.com/image3");
-		
+
 		try {
 			GroundValidator.sportsAvailableValidator(invalidsports2);
 			Assertions.fail("Validatesports failed");
@@ -310,100 +293,95 @@ class TestGroundValidator {
 			Assertions.assertEquals(GroundValidatorsErrors.INVALID_SPORTSTYPE_PATTERN, ex.getMessage());
 		}
 
-
 	}
 
 //  for valid startTime
 	@Test
 
-void testValidstarttime() {
+	void testValidstarttime() {
 		LocalTime startTime = LocalTime.of(10, 0); // 10:00 AM
-		
+
 		Assertions.assertTrue(GroundValidator.startTimeValidator(startTime));
 	}
 
 //  for invalid startTime
 	@Test
-	 void testInvalidstarttime() {
+	void testInvalidstarttime() {
 		try {
 			GroundValidator.startTimeValidator(null);
 			Assertions.fail("Validatetime failed");
 		} catch (InvalidGroundDetailException ex) {
 			Assertions.assertEquals(GroundValidatorsErrors.INVALID_STARTTIME_NULL, ex.getMessage());
 		}
-		
+
+		LocalTime startTime = LocalTime.of(17, 0); // 10:00 AM
 		try {
-			LocalTime startTime = LocalTime.of(17, 0); // 10:00 AM
+
 			GroundValidator.startTimeValidator(startTime);
 			Assertions.fail("Validatetime failed");
 		} catch (InvalidGroundDetailException ex) {
 			Assertions.assertEquals(GroundValidatorsErrors.INVALID_STARTTIME_TYPE, ex.getMessage());
 		}
-		catch (RuntimeException ex) {
-	        Assertions.fail("Unexpected runtime exception: " + ex.getMessage());
-	    }
 
 	}
 
 //  for valid endTime
 	@Test
 
- void testValidendtime() {
+	void testValidendtime() {
 
-		LocalTime endTime = LocalTime.of(12, 0);   // 5:00 PM
+		LocalTime endTime = LocalTime.of(12, 0); // 5:00 PM
 		Assertions.assertTrue(GroundValidator.endTimeValidator(endTime));
 	}
 
 //  for invalid endTime
 	@Test
- void testInvalidendtime() {
+	void testInvalidendtime() {
 		try {
 			GroundValidator.endTimeValidator(null);
 			Assertions.fail("Validatetime failed");
 		} catch (InvalidGroundDetailException ex) {
 			Assertions.assertEquals(GroundValidatorsErrors.INVALID_ENDTIME_NULL, ex.getMessage());
 		}
+		LocalTime endTime = LocalTime.of(17, 0); // 5:00 PM
 		try {
-			LocalTime endTime = LocalTime.of(17, 0);   // 5:00 PM
+
 			GroundValidator.endTimeValidator(endTime);
 			Assertions.fail("Validatetime failed");
 		} catch (InvalidGroundDetailException ex) {
 			Assertions.assertEquals(GroundValidatorsErrors.INVALID_ENDTIME_TYPE, ex.getMessage());
 		}
-		catch (RuntimeException ex) {
-	        Assertions.fail("Unexpected runtime exception: " + ex.getMessage());
-	    }
+
 	}
 
 //  for valid groundRules
 	@Test
 
- void testValidrules() {
+	void testValidrules() {
 		Assertions.assertTrue(GroundValidator.groundRulesValidator("hellohellook"));
 	}
 
 //  for invalid groundRules
 	@Test
-	 void testInvalidrules() {
+	void testInvalidrules() {
 
 		try {
 			GroundValidator.groundRulesValidator("sssdd");
 			Assertions.fail("Validaterules failed");
 		} catch (InvalidGroundDetailException ex) {
-			Assertions.assertEquals(GroundValidatorsErrors.INVALID_GROUNDRULES_NAME,
-					ex.getMessage());
+			Assertions.assertEquals(GroundValidatorsErrors.INVALID_GROUNDRULES_NAME, ex.getMessage());
 		}
-		
+
 		try {
 			GroundValidator.groundRulesValidator("");
 			Assertions.fail("Validaterules failed");
 		} catch (InvalidGroundDetailException ex) {
-			Assertions.assertEquals(GroundValidatorsErrors.INVALID_GROUNDRULES_NULL,
-					ex.getMessage());
+			Assertions.assertEquals(GroundValidatorsErrors.INVALID_GROUNDRULES_NULL, ex.getMessage());
 		}
 	}
+
 	@Test
-	 void testInvalidrulesnull() {
+	void testInvalidrulesnull() {
 
 		try {
 			GroundValidator.groundRulesValidator(null);
@@ -417,13 +395,13 @@ void testValidstarttime() {
 //  for valid price
 	@Test
 
-	 void testValidprice() {
+	void testValidprice() {
 		Assertions.assertTrue(GroundValidator.priceValidator((double) 200));
 	}
 
 //  for invalid price
 	@Test
-	 void testInvalidprice() {
+	void testInvalidprice() {
 		try {
 			GroundValidator.priceValidator(90);
 			Assertions.fail("Validateprice failed");
@@ -436,13 +414,13 @@ void testValidstarttime() {
 //  for valid price
 	@Test
 
- void testValidincreaseprice() {
+	void testValidincreaseprice() {
 		Assertions.assertTrue(GroundValidator.increasingPriceForExtraHoursValidator(200));
 	}
 
 //  for invalid price
 	@Test
-	 void testInvalidincreaseprice() {
+	void testInvalidincreaseprice() {
 		try {
 			GroundValidator.increasingPriceForExtraHoursValidator(89);
 			Assertions.fail("Validateprice failed");
@@ -455,13 +433,13 @@ void testValidstarttime() {
 //  for valid courts
 	@Test
 
- void testValidcourt() {
+	void testValidcourt() {
 		Assertions.assertTrue(GroundValidator.courtsAvailableValidator(2));
 	}
 
 //  for invalid courts
 	@Test
-	 void testInvalidcourt() {
+	void testInvalidcourt() {
 		try {
 			GroundValidator.courtsAvailableValidator(7);
 			Assertions.fail("Validatecourts failed");
@@ -472,13 +450,13 @@ void testValidstarttime() {
 	}
 
 	@Test
-	 void testValidgroundId() {
+	void testValidgroundId() {
 		Assertions.assertTrue(GroundValidator.groundIdValidator(2));
 	}
-	
+
 //  for invalid courts
 	@Test
-	 void testInvalidgroundId() {
+	void testInvalidgroundId() {
 		try {
 			GroundValidator.groundIdValidator(-2);
 			Assertions.fail("Validatecourts failed");
@@ -487,6 +465,5 @@ void testValidstarttime() {
 		}
 
 	}
-	
 
 }
