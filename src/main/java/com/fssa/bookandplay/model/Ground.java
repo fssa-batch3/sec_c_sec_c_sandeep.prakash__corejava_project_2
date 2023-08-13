@@ -1,14 +1,16 @@
 package com.fssa.bookandplay.model;
 
 import java.time.LocalTime;
-
 import java.util.List;
+
+import com.fssa.bookandplay.builder.GroundBuilder;
 
 /**
  * Ground Detail module Created Ground Class and its Associated
  * attributes,constructors and getters and setters
  *
  */
+
 public class Ground {
 	private int groundId;
 	private String groundName;
@@ -24,7 +26,11 @@ public class Ground {
 	private double price;
 	private double increasingPriceForExtraHours;
 	private int courtsAvailable;
+	
+	
 
+	
+	
 	/**
 	 * Constructor 1
 	 */
@@ -57,14 +63,14 @@ public class Ground {
 	 * Constructor 2 for id
 	 */
 
+	
+	/**
 	public Ground(int groundId, String groundName, String groundMainArea, String groundAddress,
 			String groundLocationLink, String district, List<String> groundImages, List<String> sportsAvailable,
 			LocalTime startTime, LocalTime endTime, String groundRules, double price,
 			double increasingPriceForExtraHours, int courtsAvailable) {
 		
-		/**
-		 *  This Constructor is for  passing id
-		 */
+	
 		super();
 		this.groundId = groundId;
 		this.groundName = groundName;
@@ -81,6 +87,7 @@ public class Ground {
 		this.increasingPriceForExtraHours = increasingPriceForExtraHours;
 		this.courtsAvailable = courtsAvailable;
 	}
+	*/
 	/**
 	 *  Default Constructor 
 	 */

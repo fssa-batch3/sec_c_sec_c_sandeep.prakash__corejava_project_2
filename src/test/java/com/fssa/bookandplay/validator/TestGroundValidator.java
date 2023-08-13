@@ -8,6 +8,7 @@ import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import com.fssa.bookandplay.builder.GroundBuilder;
 import com.fssa.bookandplay.exceptions.InvalidGroundDetailException;
 import com.fssa.bookandplay.model.Ground;
 
@@ -35,8 +36,24 @@ class TestGroundValidator {
 		List<String> validsports = Arrays.asList("cricket", "football", "tennis");
 		LocalTime startTime = LocalTime.of(10, 30); // 10:00 AM
 		LocalTime endTime = LocalTime.of(11, 30);   // 5:00 PM
-		Ground ground=new Ground(1,"samplename", "samplemainarea", "sampleaddress", "http://google.com", "sampledistrict", validImages, validsports, startTime, endTime, "samplerules", 200, 200, 3);
-		Assertions.assertTrue(GroundValidator.validate(ground));
+		//Ground ground=new Ground(1,"samplename", "samplemainarea", "sampleaddress", "http://google.com", "sampledistrict", validImages, validsports, startTime, endTime, "samplerules", 200, 200, 3);
+		Ground ground1=new GroundBuilder()
+				.groundId(1)
+			  	  .groundName("ExampleGround")
+			    .groundMainArea("Main Area")
+			    .groundAddress("123ExampleStreet")
+			    .groundLocationLink("https://maps.example.com")
+			    .district("SampleDistrict")
+			    .groundImages(validImages)
+			    .sportsAvailable(validsports)
+			    .startTime(startTime)
+			    .endTime(endTime)
+			    .groundRules("Nosmokingallowed")
+			    .price(170)
+			    .increasingPriceForExtraHours(200)
+			    .courtsAvailable(2)
+			    .build();
+		Assertions.assertTrue(GroundValidator.validate(ground1));
 	}
 	
 	@Test
@@ -322,6 +339,9 @@ void testValidstarttime() {
 		} catch (InvalidGroundDetailException ex) {
 			Assertions.assertEquals(GroundValidatorsErrors.INVALID_STARTTIME_TYPE, ex.getMessage());
 		}
+		catch (RuntimeException ex) {
+	        Assertions.fail("Unexpected runtime exception: " + ex.getMessage());
+	    }
 
 	}
 
@@ -350,6 +370,9 @@ void testValidstarttime() {
 		} catch (InvalidGroundDetailException ex) {
 			Assertions.assertEquals(GroundValidatorsErrors.INVALID_ENDTIME_TYPE, ex.getMessage());
 		}
+		catch (RuntimeException ex) {
+	        Assertions.fail("Unexpected runtime exception: " + ex.getMessage());
+	    }
 	}
 
 //  for valid groundRules

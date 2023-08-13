@@ -9,6 +9,7 @@ import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import com.fssa.bookandplay.builder.GroundBuilder;
 import com.fssa.bookandplay.exceptions.DAOException;
 import com.fssa.bookandplay.exceptions.InvalidGroundDetailException;
 import com.fssa.bookandplay.model.Ground;
@@ -20,25 +21,27 @@ public class TestGroundDao {
 		List<String> validImages = Arrays.asList("https://example.com/image1.jpg", "https://example.com/image2.jpg");
 		List<String> validsports = Arrays.asList("cricket", "football", "tennis");
 		LocalTime startTime = LocalTime.of(10, 30); // 10:00 AM
-		LocalTime endTime = LocalTime.of(11, 30); // 5:00 PM
+		LocalTime endTime = LocalTime.of(11, 30);   // 5:00 PM
+		//Ground ground=new Ground(1,"samplename", "samplemainarea", "sampleaddress", "http://google.com", "sampledistrict", validImages, validsports, startTime, endTime, "samplerules", 200, 200, 3);
+		Ground ground1=new GroundBuilder()
+				.groundId(1)
+			  	  .groundName("ExampleGround")
+			    .groundMainArea("Main Area")
+			    .groundAddress("123ExampleStreet")
+			    .groundLocationLink("https://maps.example.com")
+			    .district("SampleDistrict")
+			    .groundImages(validImages)
+			    .sportsAvailable(validsports)
+			    .startTime(startTime)
+			    .endTime(endTime)
+			    .groundRules("Nosmokingallowed")
+			    .price(170)
+			    .increasingPriceForExtraHours(200)
+			    .courtsAvailable(2)
+			    .build();
+	
 
-		Ground ground = new Ground();
-		ground.setgroundId(4);
-		ground.setGroundName("sample name");
-		ground.setGroundMainArea("sample main area");
-		ground.setGroundAddress("sample address");
-		ground.setGroundLocationLink("http://google.com");
-		ground.setGroundImages(validImages);
-		ground.setSportsAvailable(validsports);
-		ground.setDistrict("summa district");
-		ground.setStartTime(startTime);
-		ground.setEndTime(endTime);
-		ground.setCourtsAvailable(2);
-		ground.setPrice(200);
-		ground.setIncreasingPriceForExtraHours(200);
-		ground.setGroundRules("ground rules");
-
-		return ground;
+		return ground1;
 
 	}
 
