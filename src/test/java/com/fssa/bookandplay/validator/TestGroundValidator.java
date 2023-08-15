@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import com.fssa.bookandplay.builder.GroundBuilder;
+import com.fssa.bookandplay.errors.GroundValidatorsErrors;
 import com.fssa.bookandplay.exceptions.InvalidGroundDetailException;
 import com.fssa.bookandplay.model.Ground;
 

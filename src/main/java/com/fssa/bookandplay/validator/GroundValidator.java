@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.fssa.bookandplay.errors.GroundValidatorsErrors;
 import com.fssa.bookandplay.exceptions.InvalidGroundDetailException;
 import com.fssa.bookandplay.model.Ground;
 import com.fssa.bookandplay.regexpattern.GroundDetailRegexPattern;
@@ -16,8 +17,9 @@ import com.fssa.bookandplay.regexpattern.GroundDetailRegexPattern;
 public class GroundValidator {
 	
 
-	private GroundValidator() {
-		// private construtor
+
+	public GroundValidator() {
+	//constructor
 	}
 
 	public static boolean validate(Ground ground) throws InvalidGroundDetailException {

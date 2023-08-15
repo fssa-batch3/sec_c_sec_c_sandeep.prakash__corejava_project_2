@@ -1,7 +1,6 @@
 package com.fssa.bookandplay.service;
 
 import java.sql.SQLException;
-
 import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
@@ -14,12 +13,14 @@ import com.fssa.bookandplay.exceptions.DAOException;
 import com.fssa.bookandplay.model.Ground;
 
 class TestGroundService {
+	GroundService groundService=new GroundService();
+	
 
 	@Test
 	void testAddGround() throws DAOException, SQLException {
 		Ground ground = getGround2();
 
-		Assertions.assertTrue(GroundService.addGround(ground));
+		Assertions.assertTrue(groundService.addGround(ground));
 
 	}
 
@@ -27,14 +28,14 @@ class TestGroundService {
 	void testUpdateGround() throws DAOException, SQLException {
 		Ground ground = getGround2();
 
-		Assertions.assertTrue(GroundService.updateGround(ground));
+		Assertions.assertTrue(groundService.updateGround(ground));
 
 	}
 
 	@Test
 	void testDeleteGround() throws DAOException, SQLException {
 
-		Assertions.assertTrue(GroundService.deleteGround(37));
+		Assertions.assertTrue(groundService.deleteGround(37));
 
 	}
 
@@ -83,7 +84,7 @@ class TestGroundService {
 	@Test
 	void testGetGroundDetail() throws DAOException, SQLException {
 
-		Assertions.assertTrue(GroundService.getGroundDetails());
+		Assertions.assertTrue(groundService.getGroundDetails());
 
 	}
 

@@ -1,6 +1,7 @@
 package com.fssa.bookandplay.service;
 
 import java.sql.SQLException;
+
 import com.fssa.bookandplay.dao.GroundDao;
 import com.fssa.bookandplay.exceptions.DAOException;
 import com.fssa.bookandplay.model.Ground;
@@ -12,16 +13,19 @@ import com.fssa.bookandplay.validator.GroundValidator;
 public class GroundService {
 
 	
-	private GroundService() {
+	public GroundService() {
 		// private constructor
 	}
+	
+	GroundValidator groundValidator=new GroundValidator();
+	GroundDao groundDao=new GroundDao();
 
 	/**
 	 * The add ground
 	 */
-	public static boolean addGround(Ground ground) throws DAOException, SQLException {
+	public  boolean addGround(Ground ground) throws DAOException, SQLException {
 		if (GroundValidator.validate(ground)) {
-			GroundDao.addGround(ground);
+			groundDao.addGround(ground);
 		}
 		return true;
 
@@ -30,9 +34,9 @@ public class GroundService {
 	/**
 	 * The update ground
 	 */
-	public static boolean updateGround(Ground ground) throws DAOException, SQLException {
+	public  boolean updateGround(Ground ground) throws DAOException, SQLException {
 		if (GroundValidator.validate(ground)) {
-			GroundDao.updateGround(ground);
+			groundDao.updateGround(ground);
 		}
 		return true;
 
@@ -41,10 +45,10 @@ public class GroundService {
 	/**
 	 * The delete ground
 	 */
-	public static boolean deleteGround(int groundId) throws DAOException, SQLException {
+	public  boolean deleteGround(int groundId) throws DAOException, SQLException {
 
 		if (GroundValidator.groundIdValidator(groundId)) {
-			GroundDao.deleteGround(groundId);
+			groundDao.deleteGround(groundId);
 		}
 		return true;
 	}
@@ -52,9 +56,9 @@ public class GroundService {
 	/**
 	 * The get the ground details
 	 */
-	public static boolean getGroundDetails() throws DAOException, SQLException {
+	public  boolean getGroundDetails() throws DAOException, SQLException {
 
-		GroundDao.getAllGround();
+		groundDao.getAllGround();
 		return true;
 
 	}

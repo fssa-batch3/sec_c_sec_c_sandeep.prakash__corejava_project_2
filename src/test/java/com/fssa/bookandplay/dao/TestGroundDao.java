@@ -10,13 +10,14 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import com.fssa.bookandplay.builder.GroundBuilder;
+import com.fssa.bookandplay.errors.GroundValidatorsErrors;
 import com.fssa.bookandplay.exceptions.DAOException;
 import com.fssa.bookandplay.exceptions.InvalidGroundDetailException;
 import com.fssa.bookandplay.model.Ground;
-import com.fssa.bookandplay.validator.GroundValidatorsErrors;
 
 public class TestGroundDao {
-
+	GroundDao groundDao=new GroundDao();
+	
 	public static Ground groundValidate() {
 		List<String> validImages = Arrays.asList("https://example.com/image1.jpg", "https://example.com/image2.jpg");
 		List<String> validsports = Arrays.asList("cricket", "football", "tennis");
@@ -83,27 +84,27 @@ public class TestGroundDao {
 	@Test
 
 	void testValidAddGround() throws DAOException, SQLException {
-		Assertions.assertTrue(GroundDao.addGround(groundValidate()));
+		Assertions.assertTrue(groundDao.addGround(groundValidate()));
 	}
 
 	@Test
 
 	void testValidUpdateGround() throws DAOException, SQLException {
-		Assertions.assertTrue(GroundDao.updateGround(groundValidate()));
+		Assertions.assertTrue(groundDao.updateGround(groundValidate()));
 	}
 
 	@Test
 
 	void testValidDeleteGround() throws DAOException, SQLException {
 	
-		Assertions.assertTrue(GroundDao.deleteGround(36));
+		Assertions.assertTrue(groundDao.deleteGround(36));
 	}
 
 	@Test
 
 	void testValidGetGroundDetails() throws DAOException, SQLException {
 
-		Assertions.assertTrue(GroundDao.getAllGround());
+		Assertions.assertTrue(groundDao.getAllGround());
 	}
 
 	// Invalid TestCase
@@ -112,7 +113,7 @@ public class TestGroundDao {
 
 	void testInValidAddGround() throws SQLException {
 		try {
-			GroundDao.addGround(groundValidate());
+			groundDao.addGround(groundValidate());
 		} catch (DAOException ex) {
 			Assertions.assertEquals("The ADD Ground details to database is failed", ex.getMessage());
 
@@ -124,7 +125,7 @@ public class TestGroundDao {
 		try {
 			Ground ground = new Ground();
 			ground.setgroundId(-1);
-			GroundDao.updateGround(ground);
+			groundDao.updateGround(ground);
 		} catch (InvalidGroundDetailException ex) {
 			Assertions.assertEquals(GroundValidatorsErrors.INVALID_PRODUCT_ID, ex.getMessage());
 
@@ -135,7 +136,7 @@ public class TestGroundDao {
 
 	void testInValidUpdateGround2() throws SQLException, DAOException {
 		try {
-			GroundDao.updateGround(InvalidGround());
+			groundDao.updateGround(InvalidGround());
 		} catch (InvalidGroundDetailException ex) {
 			Assertions.assertEquals(GroundValidatorsErrors.INVALID_PRODUCT_ID, ex.getMessage());
 
@@ -146,7 +147,7 @@ public class TestGroundDao {
 
 	void testInValidDeleteGround() throws SQLException, InvalidGroundDetailException, DAOException {
 		try {
-			GroundDao.deleteGround(InvalidGround().getgroundId());
+			groundDao.deleteGround(InvalidGround().getgroundId());
 		} catch (InvalidGroundDetailException ex) {
 			Assertions.assertEquals(GroundValidatorsErrors.INVALID_PRODUCT_ID, ex.getMessage());
 

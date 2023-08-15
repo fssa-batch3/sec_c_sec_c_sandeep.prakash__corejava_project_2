@@ -11,19 +11,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.fssa.bookandplay.errors.GroundDaoErrors;
+import com.fssa.bookandplay.errors.GroundValidatorsErrors;
 import com.fssa.bookandplay.exceptions.DAOException;
 import com.fssa.bookandplay.exceptions.InvalidGroundDetailException;
 import com.fssa.bookandplay.model.Ground;
 import com.fssa.bookandplay.util.ConnectionUtil;
 import com.fssa.bookandplay.util.Logger;
-import com.fssa.bookandplay.validator.GroundValidatorsErrors;
 
 /**
  * The GroundDao class contains the crud operations for sql database
  */
 public class GroundDao {
 
-	private GroundDao() {
+	public GroundDao() {
 		// private constructor
 	}
 
@@ -33,9 +34,9 @@ public class GroundDao {
 	static Logger logger = new Logger();
 
 	/**
-	 * The AddGround Method insert ground details in the database
+	 * The AddGround Method insert ground details in the database.
 	 */
-	public static boolean addGround(Ground ground) throws DAOException, SQLException {
+	public  boolean addGround(Ground ground) throws DAOException, SQLException {
 
 		LocalTime startTime1 = ground.getStartTime();
 		Time startTimeTs1 = Time.valueOf(startTime1);
@@ -87,7 +88,7 @@ public class GroundDao {
 	/**
 	 * The UpdateGround Method Update ground details in the database
 	 */
-	public static boolean updateGround(Ground ground) throws DAOException, SQLException {
+	public  boolean updateGround(Ground ground) throws DAOException, SQLException {
 
 		/**
 		 * If the ground id is invalid
@@ -147,7 +148,7 @@ public class GroundDao {
 	 * The DeleteGround Method Delete ground details in the database
 	 */
 
-	public static boolean deleteGround(int groundId) throws DAOException, SQLException {
+	public  boolean deleteGround(int groundId) throws DAOException, SQLException {
 		/**
 		 * If the ground id is invalid
 		 */
@@ -182,7 +183,7 @@ public class GroundDao {
 	/**
 	 * The getAllGround Method get all ground details from the database
 	 */
-	public static boolean getAllGround() throws DAOException, SQLException {
+	public  boolean getAllGround() throws DAOException, SQLException {
 
 		List<Ground> groundList = new ArrayList<>();
 
