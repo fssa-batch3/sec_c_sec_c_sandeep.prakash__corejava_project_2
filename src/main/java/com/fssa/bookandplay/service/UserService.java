@@ -12,42 +12,46 @@ public class UserService {
 	public UserService() {
 		// private constructor
 	}
-	UserValidator ul=new UserValidator();
+
+	UserValidator ul = new UserValidator();
+	UserDao ud = new UserDao();
 
 	/**
 	 * The add user
 	 */
-	public  boolean addUserPlayer(User user) throws DAOException, SQLException {
+	public boolean addUserPlayer(User user) throws DAOException, SQLException {
 		if (ul.validateUserPlayer(user)) {
-			UserDao.addUser(user);
+			ud.addUser(user);
 		}
 		return true;
 
 	}
+
 	/**
 	 * The add user
 	 */
-	public  boolean addUserOnly(User user) throws DAOException, SQLException {
+	public boolean addUserOnly(User user) throws DAOException, SQLException {
 		if (ul.validateUser(user)) {
-			UserDao.addUser(user);
+			ud.addUser(user);
 		}
 		return true;
 
 	}
+
 	/**
 	 * The update user
 	 */
-	public  boolean updateUserPlayer(User user) throws DAOException, SQLException {
+	public boolean updateUserPlayer(User user) throws DAOException, SQLException {
 		if (ul.validateUserPlayer(user)) {
-			UserDao.updateUser(user);
+			ud.updateUser(user);
 		}
 		return true;
 
 	}
-	
-	public  boolean updateUserOnly(User user) throws DAOException, SQLException {
+
+	public boolean updateUserOnly(User user) throws DAOException, SQLException {
 		if (ul.validateUser(user)) {
-			UserDao.updateUser(user);
+			ud.updateUser(user);
 		}
 		return true;
 
@@ -56,8 +60,8 @@ public class UserService {
 	/**
 	 * The get the user details
 	 */
-	public  boolean getUserDetails() throws DAOException, SQLException {
-		UserDao.getAllUser();
+	public boolean getUserDetails() throws DAOException, SQLException {
+		ud.getAllUser();
 		return true;
 
 	}

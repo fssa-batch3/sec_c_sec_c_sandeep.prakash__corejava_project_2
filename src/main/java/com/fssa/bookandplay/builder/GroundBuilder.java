@@ -6,6 +6,7 @@ import java.util.List;
 import com.fssa.bookandplay.model.Ground;
 
 public class GroundBuilder {
+	
 	private int groundIdForBuilder;
 	private String groundNameForBuilder;
 	private String groundMainAreaForBuilder;
@@ -111,6 +112,7 @@ public class GroundBuilder {
         return ground;
     }
 	
+
 
 
 }

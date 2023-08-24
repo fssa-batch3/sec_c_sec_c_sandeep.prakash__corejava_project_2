@@ -175,7 +175,7 @@ public class UserValidator {
 		 * email regex pattern
 		 */
 		//
-		String regex = UserRegexPattern.USER_PASSWORD_REGEX;
+		String regex = UserRegexPattern.USER_PASS_REGEX;
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(password);
 		Boolean isMatch = matcher.matches();

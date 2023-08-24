@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.fssa.bookandplay.constants.GroundConstants;
 import com.fssa.bookandplay.errors.GroundValidatorsErrors;
 import com.fssa.bookandplay.exceptions.InvalidGroundDetailException;
 import com.fssa.bookandplay.model.Ground;
@@ -255,7 +256,7 @@ public class GroundValidator {
 		int minute = startTime.getMinute();
 		String amPm = startTime.format(DateTimeFormatter.ofPattern("a"));
 
-		if ((hour < 1 || hour > 12) || (minute < 0 || minute > 59)
+		if ((hour < GroundConstants.MIN_HOUR || hour > GroundConstants.MAX_HOUR ) || (minute < GroundConstants.MIN_MINUTE || minute > GroundConstants.MAX_MINUTE)
 				|| (!amPm.equalsIgnoreCase("am") && !amPm.equalsIgnoreCase("pm"))) {
 			throw new InvalidGroundDetailException(GroundValidatorsErrors.INVALID_STARTTIME_TYPE);
 		}
@@ -283,8 +284,8 @@ public class GroundValidator {
 		int minute = endTime.getMinute();
 		String amPm = endTime.format(DateTimeFormatter.ofPattern("a"));
 
-		if ((hour < 1 || hour > 12) || (minute < 0 || minute > 59)
-				|| (!amPm.equalsIgnoreCase("am") && !amPm.equalsIgnoreCase("pm"))) {
+		if ((hour < GroundConstants.MIN_HOUR || hour > GroundConstants.MAX_HOUR ) || (minute < GroundConstants.MIN_MINUTE || minute > GroundConstants.MAX_MINUTE)
+				|| (!amPm.equalsIgnoreCase("am") && !amPm.equalsIgnoreCase("pm"))){
 			throw new InvalidGroundDetailException(GroundValidatorsErrors.INVALID_ENDTIME_TYPE);
 		}
 
@@ -332,7 +333,7 @@ public class GroundValidator {
 		/**
 		 * groundprice should be greater than 150 and lesser than 2000.
 		 */
-		if (price >= 150 && price <= 2000) {
+		if (price >= GroundConstants.GROUND_MIN_PRICE && price <= GroundConstants.GROUND_MAX_PRICE) {
 			return true;
 		}
 		throw new InvalidGroundDetailException(GroundValidatorsErrors.INVALID_PRICE);
@@ -349,7 +350,7 @@ public class GroundValidator {
 		 * groundincreasingPriceForExtraHours should be greater than 150 and lesser than
 		 * 2000.
 		 */
-		if (increasingPriceForExtraHours >= 150 && increasingPriceForExtraHours <= 2000) {
+		if (increasingPriceForExtraHours >= GroundConstants.GROUND_MIN_INCREASEPRICE && increasingPriceForExtraHours <= GroundConstants.GROUND_MAX_INCREASEPRICE) {
 			return true;
 		}
 		throw new InvalidGroundDetailException(GroundValidatorsErrors.INVALID_INCREASE_PRICE);
@@ -365,8 +366,8 @@ public class GroundValidator {
 		 * groundcourtsAvailable should be within 6.
 		 */
 		// contain max 6
-		List<Integer> validOptions = List.of(1, 2, 3, 4, 5, 6);
-		if (!validOptions.contains(courtsAvailable)) {
+
+		 if (courtsAvailable < GroundConstants.MIN_COURTS_AVAILABLE || courtsAvailable > GroundConstants.MAX_COURTS_AVAILABLE)  {
 			throw new InvalidGroundDetailException(GroundValidatorsErrors.INVALID_COURTSAVAIL_TYPE);
 		}
 		return true;
@@ -379,7 +380,7 @@ public class GroundValidator {
 		/**
 		 * groundId should be greaterthan 1.
 		 */
-		if (groundId <= 0) {
+		if (groundId <= GroundConstants.INVALID_GROUNDID) {
 			throw new InvalidGroundDetailException(GroundValidatorsErrors.INVALID_PRODUCT_ID);
 
 		}

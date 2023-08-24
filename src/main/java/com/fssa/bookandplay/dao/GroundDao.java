@@ -36,7 +36,7 @@ public class GroundDao {
 	/**
 	 * The AddGround Method insert ground details in the database.
 	 */
-	public  boolean addGround(Ground ground) throws DAOException, SQLException {
+	public boolean addGround(Ground ground) throws DAOException, SQLException {
 
 		LocalTime startTime1 = ground.getStartTime();
 		Time startTimeTs1 = Time.valueOf(startTime1);
@@ -77,7 +77,7 @@ public class GroundDao {
 
 			}
 		} catch (SQLException e) {
-			
+
 			throw new DAOException(GroundDaoErrors.INSERT_GROUND_DETAILS_ERROR);
 		}
 
@@ -88,7 +88,7 @@ public class GroundDao {
 	/**
 	 * The UpdateGround Method Update ground details in the database
 	 */
-	public  boolean updateGround(Ground ground) throws DAOException, SQLException {
+	public boolean updateGround(Ground ground) throws DAOException, SQLException {
 
 		/**
 		 * If the ground id is invalid
@@ -136,7 +136,7 @@ public class GroundDao {
 
 			}
 		} catch (SQLException e) {
-			
+
 			throw new DAOException(GroundDaoErrors.UPDATE_GROUND_DETAILS_ERROR);
 		}
 
@@ -148,7 +148,7 @@ public class GroundDao {
 	 * The DeleteGround Method Delete ground details in the database
 	 */
 
-	public  boolean deleteGround(int groundId) throws DAOException, SQLException {
+	public boolean deleteGround(int groundId) throws DAOException, SQLException {
 		/**
 		 * If the ground id is invalid
 		 */
@@ -172,7 +172,7 @@ public class GroundDao {
 
 			}
 		} catch (SQLException e) {
-		
+
 			throw new DAOException(GroundDaoErrors.DELETE_GROUND_DETAILS_ERROR);
 		}
 
@@ -183,7 +183,7 @@ public class GroundDao {
 	/**
 	 * The getAllGround Method get all ground details from the database
 	 */
-	public  boolean getAllGround() throws DAOException, SQLException {
+	public List<Ground> getAllGround() throws DAOException, SQLException {
 
 		List<Ground> groundList = new ArrayList<>();
 
@@ -239,17 +239,7 @@ public class GroundDao {
 						} else {
 							ground.setSportsAvailable(new ArrayList<>());
 						}
-						logger.info(rs.getString("groundName"));
-						logger.info(rs.getString("groundMainArea"));
-						logger.info(rs.getString("groundAddress"));
-						logger.info(rs.getString("groundLocationLink"));
-						logger.info(rs.getString("district"));
-						logger.info(rs.getTime("startTime"));
-						logger.info(rs.getTime("endTime"));
-						logger.info(rs.getString("groundRules"));
-						logger.info(rs.getDouble("price"));
-						logger.info(rs.getDouble("increasingPriceForExtraHours"));
-						logger.info(rs.getInt("courtsAvailable"));
+
 						// add ground object
 						groundList.add(ground);
 					}
@@ -262,7 +252,7 @@ public class GroundDao {
 			throw new DAOException(GroundDaoErrors.READ_GROUND_DETAILS_ERROR);
 		}
 
-		return true;
+		return groundList;
 	}
 
 }

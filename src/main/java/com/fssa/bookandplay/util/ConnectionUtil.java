@@ -10,60 +10,57 @@ import java.sql.Statement;
 
 import com.fssa.bookandplay.exceptions.DAOException;
 
-import io.github.cdimascio.dotenv.Dotenv;
 /**
- * The ConnectionUtil Class has a method  get connection which help to connect  with database
+ * The ConnectionUtil Class has a method get connection which help to connect
+ * with database
  */
 public class ConnectionUtil {
-	
+
 	private ConnectionUtil() {
-	// private constructor
+		// private constructor
 	}
+
 	/**
 	 * Creating a Logger Class For Display Message
-	 * @throws DAOException 
+	 * 
+	 * @throws DAOException
 	 */
 	static Logger logger = new Logger();
-	public static Connection getConnection()  {
-        Connection con = null;
 
-        String url;
-        String userName;
-        String passWord;
+	public static Connection getConnection() {
+		Connection con = null;
 
-        if (System.getenv("CI") != null) {
-            url = System.getenv("DATABASE_HOST");
-            userName = System.getenv("DATABASE_USERNAME");
-            passWord = System.getenv("DATABASE_PASSWORD");
-            
-        } else {
-            Dotenv env = Dotenv.load();
-            url = env.get("DATABASE_HOST");
-            userName = env.get("DATABASE_USERNAME");
-            passWord = env.get("DATABASE_PASSWORD");
-        }
+		String url;
+		String userName;
+		String passWord;
 
-        try {
-    
-            con = DriverManager.getConnection(url, userName, passWord);
-           logger.info("connected");
-        } catch (Exception e) {
-            throw new RuntimeException("Unable to connect to the database");
-        }
-        
-        return con;
-    }
-	public static void close(Connection conn, Statement stmt, ResultSet rs,PreparedStatement ps,CallableStatement cs) throws DAOException {
+		url = System.getenv("DATABASE_HOST");
+		userName = System.getenv("DATABASE_USERNAME");
+		passWord = System.getenv("DATABASE_PASSWORD");
 
 		try {
-		
+
+			con = DriverManager.getConnection(url, userName, passWord);
+			logger.info("connected");
+		} catch (Exception e) {
+			throw new RuntimeException("Unable to connect to the database");
+		}
+
+		return con;
+	}
+
+	public static void close(Connection conn, Statement stmt, ResultSet rs, PreparedStatement ps, CallableStatement cs)
+			throws DAOException {
+
+		try {
+
 			if (rs != null) {
 				rs.close();
 			}
-			if(cs!=null) {
+			if (cs != null) {
 				cs.close();
 			}
-			if(ps!=null) {
+			if (ps != null) {
 				ps.close();
 			}
 			if (stmt != null) {
@@ -73,14 +70,12 @@ public class ConnectionUtil {
 				conn.close();
 			}
 		} catch (SQLException e) {
-			throw new  DAOException("Unable to close to the database");
+			throw new DAOException("Unable to close to the database");
 			/**
-			 *  No need re throw the exception.
+			 * No need re throw the exception.
 			 */
-		
+
 		}
 	}
-
-
 
 }

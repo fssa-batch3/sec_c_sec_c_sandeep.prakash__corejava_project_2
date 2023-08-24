@@ -35,7 +35,7 @@ class TestGroundService {
 	@Test
 	void testDeleteGround() throws DAOException, SQLException {
 
-		Assertions.assertTrue(groundService.deleteGround(37));
+		Assertions.assertTrue(groundService.deleteGround(114));
 
 	}
 
@@ -46,8 +46,8 @@ class TestGroundService {
 			LocalTime endTime = LocalTime.of(11, 30);   // 5:00 PM
 			//Ground ground=new Ground(1,"samplename", "samplemainarea", "sampleaddress", "http://google.com", "sampledistrict", validImages, validsports, startTime, endTime, "samplerules", 200, 200, 3);
 			Ground ground1=new GroundBuilder()
-					.groundIdBuild(1)
-				  	  .groundNameBuild("ExampleGround")
+					.groundIdBuild(29)
+				  	  .groundNameBuild("Dns ground")
 				    .groundMainAreaBuild("Main Area")
 				    .groundAddressBuild("123ExampleStreet")
 				    .groundLocationLinkBuild("https://maps.example.com")
@@ -56,7 +56,7 @@ class TestGroundService {
 				    .sportsAvailableBuild(validsports)
 				    .startTimeBuild(startTime)
 				    .endTimeBuild(endTime)
-				    .groundRulesBuild("Nosmokingallowed")
+				    .groundRulesBuild("Nosmokingallowed")// TODO increase the length size
 				    .priceBuild(170)
 				    .increasingPriceForExtraHoursBuild(200)
 				    .courtsAvailableBuild(2)

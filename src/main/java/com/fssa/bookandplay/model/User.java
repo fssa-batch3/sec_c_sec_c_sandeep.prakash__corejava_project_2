@@ -1,6 +1,7 @@
 package com.fssa.bookandplay.model;
 
 import java.time.LocalTime;
+
 import java.util.List;
 
 public class User {

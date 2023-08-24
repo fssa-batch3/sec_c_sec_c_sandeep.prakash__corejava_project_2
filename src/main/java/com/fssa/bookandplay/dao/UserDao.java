@@ -24,11 +24,11 @@ import com.fssa.bookandplay.util.Logger;
 
 public class UserDao {
 
-	private UserDao() {
+	public UserDao() {
 		// private constructor
 	}
 
-	public static String hashPassword(String password) throws InvalidUserDetailException {
+	public  String hashPassword(String password) throws InvalidUserDetailException {
 		try {
 			MessageDigest md = MessageDigest.getInstance("SHA-256");
 			byte[] hashBytes = md.digest(password.getBytes(StandardCharsets.UTF_8));
@@ -54,7 +54,7 @@ public class UserDao {
 	/**
 	 * The AddGround Method insert ground details in the database.
 	 */
-	public static boolean addUser(User user) throws DAOException, SQLException {
+	public  boolean addUser(User user) throws DAOException, SQLException {
 
 		LocalTime startTime1 = user.getTimingAvailFrom();
 		Time startTimeTs1;
@@ -124,7 +124,7 @@ public class UserDao {
 	/**
 	 * The AddGround Method insert ground details in the database.
 	 */
-	public static boolean updateUser(User user) throws DAOException, SQLException {
+	public  boolean updateUser(User user) throws DAOException, SQLException {
 
 		/**
 		 * If the ground id is invalid
@@ -199,7 +199,7 @@ public class UserDao {
 	/**
 	 * The getAllGround Method get all ground details from the database
 	 */
-	public static boolean getAllUser() throws DAOException, SQLException {
+	public  boolean getAllUser() throws DAOException, SQLException {
 
 		List<User> userList = new ArrayList<>();
 
