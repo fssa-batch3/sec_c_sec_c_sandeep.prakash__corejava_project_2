@@ -24,7 +24,7 @@ import com.fssa.bookandplay.util.Logger;
 		LocalTime startTime = LocalTime.of(10, 30); // 10:00 AM
 		LocalTime endTime = LocalTime.of(11, 30); // 5:00 PM
 	 User user1 = new UserBuilder().userIdBuild(1).firstNameBuild("sandeep").lastNameBuild("sand")
-				.emailBuild("sandeepdon@gmail.com").phoneNumberBuild(9922920022l).passwordBuild("sand@U2208892*7")
+				.emailBuild("sandeepsadendon@gmail.com").phoneNumberBuild(9922920022l).passwordBuild("sand@U2208892*7")
 				.playerStatusBuild(true)
 				.ageBuild(27).genderBuild("male").knownSportsBuild(validsports)
 				.locationBuild("chennai").timingAvailFromBuild(startTime).timingAvailToBuild(endTime)
@@ -37,7 +37,7 @@ import com.fssa.bookandplay.util.Logger;
 User getUserOnly() {
 
  User user1 = new UserBuilder().userIdBuild(1).firstNameBuild("sandeep").lastNameBuild("sand")
-			.emailBuild("sandeep@gmail.com").phoneNumberBuild(9822920022l).passwordBuild("sand@U2208892*7")
+			.emailBuild("sandeesnsmdop@gmail.com").phoneNumberBuild(9822920022l).passwordBuild("sand@U2208892*7")
 			.playerStatusBuild(false)
 			.imageBuilder("https://example.com/image1.jpg").build();
 return user1;

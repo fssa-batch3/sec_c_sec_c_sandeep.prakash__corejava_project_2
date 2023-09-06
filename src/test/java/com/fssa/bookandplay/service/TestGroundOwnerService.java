@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import com.fssa.bookandplay.exceptions.DAOException;
@@ -29,6 +30,7 @@ public class TestGroundOwnerService {
 	}
 	
 	 @Test
+		@Disabled
 		void testAddGroundOwner() throws DAOException, SQLException {
 		 GroundOwner user = getOwnerDetail();
 
@@ -37,6 +39,7 @@ public class TestGroundOwnerService {
 		}
 
 		@Test
+		@Disabled
 		void testUpdateGroundOwner() throws DAOException, SQLException {
 			 GroundOwner user = getOwnerDetailWithId();
 

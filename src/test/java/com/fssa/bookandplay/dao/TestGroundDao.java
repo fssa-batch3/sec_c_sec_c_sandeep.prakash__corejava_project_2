@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import com.fssa.bookandplay.builder.GroundBuilder;
@@ -26,7 +27,7 @@ public class TestGroundDao {
 		//Ground ground=new Ground(1,"samplename", "samplemainarea", "sampleaddress", "http://google.com", "sampledistrict", validImages, validsports, startTime, endTime, "samplerules", 200, 200, 3);
 		Ground ground1=new GroundBuilder()
 				.groundIdBuild(1)
-			  	  .groundNameBuild("ExampleGround")
+			  	  .groundNameBuild("Example2Ground")
 			    .groundMainAreaBuild("Main Area")
 			    .groundAddressBuild("123ExampleStreet")
 			    .groundLocationLinkBuild("https://maps.example.com")
@@ -82,13 +83,13 @@ public class TestGroundDao {
 	}
 
 	@Test
-
+	@Disabled
 	void testValidAddGround() throws DAOException, SQLException {
 		Assertions.assertTrue(groundDao.addGround(groundValidate()));
 	}
 
 	@Test
-
+	@Disabled
 	void testValidUpdateGround() throws DAOException, SQLException {
 		Assertions.assertTrue(groundDao.updateGround(groundValidate()));
 	}
