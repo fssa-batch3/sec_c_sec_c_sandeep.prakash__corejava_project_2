@@ -12,9 +12,11 @@ import org.junit.jupiter.api.Test;
 import com.fssa.bookandplay.builder.UserBuilder;
 import com.fssa.bookandplay.exceptions.DAOException;
 import com.fssa.bookandplay.model.Ground;
+import com.fssa.bookandplay.model.GroundOwner;
 import com.fssa.bookandplay.model.User;
+import com.fssa.bookandplay.util.Logger;
  class TestUserService {
-
+	 static Logger logger = new Logger();
 	 UserService userService=new UserService();
 	 
  User getUser() {
@@ -22,12 +24,12 @@ import com.fssa.bookandplay.model.User;
 		LocalTime startTime = LocalTime.of(10, 30); // 10:00 AM
 		LocalTime endTime = LocalTime.of(11, 30); // 5:00 PM
 	 User user1 = new UserBuilder().userIdBuild(1).firstNameBuild("sandeep").lastNameBuild("sand")
-				.emailBuild("sandeep@gmail.com").phoneNumberBuild("9922920022").passwordBuild("sand@U2208892*7")
+				.emailBuild("sandeepdon@gmail.com").phoneNumberBuild(9922920022l).passwordBuild("sand@U2208892*7")
 				.playerStatusBuild(true)
-				.displayNameBuid("sandeep").ageBuild(27).genderBuild("male").knownSportsBuild(validsports)
+				.ageBuild(27).genderBuild("male").knownSportsBuild(validsports)
 				.locationBuild("chennai").timingAvailFromBuild(startTime).timingAvailToBuild(endTime)
 				.aboutBuilder("HelloWorld").imageBuilder("https://example.com/image1.jpg").build();
-return user1;
+         return user1;
 	 }
  
  
@@ -35,7 +37,7 @@ return user1;
 User getUserOnly() {
 
  User user1 = new UserBuilder().userIdBuild(1).firstNameBuild("sandeep").lastNameBuild("sand")
-			.emailBuild("sandeep@gmail.com").phoneNumberBuild("9922920022").passwordBuild("sand@U2208892*7")
+			.emailBuild("sandeep@gmail.com").phoneNumberBuild(9822920022l).passwordBuild("sand@U2208892*7")
 			.playerStatusBuild(false)
 			.imageBuilder("https://example.com/image1.jpg").build();
 return user1;
@@ -83,4 +85,14 @@ return user1;
 		}
 	 
 	 
+		
+		@Test
+		void testGetUseremailpass() throws DAOException, SQLException {
+
+			User user=userService.getUseremailpass("sandeuyup@gmailcom","sand@U2208892*7");
+	
+				logger.info( user);
+				
+			
+		}
 }

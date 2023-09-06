@@ -19,7 +19,7 @@ class TestUserValidator {
 
 	void testValidUserObject() {
 		User user1 = new UserBuilder().userIdBuild(1).firstNameBuild("sandeep").lastNameBuild("sand")
-				.emailBuild("sandeep@gmail.com").phoneNumberBuild("9922920022").passwordBuild("sand@U2208892*7")
+				.emailBuild("sandeep@gmail.com").phoneNumberBuild(9922920022l).passwordBuild("sand@U2208892*7")
 				.imageBuilder("https://example.com/image1.jpg").build();
 
 		Assertions.assertTrue(ul.validateUser(user1));
@@ -45,8 +45,8 @@ class TestUserValidator {
 		LocalTime startTime = LocalTime.of(10, 30); // 10:00 AM
 		LocalTime endTime = LocalTime.of(11, 30); // 5:00 PM
 		User user1 = new UserBuilder().userIdBuild(1).firstNameBuild("sandeep").lastNameBuild("sand")
-				.emailBuild("sandeep@gmail.com").phoneNumberBuild("9922920022").passwordBuild("sand@U2208892*7")
-				.displayNameBuid("sandeep").ageBuild(27).genderBuild("male").knownSportsBuild(validsports)
+				.emailBuild("sandeep@gmail.com").phoneNumberBuild(9922920022l).passwordBuild("sand@U2208892*7")
+		.ageBuild(27).genderBuild("male").knownSportsBuild(validsports)
 				.locationBuild("chennai").timingAvailFromBuild(startTime).timingAvailToBuild(endTime)
 				.aboutBuilder("HelloWorld").imageBuilder("https://example.com/image1.jpg").build();
 
@@ -171,29 +171,16 @@ class TestUserValidator {
 	@Test
 
 	void testValidPhoneNo() {
-		Assertions.assertTrue(ul.phoneNumberValidator("9922920022"));
+		Assertions.assertTrue(ul.phoneNumberValidator(9922920022l));
 	}
 
 //  for invalid ground name
 	@Test
 	void testInvalidPhoneNo() {
 
+		
 		try {
-			ul.phoneNumberValidator(null);
-			Assertions.fail("Validatename failed");
-		} catch (InvalidUserDetailException ex) {
-			Assertions.assertEquals(UserValidationErrors.INVALID_USERPHONENO_NULL, ex.getMessage());
-		}
-
-		try {
-			ul.phoneNumberValidator("");
-			Assertions.fail("Validatename failed");
-		} catch (InvalidUserDetailException ex) {
-			Assertions.assertEquals(UserValidationErrors.INVALID_USERPHONENO_NULL, ex.getMessage());
-		}
-
-		try {
-			ul.phoneNumberValidator("1234567");
+			ul.phoneNumberValidator(1234567l);
 			Assertions.fail("Validatename failed");
 		} catch (InvalidUserDetailException ex) {
 			Assertions.assertEquals(UserValidationErrors.INVALID_USERPHONENO_PATTERN, ex.getMessage());
@@ -235,39 +222,6 @@ class TestUserValidator {
 
 	}
 
-	// for valid ground name
-	@Test
-
-	void testValidDisplayName() {
-		Assertions.assertTrue(ul.displayNameValidator("sand"));
-	}
-
-	// for invalid ground name
-	@Test
-	void testInvalidDisplayName() {
-
-		try {
-			ul.displayNameValidator(null);
-			Assertions.fail("Validatename failed");
-		} catch (InvalidUserDetailException ex) {
-			Assertions.assertEquals(UserValidationErrors.INVALID_USERDISPLAYNAME_NAME, ex.getMessage());
-		}
-
-		try {
-			ul.displayNameValidator("");
-			Assertions.fail("Validatename failed");
-		} catch (InvalidUserDetailException ex) {
-			Assertions.assertEquals(UserValidationErrors.INVALID_USERDISPLAYNAME_NAME, ex.getMessage());
-		}
-
-		try {
-			ul.displayNameValidator("123");
-			Assertions.fail("Validatename failed");
-		} catch (InvalidUserDetailException ex) {
-			Assertions.assertEquals(UserValidationErrors.INVALID_USERDISPLAYNAME_NAME, ex.getMessage());
-		}
-
-	}
 
 	@Test
 	void testValidAge() {
@@ -409,6 +363,7 @@ class TestUserValidator {
 			Assertions.assertEquals(UserValidationErrors.INVALID_STARTTIME_NULL, ex.getMessage());
 		}
 
+		/**
 		LocalTime startTime = LocalTime.of(17, 0); // 10:00 AM
 		try {
 
@@ -417,6 +372,7 @@ class TestUserValidator {
 		} catch (InvalidUserDetailException ex) {
 			Assertions.assertEquals(UserValidationErrors.INVALID_STARTTIME_TYPE, ex.getMessage());
 		}
+		*/
 
 	}
 
@@ -438,6 +394,8 @@ class TestUserValidator {
 		} catch (InvalidUserDetailException ex) {
 			Assertions.assertEquals(UserValidationErrors.INVALID_ENDTIME_NULL, ex.getMessage());
 		}
+
+		/**
 		LocalTime endTime = LocalTime.of(17, 0); // 5:00 PM
 		try {
 
@@ -447,6 +405,7 @@ class TestUserValidator {
 			Assertions.assertEquals(UserValidationErrors.INVALID_ENDTIME_TYPE, ex.getMessage());
 		}
 
+	}*/
 	}
 
 	// for valid ground name

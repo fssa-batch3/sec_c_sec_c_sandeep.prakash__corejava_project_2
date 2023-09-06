@@ -4,15 +4,16 @@ import java.time.LocalTime;
 
 import java.util.List;
 
+
 public class User {
 	private int userId;
 	private String firstName;
 	private String lastName;
 	private String email;
-	private String phoneNumber;
+	private long phoneNumber;
 	private String password;
 	private boolean playerStatus;
-    private String displayName;
+   // private String displayName;
     private int age;
     private String gender;
     private List<String> knownSports;
@@ -23,6 +24,15 @@ public class User {
     private String image;
     
 
+
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+				+ ", phoneNumber=" + phoneNumber + ", password=" + password + ", playerStatus=" + playerStatus
+				+ ", age=" + age + ", gender=" + gender + ", knownSports=" + knownSports + ", location=" + location
+				+ ", timingAvailFrom=" + timingAvailFrom + ", timingAvailTo=" + timingAvailTo + ", about=" + about
+				+ ", image=" + image + "]";
+	}
 	public int getUserId() {
 		return userId;
 	}
@@ -47,10 +57,10 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getPhoneNumber() {
+	public long getPhoneNumber() {
 		return phoneNumber;
 	}
-	public void setPhoneNumber(String phoneNumber) {
+	public void setPhoneNumber(long phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 	public String getPassword() {
@@ -65,12 +75,7 @@ public class User {
 	public void setPlayerStatus(boolean playerStatus) {
 		this.playerStatus = playerStatus;
 	}
-	public String getDisplayName() {
-		return displayName;
-	}
-	public void setDisplayName(String displayName) {
-		this.displayName = displayName;
-	}
+
 	public int getAge() {
 		return age;
 	}

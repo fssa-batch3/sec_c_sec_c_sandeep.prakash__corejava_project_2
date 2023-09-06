@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.fssa.bookandplay.constants.UserConstants;
 import com.fssa.bookandplay.errors.UserValidationErrors;
 
 import com.fssa.bookandplay.exceptions.InvalidUserDetailException;
@@ -29,7 +30,7 @@ public class UserValidator {
 		emailValidator(user.getEmail());
 		phoneNumberValidator(user.getPhoneNumber());
 		passwordValidator(user.getPassword());
-		displayNameValidator(user.getDisplayName());
+	//	displayNameValidator(user.getDisplayName());
 		ageValidator(user.getAge());
 		genderValidator(user.getGender());
 		sportsKnownValidator(user.getKnownSports());
@@ -139,20 +140,19 @@ public class UserValidator {
 
 	}
 
-	public boolean phoneNumberValidator(String phoneNumber) throws InvalidUserDetailException {
+	public boolean phoneNumberValidator(long phoneNumber) throws InvalidUserDetailException {
 		/**
 		 * firstName null and empty string check
 		 */
-		if (phoneNumber == null || "".equals(phoneNumber.trim())) {
-			throw new InvalidUserDetailException(UserValidationErrors.INVALID_USERPHONENO_NULL);
-		}
+	
 		/**
 		 * email regex pattern
 		 */
 		//
 		String regex = UserRegexPattern.USER_PHONENUMBER_REGEX;
 		Pattern pattern = Pattern.compile(regex);
-		Matcher matcher = pattern.matcher(phoneNumber);
+		String numberStr = String.valueOf(phoneNumber);
+		Matcher matcher = pattern.matcher(numberStr);
 		Boolean isMatch = matcher.matches();
 
 		if (Boolean.FALSE.equals(isMatch)) {
@@ -192,33 +192,9 @@ public class UserValidator {
 	/**
 	 * UserFirstname Validator
 	 */
-	public boolean displayNameValidator(String displayName) throws InvalidUserDetailException {
-		/**
-		 * firstName null and empty string check
-		 */
-		if (displayName == null || "".equals(displayName.trim())) {
-			throw new InvalidUserDetailException(UserValidationErrors.INVALID_USERDISPLAYNAME_NAME);
-		}
-		/**
-		 * firstName regex pattern minimum 2 charcter and max 35 charcter
-		 */
-		//
-		String nameregex = UserRegexPattern.USER_NAME_REGEX;
-		Pattern pattern = Pattern.compile(nameregex);
-		Matcher matcher = pattern.matcher(displayName);
-		Boolean isMatch = matcher.matches();
-
-		if (Boolean.FALSE.equals(isMatch)) {
-			throw new InvalidUserDetailException(UserValidationErrors.INVALID_USERDISPLAYNAME_NAME);
-
-		}
-
-		return true;
-
-	}
-
+	
 	public boolean ageValidator(int age) throws InvalidUserDetailException {
-		// Assuming its a College Student with age range of
+
 		// 17 to 20
 		if (age >= 10 && age <= 90) {
 			return true;
@@ -323,10 +299,8 @@ public class UserValidator {
 		 */
 		int hour = startTime.getHour();
 		int minute = startTime.getMinute();
-		String amPm = startTime.format(DateTimeFormatter.ofPattern("a"));
 
-		if ((hour < 1 || hour > 12) || (minute < 0 || minute > 59)
-				|| (!amPm.equalsIgnoreCase("am") && !amPm.equalsIgnoreCase("pm"))) {
+		if ((hour < UserConstants.MIN_HOUR || hour > UserConstants.MAX_HOUR) || (minute < UserConstants.MIN_MINUTE || minute > UserConstants.MAX_MINUTE)) {
 			throw new InvalidUserDetailException(UserValidationErrors.INVALID_STARTTIME_TYPE);
 		}
 
@@ -351,10 +325,9 @@ public class UserValidator {
 
 		int hour = endTime.getHour();
 		int minute = endTime.getMinute();
-		String amPm = endTime.format(DateTimeFormatter.ofPattern("a"));
 
-		if ((hour < 1 || hour > 12) || (minute < 0 || minute > 59)
-				|| (!amPm.equalsIgnoreCase("am") && !amPm.equalsIgnoreCase("pm"))) {
+
+		if ((hour < UserConstants.MIN_HOUR || hour > UserConstants.MAX_HOUR) || (minute < UserConstants.MIN_MINUTE || minute > UserConstants.MAX_MINUTE)) {
 			throw new InvalidUserDetailException(UserValidationErrors.INVALID_ENDTIME_TYPE);
 		}
 
@@ -427,7 +400,7 @@ public class UserValidator {
 		/**
 		 * groundId should be greaterthan 1.
 		 */
-		if (userId <= 0) {
+		if (userId <= UserConstants.INVALID_USERID) {
 			throw new InvalidUserDetailException(UserValidationErrors.INVALID_USER_ID);
 
 		}
@@ -435,4 +408,5 @@ public class UserValidator {
 
 	}
 
+	
 }

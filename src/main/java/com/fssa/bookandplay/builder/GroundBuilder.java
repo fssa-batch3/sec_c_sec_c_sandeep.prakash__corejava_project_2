@@ -21,6 +21,7 @@ public class GroundBuilder {
 	private double priceForBuilder;
 	private double increasingPriceForExtraHoursForBuilder;
 	private int courtsAvailableForBuilder;
+	private int groundOwnerIdForBuilder;
 
 	public GroundBuilder groundIdBuild(int groundIdForBuilder) {
 		this.groundIdForBuilder=groundIdForBuilder;
@@ -91,6 +92,11 @@ public class GroundBuilder {
 		this.courtsAvailableForBuilder = courtsAvailableForBuilder;
 		return this;
 	}
+	
+	public GroundBuilder groundOwnerIdBuild(int groundOwnerIdForBuilder) {
+		this.groundOwnerIdForBuilder = groundOwnerIdForBuilder;
+		return this;
+	}
 
 	public Ground build() {
         Ground ground = new Ground();
@@ -108,6 +114,7 @@ public class GroundBuilder {
         ground.setPrice(priceForBuilder);
         ground.setIncreasingPriceForExtraHours(increasingPriceForExtraHoursForBuilder);
         ground.setCourtsAvailable(courtsAvailableForBuilder);
+        ground.setGroundOwnerId(groundOwnerIdForBuilder);
         
         return ground;
     }

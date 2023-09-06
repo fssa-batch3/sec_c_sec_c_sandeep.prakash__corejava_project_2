@@ -12,6 +12,16 @@ import java.util.List;
  */
 
 public class Ground {
+	@Override
+	public String toString() {
+		return "Ground [groundId=" + groundId + ", groundName=" + groundName + ", groundMainArea=" + groundMainArea
+				+ ", groundAddress=" + groundAddress + ", groundLocationLink=" + groundLocationLink + ", district="
+				+ district + ", groundImages=" + groundImages + ", sportsAvailable=" + sportsAvailable + ", startTime="
+				+ startTime + ", endTime=" + endTime + ", groundRules=" + groundRules + ", price=" + price
+				+ ", increasingPriceForExtraHours=" + increasingPriceForExtraHours + ", courtsAvailable="
+				+ courtsAvailable + "]";
+	}
+
 	private int groundId;
 	private String groundName;
 	private String groundMainArea;
@@ -26,6 +36,7 @@ public class Ground {
 	private double price;
 	private double increasingPriceForExtraHours;
 	private int courtsAvailable;
+	private int groundOwnerId;
 	
 	
 
@@ -64,6 +75,8 @@ public class Ground {
 	 */
 
 	
+
+
 	/**
 	public Ground(int groundId, String groundName, String groundMainArea, String groundAddress,
 			String groundLocationLink, String district, List<String> groundImages, List<String> sportsAvailable,
@@ -215,6 +228,15 @@ public class Ground {
 
 	public void setCourtsAvailable(int courtsAvailable) {
 		this.courtsAvailable = courtsAvailable;
+	}
+	
+	
+	public int getGroundOwnerId() {
+		return groundOwnerId;
+	}
+
+	public void setGroundOwnerId(int groundOwnerId) {
+		this.groundOwnerId = groundOwnerId;
 	}
 
 }

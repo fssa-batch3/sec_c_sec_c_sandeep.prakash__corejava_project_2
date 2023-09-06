@@ -34,7 +34,7 @@ public class GroundValidatorsErrors {
 	/**
 	 * Error message when the address does not meet the length requirements.
 	 */
-	public static final String INVALID_ADDRESS_TYPE = "The address should be  minimum 10 letters and maximum 150 letters";
+	public static final String INVALID_ADDRESS_TYPE = "The ground address should be  minimum 10 letters and maximum 150 letters";
 	/**
 	 * Error message when the location field is empty or null.
 	 */

@@ -4,6 +4,7 @@ import java.sql.SQLException;
 
 import com.fssa.bookandplay.dao.UserDao;
 import com.fssa.bookandplay.exceptions.DAOException;
+import com.fssa.bookandplay.model.GroundOwner;
 import com.fssa.bookandplay.model.User;
 import com.fssa.bookandplay.validator.UserValidator;
 
@@ -20,10 +21,11 @@ public class UserService {
 	 * The add user
 	 */
 	public boolean addUserPlayer(User user) throws DAOException, SQLException {
-		if (ul.validateUserPlayer(user)) {
+		if (ul.validateUserPlayer(user)&& !ud.isUserEmailExist(user.getEmail())) {
 			ud.addUser(user);
+			return true;
 		}
-		return true;
+	return false;
 
 	}
 
@@ -31,10 +33,11 @@ public class UserService {
 	 * The add user
 	 */
 	public boolean addUserOnly(User user) throws DAOException, SQLException {
-		if (ul.validateUser(user)) {
+		if (ul.validateUser(user)&& !ud.isUserEmailExist(user.getEmail())) {
 			ud.addUser(user);
+			return true;
 		}
-		return true;
+		return false;
 
 	}
 
@@ -65,4 +68,13 @@ public class UserService {
 		return true;
 
 	}
+	
+	
+	
+	public User getUseremailpass(String email, String password) throws DAOException, SQLException {
+
+		return 	ud.getUserByEmailAndPassword(email, password);
+
+	}
+	
 }

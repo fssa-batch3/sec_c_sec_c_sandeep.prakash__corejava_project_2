@@ -10,10 +10,10 @@ public class UserBuilder {
 	private String firstNameForBuilder;
 	private String lastNameForBuilder;
 	private String emailForBuilder;
-	private String phoneNumberForBuilder;
+	private long phoneNumberForBuilder;
 	private String passwordForBuilder;
 	private boolean playerStatusForBuilder;
-    private String displayNameForBuilder;
+    //private String displayNameForBuilder;
     private int ageForBuilder;
     private String genderForBuilder;
     private List<String> knownSportsForBuilder;
@@ -43,7 +43,7 @@ public class UserBuilder {
 		return this;
 	}
 
-	public UserBuilder phoneNumberBuild(String phoneNumberForBuilder) {
+	public UserBuilder phoneNumberBuild(long phoneNumberForBuilder) {
 		this.phoneNumberForBuilder = phoneNumberForBuilder;
 		return this;
 	}
@@ -58,10 +58,7 @@ public class UserBuilder {
 		return this;
 	}
 	
-	public UserBuilder displayNameBuid(String displayNameForBuilder) {
-		this.displayNameForBuilder =displayNameForBuilder;
-		return this;
-	}
+
 	
     public UserBuilder ageBuild(int ageForBuilder) {
 		this.ageForBuilder=ageForBuilder;
@@ -110,7 +107,7 @@ public class UserBuilder {
 		user.setPhoneNumber(phoneNumberForBuilder);
 		user.setPassword(passwordForBuilder);
 		user.setPlayerStatus(playerStatusForBuilder);
-		user.setDisplayName(displayNameForBuilder);
+		
 		user.setAge(ageForBuilder);
 		user.setGender(genderForBuilder);
 		user.setKnownSports(knownSportsForBuilder);

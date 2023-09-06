@@ -19,4 +19,8 @@ public class UserDaoErrors {
 	 * While Getting the all GroundDetails From the database
 	 */
 	public static final String READ_USER_DETAILS_ERROR = "Error getting User data";
+	
+	
+	public static final String READ_USER_EMAIL_ERROR = "Invalid password. Please check your password and try again.";
+	public static final String READ_USER_PASSWORD_ERROR = "User not found with the provided email.";
 }

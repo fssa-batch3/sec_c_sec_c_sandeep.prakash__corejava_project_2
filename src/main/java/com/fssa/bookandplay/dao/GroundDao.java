@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.fssa.bookandplay.errors.GroundDaoErrors;
+import com.fssa.bookandplay.errors.GroundOwnerDaoErrors;
 import com.fssa.bookandplay.errors.GroundValidatorsErrors;
 import com.fssa.bookandplay.exceptions.DAOException;
 import com.fssa.bookandplay.exceptions.InvalidGroundDetailException;
@@ -47,7 +48,7 @@ public class GroundDao {
 		/**
 		 * The Query for calling insertground from sql
 		 */
-		String storedProcedureCall = "{call InsertGround(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)}";
+		String storedProcedureCall = "{call InsertGround(?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?,?)}";
 
 		/**
 		 * Getting the ground details and inserting in sql
@@ -65,14 +66,15 @@ public class GroundDao {
 				callableStatement.setTime(7, endTimeTs1);
 				callableStatement.setString(8, ground.getGroundRules());
 				callableStatement.setDouble(9, ground.getPrice());
-				callableStatement.setDouble(10, ground.getIncreasingPriceForExtraHours());
-				callableStatement.setInt(11, ground.getCourtsAvailable());
+				callableStatement.setInt(10, ground.getGroundOwnerId());
+				callableStatement.setDouble(11, ground.getIncreasingPriceForExtraHours());
+				callableStatement.setInt(12, ground.getCourtsAvailable());
 
 				String groundImagesStr = String.join(",", ground.getGroundImages());
 				String sportsAvailableStr = String.join(",", ground.getSportsAvailable());
 
-				callableStatement.setString(12, groundImagesStr);
-				callableStatement.setString(13, sportsAvailableStr);
+				callableStatement.setString(13, groundImagesStr);
+				callableStatement.setString(14, sportsAvailableStr);
 				callableStatement.execute();
 
 			}
@@ -108,7 +110,7 @@ public class GroundDao {
 		 * The Query for calling UpdateGround from sql
 		 */
 
-		String storedProcedureCall = "{call UpdateGround(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)}";
+		String storedProcedureCall = "{call UpdateGround(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
 
 		try (Connection con = ConnectionUtil.getConnection()) {
 			try (CallableStatement callableStatement2 = con.prepareCall(storedProcedureCall)) {
@@ -117,20 +119,18 @@ public class GroundDao {
 				callableStatement2.setString(2, ground.getGroundName());
 				callableStatement2.setString(3, ground.getGroundMainArea());
 				callableStatement2.setString(4, ground.getGroundAddress());
-				callableStatement2.setString(5, ground.getGroundLocationLink());
-				callableStatement2.setString(6, ground.getDistrict());
-				callableStatement2.setTime(7, startTimeTs2);
-				callableStatement2.setTime(8, endTimeTs2);
-				callableStatement2.setString(9, ground.getGroundRules());
-				callableStatement2.setDouble(10, ground.getPrice());
-				callableStatement2.setDouble(11, ground.getIncreasingPriceForExtraHours());
-				callableStatement2.setInt(12, ground.getCourtsAvailable());
+				callableStatement2.setTime(5, startTimeTs2);
+				callableStatement2.setTime(6, endTimeTs2);
+				callableStatement2.setString(7, ground.getGroundRules());
+				callableStatement2.setDouble(8, ground.getPrice());
+				callableStatement2.setDouble(9, ground.getIncreasingPriceForExtraHours());
+				callableStatement2.setInt(10, ground.getCourtsAvailable());
 
 				String groundImagesStr = String.join(",", ground.getGroundImages());
 				String sportsAvailableStr = String.join(",", ground.getSportsAvailable());
 
-				callableStatement2.setString(13, groundImagesStr);
-				callableStatement2.setString(14, sportsAvailableStr);
+				callableStatement2.setString(11, groundImagesStr);
+				callableStatement2.setString(12, sportsAvailableStr);
 
 				callableStatement2.execute();
 
@@ -183,18 +183,18 @@ public class GroundDao {
 	/**
 	 * The getAllGround Method get all ground details from the database
 	 */
-	public List<Ground> getAllGround() throws DAOException, SQLException {
+	public List<Ground> getAllGround() throws DAOException {
 
 		List<Ground> groundList = new ArrayList<>();
 
 		/**
 		 * The Query for selecting all grounddetails from all the table
 		 */
-
-		String selectQuery = "SELECT g.*, "
-				+ "(SELECT GROUP_CONCAT(imageUrl) FROM GroundImages gi WHERE gi.groundId = g.id) AS imageUrls, "
-				+ "(SELECT GROUP_CONCAT(sportName) FROM SportsAvailable sa WHERE sa.groundId = g.id) AS sportNames "
-				+ "FROM Ground g";
+		String selectQuery = "SELECT g.*, " +
+			    "(SELECT GROUP_CONCAT(imageUrl) FROM GroundImages gi WHERE gi.groundId = g.id) AS imageUrls, " +
+			    "(SELECT GROUP_CONCAT(sportName) FROM SportsAvailable sa WHERE sa.groundId = g.id) AS sportNames " +
+			    "FROM Ground g " +
+			    "WHERE g.groundStatus = 1"; 
 
 		try (Connection con = ConnectionUtil.getConnection()) {
 
@@ -207,10 +207,8 @@ public class GroundDao {
 						Ground ground = new Ground();
 						Time startTimeSql = rs.getTime("startTime");
 						LocalTime startTime = startTimeSql.toLocalTime();
-
 						Time endTimeSql = rs.getTime("endTime");
 						LocalTime endTime = endTimeSql.toLocalTime();
-
 						ground.setgroundId(groundId);
 						ground.setGroundName(rs.getString("groundName"));
 						ground.setGroundMainArea(rs.getString("groundMainArea"));
@@ -223,7 +221,7 @@ public class GroundDao {
 						ground.setPrice(rs.getDouble("price"));
 						ground.setIncreasingPriceForExtraHours(rs.getDouble("increasingPriceForExtraHours"));
 						ground.setCourtsAvailable(rs.getInt("courtsAvailable"));
-
+						
 						String imageUrlsdata = rs.getString("imageUrls");
 						if (imageUrlsdata != null) {
 							String[] imageUrl = imageUrlsdata.split(",");
@@ -254,5 +252,199 @@ public class GroundDao {
 
 		return groundList;
 	}
+
+	
+	
+	/**
+	 * The getAllGround Method get all ground details from the database
+	 */
+	public Ground getGroundById(int id) throws DAOException {
+
+
+		/**
+		 * The Query for selecting all grounddetails from all the table
+		 */
+
+		String selectQuery = "SELECT g.*, " +
+			    "(SELECT GROUP_CONCAT(imageUrl) FROM GroundImages gi WHERE gi.groundId = g.id) AS imageUrls, " +
+			    "(SELECT GROUP_CONCAT(sportName) FROM SportsAvailable sa WHERE sa.groundId = g.id) AS sportNames " +
+			    "FROM Ground g " +
+			    "WHERE g.id = ? AND g.groundStatus = 1"; 
+			Ground ground =null;
+
+		try (Connection con = ConnectionUtil.getConnection()) {
+
+			try (PreparedStatement preparedStatement = con.prepareStatement(selectQuery)) {
+				 preparedStatement.setInt(1, id);
+				try (ResultSet rs = preparedStatement.executeQuery()) {
+
+					while (rs.next()) {
+						int groundId = rs.getInt("id");
+
+		 ground = new Ground();
+						Time startTimeSql2 = rs.getTime("startTime");
+						LocalTime startTime2 = startTimeSql2.toLocalTime();
+
+						Time endTimeSql2 = rs.getTime("endTime");
+						LocalTime endTime2 = endTimeSql2.toLocalTime();
+						
+	
+						
+
+						ground.setgroundId(groundId);
+						ground.setGroundName(rs.getString("groundName"));
+						ground.setGroundMainArea(rs.getString("groundMainArea"));
+						ground.setGroundAddress(rs.getString("groundAddress"));
+						ground.setGroundLocationLink(rs.getString("groundLocationLink"));
+						ground.setDistrict(rs.getString("district"));
+						ground.setStartTime(startTime2);
+						ground.setEndTime(endTime2);
+						ground.setGroundRules(rs.getString("groundRules"));
+						ground.setPrice(rs.getDouble("price"));
+						ground.setIncreasingPriceForExtraHours(rs.getDouble("increasingPriceForExtraHours"));
+						ground.setCourtsAvailable(rs.getInt("courtsAvailable"));
+
+						String imageUrlsdata2 = rs.getString("imageUrls");
+						if (imageUrlsdata2 != null) {
+							String[] imageUrl2 = imageUrlsdata2.split(",");
+							ground.setGroundImages(Arrays.asList(imageUrl2));
+						} else {
+							ground.setGroundImages(new ArrayList<>());
+						}
+
+						String sportNamesdata2 = rs.getString("sportNames");
+						if (sportNamesdata2 != null) {
+							String[] sportNames2 = sportNamesdata2.split(",");
+							ground.setSportsAvailable(Arrays.asList(sportNames2));
+						} else {
+							ground.setSportsAvailable(new ArrayList<>());
+						}
+
+						// add ground object
+					
+					}
+				}
+			}
+
+		}
+
+		catch (SQLException e) {
+			throw new DAOException(GroundDaoErrors.READ_GROUND_DETAILS_ERROR);
+		}
+
+		return ground;
+	}
+	
+	
+	public Ground getGroundByOwnerId(int id) throws DAOException {
+
+
+		/**
+		 * The Query for selecting all grounddetails from all the table
+		 */
+
+		String selectQuery = "SELECT g.*, "
+		        + "(SELECT GROUP_CONCAT(imageUrl) FROM GroundImages gi WHERE gi.groundId = g.id) AS imageUrls, "
+		        + "(SELECT GROUP_CONCAT(sportName) FROM SportsAvailable sa WHERE sa.groundId = g.id) AS sportNames "
+		        + "FROM Ground g "
+		        + "WHERE g.groundOwnerId = ? AND g.groundStatus = 1";
+			Ground ground =null;
+
+		try (Connection con = ConnectionUtil.getConnection()) {
+
+			try (PreparedStatement preparedStatement = con.prepareStatement(selectQuery)) {
+				 preparedStatement.setInt(1, id);
+				try (ResultSet rs = preparedStatement.executeQuery()) {
+
+					while (rs.next()) {
+						int groundOwnerId = rs.getInt("groundOwnerId");
+						int groundId = rs.getInt("id");
+
+
+		 ground = new Ground();
+						Time startTimeSql2 = rs.getTime("startTime");
+						LocalTime startTime2 = startTimeSql2.toLocalTime();
+
+						Time endTimeSql2 = rs.getTime("endTime");
+						LocalTime endTime2 = endTimeSql2.toLocalTime();
+                 ground.setgroundId(groundId);
+						ground.setGroundOwnerId(groundOwnerId);
+						ground.setGroundName(rs.getString("groundName"));
+						ground.setGroundMainArea(rs.getString("groundMainArea"));
+						ground.setGroundAddress(rs.getString("groundAddress"));
+						ground.setGroundLocationLink(rs.getString("groundLocationLink"));
+						ground.setDistrict(rs.getString("district"));
+						ground.setStartTime(startTime2);
+						ground.setEndTime(endTime2);
+						ground.setGroundRules(rs.getString("groundRules"));
+						ground.setPrice(rs.getDouble("price"));
+						ground.setIncreasingPriceForExtraHours(rs.getDouble("increasingPriceForExtraHours"));
+						ground.setCourtsAvailable(rs.getInt("courtsAvailable"));
+
+						String imageUrlsdata2 = rs.getString("imageUrls");
+						if (imageUrlsdata2 != null) {
+							String[] imageUrl2 = imageUrlsdata2.split(",");
+							ground.setGroundImages(Arrays.asList(imageUrl2));
+						} else {
+							ground.setGroundImages(new ArrayList<>());
+						}
+
+						String sportNamesdata2 = rs.getString("sportNames");
+						if (sportNamesdata2 != null) {
+							String[] sportNames2 = sportNamesdata2.split(",");
+							ground.setSportsAvailable(Arrays.asList(sportNames2));
+						} else {
+							ground.setSportsAvailable(new ArrayList<>());
+						}
+
+						// add ground object
+					
+					}
+				}
+			}
+
+		}
+
+		catch (SQLException e) {
+			throw new DAOException(GroundDaoErrors.READ_GROUND_DETAILS_ERROR);
+		}
+
+		return ground;
+	}
+	
+	
+	
+
+	public boolean isGroundOwnerExist(int id) throws SQLException, DAOException {
+
+		/**
+		 * The Query for calling insertground from sql
+		 */
+		 boolean exists = false;
+		 String query = "SELECT COUNT(*) FROM Ground WHERE groundOwnerId = ?";
+		/**
+		 * Getting the ground details and inserting in sql
+		 */
+		try (Connection con = ConnectionUtil.getConnection()) {
+
+			try (PreparedStatement pst = con.prepareStatement(query)) {
+				pst.setInt(1, id);
+				try (ResultSet rs = pst.executeQuery()) {
+					if (rs.next()) {
+	                    int count = rs.getInt(1);
+	                    exists = count > 0;
+	                }
+			}
+		}
+		}catch (SQLException e) {
+
+			throw new DAOException(GroundOwnerDaoErrors.INSERT_GROUNDOWNER_DETAILS_ERROR);
+		}
+
+			 return exists;
+
+
+}
+	
 
 }
