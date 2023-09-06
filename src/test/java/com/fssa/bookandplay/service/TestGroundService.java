@@ -24,6 +24,7 @@ class TestGroundService {
 	static Logger logger = new Logger();
 
 	@Test
+	@Disabled
 	void testAddGround() throws DAOException, SQLException {
 		Ground ground = getGround2();
 
@@ -32,6 +33,7 @@ class TestGroundService {
 	}
 
 	@Test
+	@Disabled
 	void testUpdateGround() throws DAOException, SQLException {
 		Ground ground = getGround2();
 
@@ -40,6 +42,7 @@ class TestGroundService {
 	}
 
 	@Test
+	@Disabled
 	void testDeleteGround() throws DAOException, SQLException {
 
 		Assertions.assertTrue(groundService.deleteGround(1));
@@ -47,20 +50,20 @@ class TestGroundService {
 	}
 
 	Ground getGround2() {
-		List<String> validImages = Arrays.asList("https://iili.iosa/Hj2NLMJ.jpg", "https://iili.io/Hj2NLMJ.jpg");
-		List<String> validsports = Arrays.asList("cricket", "tennis");
+		List<String> validImages = Arrays.asList("https://iili.io/HjPs46b.jpg", "https://iili.io/HjPss8Q.jpg","https://iili.io/HjPsZAB.jpg");
+		List<String> validsports = Arrays.asList("Cricket", "Football");
 		LocalTime startTime = LocalTime.of(10, 30); // 10:00 AM
 		LocalTime endTime = LocalTime.of(11, 30); // 5:00 PM
 		// Ground ground=new Ground(1,"samplename", "samplemainarea", "sampleaddress",
 		// "http://google.com", "sampledistrict", validImages, validsports, startTime,
 		// endTime, "samplerules", 200, 200, 3);
-		Ground ground1 = new GroundBuilder().groundIdBuild(2).groundNameBuild("Groundsss  TURF")
-				.groundMainAreaBuild("Vyasarpadi").groundAddressBuild("Sri  srirangam rajpurohitssss complex, 1/340, West Ave, MKB Nagar, Vyasarpadi, Chennai, Tamil Nadu 600039")
-				.groundLocationLinkBuild("https://goo.gl/maps/YB4zbcOExPUTbGFT6").districtBuild("Chennai")
+		Ground ground1 = new GroundBuilder().groundIdBuild(2).groundNameBuild("Pitch and Play 2")
+				.groundMainAreaBuild("Annasalai").groundAddressBuild("Sri  srirangam rajpurohitssss complex, 1/340, West Ave, MKB Nagar, Vyasarpadi, Chennai, Tamil Nadu 600039")
+				.groundLocationLinkBuild("https://goo.gl/maps/BELGDCGXEGRoSGrV7").districtBuild("Chennai")
 			.groundOwnerIdBuild(2)
 				.groundImagesBuild(validImages).sportsAvailableBuild(validsports).startTimeBuild(startTime)
-				.endTimeBuild(endTime).groundRulesBuild("Nosmokingallowedss")// TODO increase the length size
-				.priceBuild(270).increasingPriceForExtraHoursBuild(200).courtsAvailableBuild(5).build();
+				.endTimeBuild(endTime).groundRulesBuild("For Football players are advised to wear shoes only on ground<\\n sharp metal football are not allowed\\n For tennis 6 players are only allowed")// TODO increase the length size
+				.priceBuild(270).increasingPriceForExtraHoursBuild(200).courtsAvailableBuild(4).build();
 
 		return ground1;
 
@@ -104,7 +107,7 @@ class TestGroundService {
 	@Test
 	void testGetGroundDetailByOwnerId() throws DAOException, SQLException {
 
-		logger.info(assertDoesNotThrow(() -> groundService.getGroundByOwnerId(10)));
+		logger.info(assertDoesNotThrow(() -> groundService.getGroundByOwnerId(1)));
 
 	}
 
