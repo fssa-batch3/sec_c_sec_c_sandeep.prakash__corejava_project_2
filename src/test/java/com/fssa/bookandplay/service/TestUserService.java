@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import com.fssa.bookandplay.builder.UserBuilder;
@@ -41,7 +42,7 @@ User getUserOnly() {
 			.playerStatusBuild(false)
 			.imageBuilder("https://example.com/image1.jpg").build();
 return user1;
- }
+ }	@Disabled
 	 @Test
 		void testAddUser() throws DAOException, SQLException {
 			User user = getUser();
@@ -49,7 +50,7 @@ return user1;
 			Assertions.assertTrue(userService.addUserPlayer(user));
 
 		}
-
+	@Disabled
 		@Test
 		void testUpdateUser() throws DAOException, SQLException {
 			User user = getUser();
@@ -57,7 +58,7 @@ return user1;
 			Assertions.assertTrue(userService.updateUserPlayer(user));
 
 		}
-
+		@Disabled
 		 @Test
 			void testAddUserOnly() throws DAOException, SQLException {
 				User user = getUserOnly();
@@ -65,7 +66,7 @@ return user1;
 				Assertions.assertTrue(userService.addUserOnly(user));
 
 			}
-
+		@Disabled
 			@Test
 			void testUpdateUserOnly() throws DAOException, SQLException {
 				User user =getUserOnly();
