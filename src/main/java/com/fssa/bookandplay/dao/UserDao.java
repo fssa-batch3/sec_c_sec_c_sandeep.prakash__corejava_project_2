@@ -14,12 +14,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.fssa.bookandplay.errors.GroundOwnerDaoErrors;
 import com.fssa.bookandplay.errors.UserDaoErrors;
 import com.fssa.bookandplay.errors.UserValidationErrors;
 import com.fssa.bookandplay.exceptions.DAOException;
 import com.fssa.bookandplay.exceptions.InvalidUserDetailException;
-import com.fssa.bookandplay.model.GroundOwner;
 import com.fssa.bookandplay.model.User;
 import com.fssa.bookandplay.util.ConnectionUtil;
 import com.fssa.bookandplay.util.Logger;
@@ -29,6 +27,19 @@ public class UserDao {
 	public UserDao() {
 		// private constructor
 	}
+static final String USER_AVAIL_TIME_FROM="timing_from";
+static final String USER_AVAIL_TIME_TO="timing_to";
+static final String USER_F_NAME="first_name";
+static final String USER_L_NAME="last_name";
+static final String USER_EMAIL="email";
+static final String USER_PHONE_NO="phone_number";
+static final String USER_PASSWORD= "password";
+static final String USER_AGE="age";
+static final String USER_PLAYER_STATUS="playerstatus";
+static final String USER_GENDER="gender";
+static final String USER_LOCATION="location";
+static final String USER_ABOUT="about";
+
 
 	public  String hashPassword(String password) throws InvalidUserDetailException {
 		try {
@@ -95,7 +106,6 @@ public class UserDao {
 				callableStatement.setString(5, hashPassword(user.getPassword()));
 				callableStatement.setString(6, user.getImage());
 				callableStatement.setBoolean(7, user.getPlayerStatus());
-				//callableStatement.setString(8, user.getDisplayName());
 				callableStatement.setInt(8, user.getAge());
 				callableStatement.setString(9, user.getGender());
 				callableStatement.setString(10, user.getLocation());
@@ -166,12 +176,12 @@ public class UserDao {
 				callableStatement2.setInt(1, user.getUserId());
 				callableStatement2.setString(2, user.getFirstName());
 				callableStatement2.setString(3, user.getLastName());
-				//callableStatement2.setString(4, user.getEmail());
+			
 				callableStatement2.setLong(4, user.getPhoneNumber());
-				//callableStatement2.setString(6, hashPassword(user.getPassword()));
+				
 				callableStatement2.setString(5, user.getImage());
 				callableStatement2.setBoolean(6, user.getPlayerStatus());
-				//callableStatement2.setString(9, user.getDisplayName());
+				
 				callableStatement2.setLong(7, user.getAge());
 				callableStatement2.setString(8, user.getGender());
 				callableStatement2.setString(9, user.getLocation());
@@ -223,13 +233,13 @@ public class UserDao {
 
 						User user = new User();
 						
-						Time startTimeSql = rs.getTime("timing_from");
+						Time startTimeSql = rs.getTime(USER_AVAIL_TIME_FROM);
 						LocalTime startTime = null;
 						if (startTimeSql != null) {
 						    startTime = startTimeSql.toLocalTime();
 						}
 
-						Time endTimeSql = rs.getTime("timing_to");
+						Time endTimeSql = rs.getTime(USER_AVAIL_TIME_TO);
 						LocalTime endTime = null;
 						if (endTimeSql != null) {
 						    endTime = endTimeSql.toLocalTime();
@@ -237,19 +247,19 @@ public class UserDao {
 
 
 						user.setUserId(userId);
-						user.setFirstName(rs.getString("first_name"));
-						user.setLastName(rs.getString("last_name"));
-						user.setEmail(rs.getString("email"));
-						user.setPhoneNumber(rs.getLong("phone_number"));
-						user.setPassword(rs.getString("password"));
-						user.setPlayerStatus(rs.getBoolean("playerstatus"));
-						//user.setDisplayName(rs.getString("display_name"));
-						user.setAge(rs.getInt("age"));
-						user.setGender(rs.getString("gender"));
-						user.setLocation(rs.getString("location"));
+						user.setFirstName(rs.getString(USER_F_NAME));
+						user.setLastName(rs.getString(USER_L_NAME));
+						user.setEmail(rs.getString(USER_EMAIL));
+						user.setPhoneNumber(rs.getLong(USER_PHONE_NO));
+						user.setPassword(rs.getString(USER_PASSWORD));
+						user.setPlayerStatus(rs.getBoolean(USER_PLAYER_STATUS));
+					
+						user.setAge(rs.getInt(USER_AGE));
+						user.setGender(rs.getString(USER_GENDER));
+						user.setLocation(rs.getString(USER_LOCATION));
 						user.setTimingAvailFrom(startTime);
 						user.setTimingAvailTo(endTime);
-						user.setAbout(rs.getString("about"));
+						user.setAbout(rs.getString(USER_ABOUT));
 
 						String sportNamesdata = rs.getString("sportNames");
 						if (sportNamesdata != null) {
@@ -258,19 +268,19 @@ public class UserDao {
 						} else {
 							user.setKnownSports(new ArrayList<>());
 						}
-						logger.info(rs.getString("first_name"));
-						logger.info(rs.getString("last_name"));
-						logger.info(rs.getString("email"));
-						logger.info(rs.getString("phone_number"));
-						logger.info(rs.getString("password"));
-						logger.info(rs.getBoolean("playerstatus"));
-						//logger.info(rs.getString("display_name"));
-						logger.info(rs.getInt("age"));
-						logger.info(rs.getString("gender"));
-						logger.info(rs.getString("location"));
+						logger.info(rs.getString(USER_F_NAME));
+						logger.info(rs.getString(USER_L_NAME));
+						logger.info(rs.getString(USER_EMAIL));
+						logger.info(rs.getLong(USER_PHONE_NO));
+						logger.info(rs.getString(USER_PASSWORD));
+						logger.info(rs.getBoolean(USER_PLAYER_STATUS));
+						
+						logger.info(rs.getInt(USER_AGE));
+						logger.info(rs.getString(USER_GENDER));
+						logger.info(rs.getString(USER_LOCATION));
 
-						logger.info(rs.getTime("timing_from"));
-						logger.info(rs.getTime("timing_to"));
+						logger.info(rs.getTime(USER_AVAIL_TIME_FROM));
+						logger.info(rs.getTime(USER_AVAIL_TIME_TO));
 						// add ground object
 						userList.add(user);
 					}
@@ -354,19 +364,19 @@ public class UserDao {
 	                    if (storedHashedPassword.equals(enteredHashedPassword)) {
 	                        user = new User();
 	                        user.setUserId(rs.getInt("id"));
-	                        user.setEmail(rs.getString("email"));
-	                        user.setPassword(rs.getString("password"));
-	                        user.setPlayerStatus(rs.getBoolean("playerstatus"));
-	                        user.setFirstName(rs.getString("first_name"));
-							user.setLastName(rs.getString("last_name"));
-						user.setPhoneNumber(rs.getLong("phone_number"));
-							user.setPassword(rs.getString("password"));
-							user.setAge(rs.getInt("age"));
-							user.setGender(rs.getString("gender"));
-							user.setLocation(rs.getString("location"));
+	                        user.setEmail(rs.getString(USER_EMAIL));
+	                        user.setPassword(rs.getString(USER_PASSWORD));
+	                        user.setPlayerStatus(rs.getBoolean(USER_PLAYER_STATUS));
+	                        user.setFirstName(rs.getString(USER_F_NAME));
+							user.setLastName(rs.getString(USER_L_NAME));
+						user.setPhoneNumber(rs.getLong(USER_PHONE_NO));
+							user.setPassword(rs.getString(USER_PASSWORD));
+							user.setAge(rs.getInt(USER_AGE));
+							user.setGender(rs.getString(USER_GENDER));
+							user.setLocation(rs.getString(USER_LOCATION));
 							user.setTimingAvailFrom(startTime);
 							user.setTimingAvailTo(endTime);
-							user.setAbout(rs.getString("about"));
+							user.setAbout(rs.getString(USER_ABOUT));
 							
 							String sportNamesdata2 = rs.getString("sportNames");
 							if (sportNamesdata2 != null) {
@@ -380,13 +390,14 @@ public class UserDao {
 	                        throw new DAOException(UserDaoErrors.READ_USER_EMAIL_ERROR);
 	                    }
 	                } else {
-	                    throw new DAOException(UserDaoErrors.READ_USER_PASSWORD_ERROR);
+	                    throw new DAOException(UserDaoErrors.READ_USER_PASS_ERROR);
 	                }
 	            }
 	        }
 	    } catch (SQLException e) {
-	      
+	    	/**
 	        e.printStackTrace();
+	        */
 	        
 	        throw new DAOException(UserDaoErrors.READ_USER_DETAILS_ERROR);
 	    }

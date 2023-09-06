@@ -1,7 +1,6 @@
 package com.fssa.bookandplay.validator;
 
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -30,7 +29,6 @@ public class UserValidator {
 		emailValidator(user.getEmail());
 		phoneNumberValidator(user.getPhoneNumber());
 		passwordValidator(user.getPassword());
-	//	displayNameValidator(user.getDisplayName());
 		ageValidator(user.getAge());
 		genderValidator(user.getGender());
 		sportsKnownValidator(user.getKnownSports());

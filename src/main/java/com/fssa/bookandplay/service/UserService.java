@@ -4,7 +4,6 @@ import java.sql.SQLException;
 
 import com.fssa.bookandplay.dao.UserDao;
 import com.fssa.bookandplay.exceptions.DAOException;
-import com.fssa.bookandplay.model.GroundOwner;
 import com.fssa.bookandplay.model.User;
 import com.fssa.bookandplay.validator.UserValidator;
 

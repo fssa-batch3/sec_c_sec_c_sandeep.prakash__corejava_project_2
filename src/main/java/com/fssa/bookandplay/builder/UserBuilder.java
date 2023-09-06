@@ -13,7 +13,7 @@ public class UserBuilder {
 	private long phoneNumberForBuilder;
 	private String passwordForBuilder;
 	private boolean playerStatusForBuilder;
-    //private String displayNameForBuilder;
+  
     private int ageForBuilder;
     private String genderForBuilder;
     private List<String> knownSportsForBuilder;

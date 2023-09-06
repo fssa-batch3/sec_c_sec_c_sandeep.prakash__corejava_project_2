@@ -42,7 +42,7 @@ User getUserOnly() {
 			.playerStatusBuild(false)
 			.imageBuilder("https://example.com/image1.jpg").build();
 return user1;
- }	@Disabled
+ }	@Disabled("This test is currently disabled ")
 	 @Test
 		void testAddUser() throws DAOException, SQLException {
 			User user = getUser();
@@ -50,7 +50,7 @@ return user1;
 			Assertions.assertTrue(userService.addUserPlayer(user));
 
 		}
-	@Disabled
+	@Disabled("This test is currently disabled ")
 		@Test
 		void testUpdateUser() throws DAOException, SQLException {
 			User user = getUser();
@@ -58,7 +58,7 @@ return user1;
 			Assertions.assertTrue(userService.updateUserPlayer(user));
 
 		}
-		@Disabled
+		@Disabled("This test is currently disabled ")
 		 @Test
 			void testAddUserOnly() throws DAOException, SQLException {
 				User user = getUserOnly();
@@ -66,7 +66,7 @@ return user1;
 				Assertions.assertTrue(userService.addUserOnly(user));
 
 			}
-		@Disabled
+		@Disabled("This test is currently disabled ")
 			@Test
 			void testUpdateUserOnly() throws DAOException, SQLException {
 				User user =getUserOnly();

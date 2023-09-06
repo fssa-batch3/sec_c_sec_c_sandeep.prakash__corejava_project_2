@@ -3,16 +3,11 @@ package com.fssa.bookandplay.validator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import com.fssa.bookandplay.builder.UserBuilder;
 import com.fssa.bookandplay.errors.GroundOwnerDetailValidationErrors;
-import com.fssa.bookandplay.errors.GroundValidatorsErrors;
-import com.fssa.bookandplay.errors.UserValidationErrors;
 import com.fssa.bookandplay.exceptions.InvalidGroundOwnerDetailException;
-import com.fssa.bookandplay.exceptions.InvalidUserDetailException;
 import com.fssa.bookandplay.model.GroundOwner;
-import com.fssa.bookandplay.model.User;
 
-public class TestGroundOwnerValidator {
+class TestGroundOwnerValidator {
 	
 	GroundOwnerDetailValidator groundOwnerVal =new GroundOwnerDetailValidator();
 
@@ -242,7 +237,7 @@ public class TestGroundOwnerValidator {
 			groundOwnerVal.groundOwnerIdValidator(-2);
 			Assertions.fail("Validatecourts failed");
 		} catch (InvalidGroundOwnerDetailException ex) {
-			Assertions.assertEquals(GroundOwnerDetailValidationErrors.INVALIDGROUNDOWNER__ID, ex.getMessage());
+			Assertions.assertEquals(GroundOwnerDetailValidationErrors.INVALID_GROUNDOWNER_ID, ex.getMessage());
 		}
 
 	}

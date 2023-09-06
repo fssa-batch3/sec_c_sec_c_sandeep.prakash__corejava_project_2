@@ -83,19 +83,20 @@ public class TestGroundDao {
 	}
 
 	@Test
-	@Disabled
+	@Disabled ("This test is currently disabled ")
 	void testValidAddGround() throws DAOException, SQLException {
 		Assertions.assertTrue(groundDao.addGround(groundValidate()));
 	}
 
 	@Test
-	@Disabled
+	@Disabled("This test is currently disabled ")
 	void testValidUpdateGround() throws DAOException, SQLException {
 		Assertions.assertTrue(groundDao.updateGround(groundValidate()));
 	}
 
 	@Test
 
+	@Disabled("This test is currently disabled ")
 	void testValidDeleteGround() throws DAOException, SQLException {
 	
 		Assertions.assertTrue(groundDao.deleteGround(36));

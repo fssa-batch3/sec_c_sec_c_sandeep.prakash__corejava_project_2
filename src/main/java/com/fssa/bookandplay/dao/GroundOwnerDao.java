@@ -24,6 +24,10 @@ public class GroundOwnerDao {
 		// private constructor
 	}
 
+	
+	static final String EMAIL="email";
+	static final String PHONE_NO="phone_number";
+	static final String PASSWORD= "password";
 	public String hashPassword(String password) throws InvalidGroundOwnerDetailException {
 		try {
 			MessageDigest md = MessageDigest.getInstance("SHA-256");
@@ -79,7 +83,7 @@ public class GroundOwnerDao {
 		
 		
 		if (groundOwner.getGroundOwnerId() <= 0) {
-			throw new InvalidGroundOwnerDetailException(GroundOwnerDetailValidationErrors.INVALIDGROUNDOWNER__ID);
+			throw new InvalidGroundOwnerDetailException(GroundOwnerDetailValidationErrors.INVALID_GROUNDOWNER_ID);
 
 		}
 
@@ -100,7 +104,7 @@ public class GroundOwnerDao {
 				pst.setString(2, groundOwner.getOrganisationName());
 
 				pst.setLong(3, groundOwner.getPhoneNumber());
-				//pst.setString(4,groundOwner.getPassword());
+				
 				pst.setString(4, groundOwner.getImage());
 				pst.setInt(5, groundOwner.getGroundOwnerId());
 				pst.executeUpdate();
@@ -136,7 +140,7 @@ public class GroundOwnerDao {
 						String organisationName = rs.getString("organisationName");
 						String email = rs.getString("email");
 						long phoneNumber = rs.getLong("phoneNumber");
-						String password = rs.getString("password");
+						String password = rs.getString(PASSWORD);
 						String image = rs.getString("image");
 						go.setGroundOwnerId(groundOwnerId);
 						go.setName(name);
@@ -205,27 +209,29 @@ public class GroundOwnerDao {
 	            
 	            try (ResultSet rs = pst.executeQuery()) {
 	                if (rs.next()) {
-	                    String storedHashedPassword = rs.getString("password");
+	                    String storedHashedPassword = rs.getString(PASSWORD);
 	                  
 	                    String enteredHashedPassword = hashPassword(enteredPassword);
 	                  
 	                    if (storedHashedPassword.equals(enteredHashedPassword)) {
 	                        go = new GroundOwner();
 	                        go.setGroundOwnerId(rs.getInt("id"));
-	                        go.setEmail(rs.getString("email"));
-	                        go.setPassword(rs.getString("password"));
+	                        go.setEmail(rs.getString(EMAIL));
+	                        go.setPassword(rs.getString(PASSWORD));
 	                       
 	                    } else {
 	                        throw new DAOException(GroundOwnerDaoErrors.READ_GROUNDOWNER_EMAIL_ERROR);
 	                    }
 	                } else {
-	                    throw new DAOException(GroundOwnerDaoErrors.READ_GROUNDOWNER_PASSWORD_ERROR);
+	                    throw new DAOException(GroundOwnerDaoErrors.READ_GROUND_OWNER_PASS_ERROR);
 	                }
 	            }
 	        }
 	    } catch (SQLException e) {
 	      
-	        e.printStackTrace();
+	    	/**e.printStackTrace();
+	    	 * 
+	    	 */
 	        
 	        throw new DAOException(GroundOwnerDaoErrors.READ_GROUNDOWNER_DETAILS_ERROR);
 	    }

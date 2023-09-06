@@ -13,7 +13,7 @@ public class User {
 	private long phoneNumber;
 	private String password;
 	private boolean playerStatus;
-   // private String displayName;
+  
     private int age;
     private String gender;
     private List<String> knownSports;

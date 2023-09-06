@@ -1,6 +1,7 @@
 package com.fssa.bookandplay.service;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -24,7 +25,7 @@ class TestGroundService {
 	static Logger logger = new Logger();
 
 	@Test
-	@Disabled
+	@Disabled("This test is currently disabled ")
 	void testAddGround() throws DAOException, SQLException {
 		Ground ground = getGround2();
 
@@ -33,7 +34,7 @@ class TestGroundService {
 	}
 
 	@Test
-	@Disabled
+	@Disabled("This test is currently disabled ")
 	void testUpdateGround() throws DAOException, SQLException {
 		Ground ground = getGround2();
 
@@ -42,7 +43,7 @@ class TestGroundService {
 	}
 
 	@Test
-	@Disabled
+	@Disabled("This test is currently disabled ")
 	void testDeleteGround() throws DAOException, SQLException {
 
 		Assertions.assertTrue(groundService.deleteGround(1));
@@ -88,6 +89,7 @@ class TestGroundService {
 	void testGetGroundDetail() throws DAOException, SQLException {
 
 		List<Ground> groundList = groundService.getGroundDetails();
+		 assertNotNull(groundList); 
 		for (Ground gr : groundList) {
 			logger.info(gr);
 

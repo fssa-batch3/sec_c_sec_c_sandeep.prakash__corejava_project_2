@@ -6,7 +6,6 @@ import java.util.List;
 import com.fssa.bookandplay.dao.GroundOwnerDao;
 import com.fssa.bookandplay.exceptions.DAOException;
 import com.fssa.bookandplay.model.GroundOwner;
-import com.fssa.bookandplay.model.User;
 import com.fssa.bookandplay.validator.GroundOwnerDetailValidator;
 
 public class GroundOwnerService {

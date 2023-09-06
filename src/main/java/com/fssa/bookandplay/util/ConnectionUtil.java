@@ -51,33 +51,6 @@ public class ConnectionUtil {
 		return con;
 	}
 
-	public static void close(Connection conn, Statement stmt, ResultSet rs, PreparedStatement ps, CallableStatement cs)
-			throws DAOException {
 
-		try {
-
-			if (rs != null) {
-				rs.close();
-			}
-			if (cs != null) {
-				cs.close();
-			}
-			if (ps != null) {
-				ps.close();
-			}
-			if (stmt != null) {
-				stmt.close();
-			}
-			if (conn != null) {
-				conn.close();
-			}
-		} catch (SQLException e) {
-			throw new DAOException("Unable to close to the database");
-			/**
-			 * No need re throw the exception.
-			 */
-
-		}
-	}
 
 }

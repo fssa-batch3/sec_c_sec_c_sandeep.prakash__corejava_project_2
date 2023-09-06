@@ -38,7 +38,7 @@ public class GroundOwnerDetailValidationErrors {
 	/**
 	 * Error message when an invalid product ID is passed.
 	 */
-	public static final String INVALIDGROUNDOWNER__ID = "Invalid User id is passed";
+	public static final String INVALID_GROUNDOWNER_ID= "Invalid User id is passed";
 	
 	
 	/**

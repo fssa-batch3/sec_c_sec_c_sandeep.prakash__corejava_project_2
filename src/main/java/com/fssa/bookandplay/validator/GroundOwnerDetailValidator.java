@@ -4,9 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.fssa.bookandplay.errors.GroundOwnerDetailValidationErrors;
-import com.fssa.bookandplay.errors.UserValidationErrors;
 import com.fssa.bookandplay.exceptions.InvalidGroundOwnerDetailException;
-import com.fssa.bookandplay.exceptions.InvalidUserDetailException;
 import com.fssa.bookandplay.model.GroundOwner;
 import com.fssa.bookandplay.regexpattern.UserRegexPattern;
 
@@ -206,7 +204,7 @@ public class GroundOwnerDetailValidator {
 		 * groundId should be greaterthan 1.
 		 */
 		if (groundOwnerId <= 0) {
-			throw new InvalidGroundOwnerDetailException(GroundOwnerDetailValidationErrors.INVALIDGROUNDOWNER__ID);
+			throw new InvalidGroundOwnerDetailException(GroundOwnerDetailValidationErrors.INVALID_GROUNDOWNER_ID);
 
 		}
 		return true;

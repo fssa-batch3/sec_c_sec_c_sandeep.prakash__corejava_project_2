@@ -1,5 +1,7 @@
 package com.fssa.bookandplay.service;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.sql.SQLException;
 import java.util.List;
 
@@ -11,7 +13,7 @@ import com.fssa.bookandplay.exceptions.DAOException;
 import com.fssa.bookandplay.model.GroundOwner;
 import com.fssa.bookandplay.util.Logger;
 
-public class TestGroundOwnerService {
+class TestGroundOwnerService {
 	GroundOwnerService groundOwnerService = new GroundOwnerService();
 	static Logger logger = new Logger();
 
@@ -30,7 +32,7 @@ public class TestGroundOwnerService {
 	}
 	
 	 @Test
-		@Disabled
+		@Disabled("This test is currently disabled ")
 		void testAddGroundOwner() throws DAOException, SQLException {
 		 GroundOwner user = getOwnerDetail();
 
@@ -39,7 +41,7 @@ public class TestGroundOwnerService {
 		}
 
 		@Test
-		@Disabled
+		@Disabled("This test is currently disabled ")
 		void testUpdateGroundOwner() throws DAOException, SQLException {
 			 GroundOwner user = getOwnerDetailWithId();
 
@@ -51,6 +53,7 @@ public class TestGroundOwnerService {
 		void testGetGroundOwnerDetail() throws DAOException, SQLException {
 
 			List<GroundOwner>  groundOwnerList=groundOwnerService.getgroundOwnerDetails();
+			 assertNotNull(groundOwnerList); 
 			for(GroundOwner gr:groundOwnerList) {
 				logger.info( gr);
 				
@@ -63,6 +66,7 @@ public class TestGroundOwnerService {
 
 			GroundOwner groundOwnerList=groundOwnerService.getgroundOwneremailpass("sandeep@gmail.com","sand@U2208892*7");
 	
+			 assertNotNull(groundOwnerList); 
 				logger.info( groundOwnerList);
 				
 			

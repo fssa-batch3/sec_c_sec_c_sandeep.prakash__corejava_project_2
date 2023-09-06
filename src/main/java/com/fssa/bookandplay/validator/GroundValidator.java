@@ -2,7 +2,6 @@ package com.fssa.bookandplay.validator;
 
 import java.sql.SQLException;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -24,7 +23,7 @@ public class GroundValidator {
 		// constructor
 	}
 
-	public boolean validate(Ground ground) throws InvalidGroundDetailException, SQLException, DAOException {
+	public boolean validate(Ground ground) throws InvalidGroundDetailException {
 		if (ground == null) {
 			throw new InvalidGroundDetailException(GroundValidatorsErrors.INVALID_OBJECT_NULL);
 		}
@@ -41,7 +40,7 @@ public class GroundValidator {
 		priceValidator(ground.getPrice());
 		increasingPriceForExtraHoursValidator(ground.getIncreasingPriceForExtraHours());
 		courtsAvailableValidator(ground.getCourtsAvailable());
-		// groundOwnerIdValidator(ground.getGroundOwnerId());
+		
 		return true;
 
 	}
@@ -254,8 +253,7 @@ public class GroundValidator {
 		 */
 		int hour = startTime.getHour();
 		int minute = startTime.getMinute();
-		// String amPm = startTime.format(DateTimeFormatter.ofPattern("a"));
-//				|| (!amPm.equalsIgnoreCase("am") && !amPm.equalsIgnoreCase("pm"))
+		
 		if ((hour < GroundConstants.MIN_HOUR || hour > GroundConstants.MAX_HOUR)
 				|| (minute < GroundConstants.MIN_MINUTE || minute > GroundConstants.MAX_MINUTE)) {
 			throw new InvalidGroundDetailException(GroundValidatorsErrors.INVALID_STARTTIME_TYPE);
@@ -282,7 +280,7 @@ public class GroundValidator {
 
 		int hour = endTime.getHour();
 		int minute = endTime.getMinute();
-		// String amPm = endTime.format(DateTimeFormatter.ofPattern("a"));
+	
 
 		if ((hour < GroundConstants.MIN_HOUR || hour > GroundConstants.MAX_HOUR)
 				|| (minute < GroundConstants.MIN_MINUTE || minute > GroundConstants.MAX_MINUTE)) {
