@@ -35,5 +35,5 @@
 | groundId               | INT         | NOT NULL          | NO            | NO              | YES          | Ground(id)       |               |             |                     |                               |
 | sportName              | VARCHAR(100)| NOT NULL          | NO            | NO              | NO           |                  |               |             |                     |                               |
 
+![image](https://github.com/fssa-batch3/sec_c_sec_c_sandeep.prakash__corejava_project_2/assets/116252886/55e32314-2dde-48ec-910e-a2f64ed81352)
 
-![Screenshot (212)](https://github.com/fssa-batch3/sec_c_sec_c_sandeep.prakash__corejava_project_2/assets/116252886/ec0ecbb8-e8a6-47e4-a097-b5ca66b0accb)
