@@ -218,6 +218,9 @@ public class GroundOwnerDao {
 	                        go.setGroundOwnerId(rs.getInt("id"));
 	                        go.setEmail(rs.getString(EMAIL));
 	                        go.setPassword(rs.getString(PASSWORD));
+	                        go.setName(rs.getString("name"));
+	                        go.setOrganisationName(rs.getString("organisationName"));
+	                        go.setPhoneNumber(rs.getLong("phoneNumber"));
 	                       
 	                    } else {
 	                        throw new DAOException(GroundOwnerDaoErrors.READ_GROUNDOWNER_EMAIL_ERROR);

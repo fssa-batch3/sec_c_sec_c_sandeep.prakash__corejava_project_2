@@ -19,20 +19,20 @@ class TestGroundOwnerService {
 
 	GroundOwner getOwnerDetail() {
 
-		GroundOwner user1 = new GroundOwner("sandeep", "FC Marina", "sandeepdnf@gmail.com", 9878487899l, "sand@U2208892*7",
+		GroundOwner user1 = new GroundOwner("sandeep", "FC Marina", "sandeepUdnf@gmail.com", 9878487899l, "sand@U2208892*7",
 				"https://example.com/image1.jpg");
 		return user1;
 	}
 	
 	GroundOwner getOwnerDetailWithId() {
 
-		GroundOwner user1 = new GroundOwner(1,"Ramesh", "Sanity", "sasndeep@gmail.com", 9878456899l, "sand@U2208892*7",
+		GroundOwner user1 = new GroundOwner(1,"Ramesh", "Sanity", "sasndeepU@gmail.com", 9878456899l, "sand@U2208892*7",
 				"https://example.com/image1.jpg");
 		return user1;
 	}
 	
 	 @Test
-		@Disabled("This test is currently disabled ")
+		//@Disabled("This test is currently disabled ")
 		void testAddGroundOwner() throws DAOException, SQLException {
 		 GroundOwner user = getOwnerDetail();
 
@@ -40,7 +40,7 @@ class TestGroundOwnerService {
 
 		}
 
-		@Test
+		//@Test
 		@Disabled("This test is currently disabled ")
 		void testUpdateGroundOwner() throws DAOException, SQLException {
 			 GroundOwner user = getOwnerDetailWithId();
@@ -64,7 +64,7 @@ class TestGroundOwnerService {
 		@Test
 		void testGetGroundOwneremailpass() throws DAOException, SQLException {
 
-			GroundOwner groundOwnerList=groundOwnerService.getgroundOwneremailpass("sandeep@gmail.com","sand@U2208892*7");
+			GroundOwner groundOwnerList=groundOwnerService.getgroundOwneremailpass("sasbu@gmail.com","sand@U2208892*7");
 	
 			 assertNotNull(groundOwnerList); 
 				logger.info( groundOwnerList);

@@ -40,6 +40,27 @@ public class UserValidator {
 		return true;
 	}
 
+	
+	public boolean validateUserPlayerUpdate(User user) throws InvalidUserDetailException {
+		if (user == null) {
+			throw new InvalidUserDetailException(UserValidationErrors.INVALID_OBJECT_NULL);
+		}
+
+		userFirstNameValidator(user.getFirstName());
+		userLastNameValidator(user.getLastName());
+		phoneNumberValidator(user.getPhoneNumber());
+		ageValidator(user.getAge());
+		genderValidator(user.getGender());
+		sportsKnownValidator(user.getKnownSports());
+		locationValidator(user.getLocation());
+		timeAvailFromValidator(user.getTimingAvailFrom());
+		timeAvailToValidator(user.getTimingAvailTo());
+		aboutUserValidator(user.getAbout());
+		userImageValidator(user.getImage());
+		return true;
+	}
+	
+	
 	public boolean validateUser(User user) throws InvalidUserDetailException {
 		if (user == null) {
 			throw new InvalidUserDetailException(UserValidationErrors.INVALID_OBJECT_NULL);
@@ -50,6 +71,18 @@ public class UserValidator {
 		emailValidator(user.getEmail());
 		phoneNumberValidator(user.getPhoneNumber());
 		passwordValidator(user.getPassword());
+		userImageValidator(user.getImage());
+		return true;
+	}
+	
+	public boolean validateUserUpdate(User user) throws InvalidUserDetailException {
+		if (user == null) {
+			throw new InvalidUserDetailException(UserValidationErrors.INVALID_OBJECT_NULL);
+		}
+
+		userFirstNameValidator(user.getFirstName());
+		userLastNameValidator(user.getLastName());
+		phoneNumberValidator(user.getPhoneNumber());	
 		userImageValidator(user.getImage());
 		return true;
 	}

@@ -1,8 +1,10 @@
 package com.fssa.bookandplay.service;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.sql.SQLException;
@@ -25,16 +27,16 @@ class TestGroundService {
 	static Logger logger = new Logger();
 
 	@Test
-	@Disabled("This test is currently disabled ")
+	//@Disabled("This test is currently disabled ")
 	void testAddGround() throws DAOException, SQLException {
-		Ground ground = getGround2();
+		Ground ground = getGround1();
 
 		Assertions.assertTrue(groundService.addGround(ground));
 
 	}
 
 	@Test
-	@Disabled("This test is currently disabled ")
+	//@Disabled("This test is currently disabled ")
 	void testUpdateGround() throws DAOException, SQLException {
 		Ground ground = getGround2();
 
@@ -43,7 +45,7 @@ class TestGroundService {
 	}
 
 	@Test
-	@Disabled("This test is currently disabled ")
+	//@Disabled("This test is currently disabled ")
 	void testDeleteGround() throws DAOException, SQLException {
 
 		Assertions.assertTrue(groundService.deleteGround(1));
@@ -60,8 +62,8 @@ class TestGroundService {
 		// endTime, "samplerules", 200, 200, 3);
 		Ground ground1 = new GroundBuilder().groundIdBuild(2).groundNameBuild("Pitch and Play 2")
 				.groundMainAreaBuild("Annasalai").groundAddressBuild("Sri  srirangam rajpurohitssss complex, 1/340, West Ave, MKB Nagar, Vyasarpadi, Chennai, Tamil Nadu 600039")
-				.groundLocationLinkBuild("https://goo.gl/maps/BELGDCGXEGRoSGrV7").districtBuild("Chennai")
-			.groundOwnerIdBuild(2)
+				
+			.groundOwnerIdBuild(1)
 				.groundImagesBuild(validImages).sportsAvailableBuild(validsports).startTimeBuild(startTime)
 				.endTimeBuild(endTime).groundRulesBuild("For Football players are advised to wear shoes only on ground<\\n sharp metal football are not allowed\\n For tennis 6 players are only allowed")// TODO increase the length size
 				.priceBuild(270).increasingPriceForExtraHoursBuild(200).courtsAvailableBuild(4).build();
@@ -69,7 +71,25 @@ class TestGroundService {
 		return ground1;
 
 	}
+	Ground getGround1() {
+		List<String> validImages = Arrays.asList("https://iili.io/HjPs46b.jpg", "https://iili.io/HjPss8Q.jpg","https://iili.io/HjPsZAB.jpg");
+		List<String> validsports = Arrays.asList("Cricket", "Football");
+		LocalTime startTime = LocalTime.of(10, 30); // 10:00 AM
+		LocalTime endTime = LocalTime.of(11, 30); // 5:00 PM
+		// Ground ground=new Ground(1,"samplename", "samplemainarea", "sampleaddress",
+		// "http://google.com", "sampledistrict", validImages, validsports, startTime,
+		// endTime, "samplerules", 200, 200, 3);
+		Ground ground1 = new GroundBuilder().groundNameBuild("Tiento Sports")
+				.groundMainAreaBuild("Bengaluru Sudhama Nagar").groundAddressBuild("Lal Bagh Main Rd, Srinivas Colony, Sudhama Nagar, Bengaluru, Karnataka 560027")
+				.groundLocationLinkBuild("https://goo.gl/maps/bKYnyhsTqY4cqAKT7").districtBuild("Bangalore")
+			.groundOwnerIdBuild(3)
+				.groundImagesBuild(validImages).sportsAvailableBuild(validsports).startTimeBuild(startTime)
+				.endTimeBuild(endTime).groundRulesBuild("For Football players are advised to wear shoes only on ground sharp metal football are not allowed For tennis 6 players are only allowed")// TODO increase the length size
+				.priceBuild(570).increasingPriceForExtraHoursBuild(200).courtsAvailableBuild(4).build();
 
+		return ground1;
+
+	}
 	/**
 	 * Ground getGround() { List<String> validImages =
 	 * Arrays.asList("https://example.com/image1.jpg",
@@ -91,6 +111,7 @@ class TestGroundService {
 		List<Ground> groundList = groundService.getGroundDetails();
 		 assertNotNull(groundList); 
 		for (Ground gr : groundList) {
+
 			logger.info(gr);
 
 		}

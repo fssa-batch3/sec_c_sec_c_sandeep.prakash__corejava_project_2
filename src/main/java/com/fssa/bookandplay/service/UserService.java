@@ -44,7 +44,7 @@ public class UserService {
 	 * The update user
 	 */
 	public boolean updateUserPlayer(User user) throws DAOException, SQLException {
-		if (ul.validateUserPlayer(user)) {
+		if (ul.validateUserPlayerUpdate(user)) {
 			ud.updateUser(user);
 		}
 		return true;
@@ -52,7 +52,7 @@ public class UserService {
 	}
 
 	public boolean updateUserOnly(User user) throws DAOException, SQLException {
-		if (ul.validateUser(user)) {
+		if (ul.validateUserUpdate(user)) {
 			ud.updateUser(user);
 		}
 		return true;

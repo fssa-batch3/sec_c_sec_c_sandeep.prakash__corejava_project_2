@@ -4,10 +4,11 @@
 use sandeep_prakash_corejava_project;
 CREATE TABLE Ground (
   `id` int NOT NULL AUTO_INCREMENT,
-  `groundName` varchar(255) NOT NULL,
+  `groundName` varchar(255)UNIQUE NOT NULL,
   `groundMainArea` varchar(255) NOT NULL,
-  `groundAddress` varchar(255) NOT NULL,
-  `groundLocationLink` TEXT NOT NULL,
+  `groundAddress` varchar(255)UNIQUE NOT NULL,
+`groundLocationLink` TEXT NOT NULL,
+UNIQUE KEY `unique_groundLocationLink` (`groundLocationLink`(355)),
   `district` varchar(100) NOT NULL,
   `startTime` TIME NOT NULL,
   `endTime` TIME  NOT NULL,
@@ -15,11 +16,14 @@ CREATE TABLE Ground (
   `price` decimal(10,2) NOT NULL,
   `increasingPriceForExtraHours` decimal(10,2) NOT NULL,
   `courtsAvailable` int NOT NULL,
+  `groundStatus` TINYINT DEFAULT 1,
    -- `seller_id` INT UNIQUE,
-  PRIMARY KEY (`id`)
-  -- FOREIGN KEY (`seller_id`) REFERENCES sellers(`seller_id`)
+  PRIMARY KEY (`id`),
+   `groundOwnerId` INT NOT NULL,
+ FOREIGN KEY (`groundOwnerId`) REFERENCES GroundOwner(`id`),
+ UNIQUE KEY `unique_groundOwner` (`groundOwnerId`)
 );
-
+Select * From Ground;
 CREATE TABLE GroundImages (
     id INT PRIMARY KEY AUTO_INCREMENT,
     groundId INT NOT NULL,
@@ -32,7 +36,7 @@ CREATE TABLE SportsAvailable (
     sportName VARCHAR(100) NOT NULL,
     FOREIGN KEY (groundId) REFERENCES Ground(id)
 );
-
+Select * From SportsAvailable;
 
 /*
 CREATE TABLE `groundimages` (
@@ -54,7 +58,7 @@ CREATE TABLE `sportsavailable` (
   CONSTRAINT `sportsavailable_ibfk_1` FOREIGN KEY (`groundId`) REFERENCES `ground` (`id`)
 );
 */
-
+Select * From SportsAvailable;
 DELIMITER &&
 CREATE  PROCEDURE `InsertGround`(
     IN groundName VARCHAR(55),
@@ -66,6 +70,7 @@ CREATE  PROCEDURE `InsertGround`(
     IN endTime TIME,
     IN groundRules TEXT,
     IN price DECIMAL(10, 2),
+    IN  groundOwnerId INT ,
     IN increasingPriceForExtraHours DECIMAL(10, 2),
     IN courtsAvailable INT,
     IN groundImagesList TEXT, -- Comma-separated list of image URLs
@@ -83,6 +88,7 @@ BEGIN
         endTime,
         groundRules,
         price,
+       groundOwnerId,
         increasingPriceForExtraHours,
         courtsAvailable
     ) VALUES (
@@ -95,6 +101,7 @@ BEGIN
         endTime,
         groundRules,
         price,
+        groundOwnerId,
         increasingPriceForExtraHours,
         courtsAvailable
     );
@@ -123,35 +130,31 @@ DELIMITER ;
 DELIMITER &&
 CREATE  PROCEDURE `UpdateGround`(
  IN groundIdp INT ,
-    IN groundNamein VARCHAR(55),
-    IN groundMainAreain VARCHAR(55),
-    IN groundAddressin VARCHAR(255),
-    IN groundLocationLinkin TEXT,
-    IN districtin VARCHAR(100),
-    IN startTimein TIME,
-    IN endTimein TIME,
-    IN groundRulesin TEXT,
-    IN pricein DECIMAL(10, 2),
-    IN increasingPriceForExtraHoursin DECIMAL(10, 2),
-    IN courtsAvailablein INT,
-    IN groundImagesListin TEXT, -- Comma-separated list of image URLs
-    IN sportsAvailableListin TEXT -- Comma-separated list of sport names
+    IN groundName VARCHAR(55),
+    IN groundMainArea VARCHAR(55),
+    IN groundAddress VARCHAR(255),
+    IN startTime TIME,
+    IN endTime TIME,
+    IN groundRules TEXT,
+    IN price DECIMAL(10, 2),
+    IN increasingPriceForExtraHours DECIMAL(10, 2),
+    IN courtsAvailable INT,
+    IN groundImagesList TEXT, -- Comma-separated list of image URLs
+    IN sportsAvailableList TEXT -- Comma-separated list of sport names
 )
 BEGIN
     -- Insert the data into the Ground table
    UPDATE Ground SET
 		
-        groundName = groundNamein,
-        groundMainArea = groundMainAreain,
-        groundAddress = groundAddressin,
-        groundLocationLink = groundLocationLinkin,
-        district = districtin,
-        startTime = startTimein,
-        endTime = endTimein,
-        groundRules = groundRulesin,
-        price = pricein,
-        increasingPriceForExtraHours = increasingPriceForExtraHoursin,
-        courtsAvailable = courtsAvailablein
+        groundName = groundName,
+        groundMainArea = groundMainArea,
+        groundAddress = groundAddress,
+        startTime = startTime,
+        endTime = endTime,
+        groundRules = groundRules,
+        price = price,
+        increasingPriceForExtraHours = increasingPriceForExtraHours,
+        courtsAvailable = courtsAvailable
         WHERE
         id = groundIdp;
     DELETE FROM GroundImages WHERE groundId = groundIdp;
@@ -160,7 +163,7 @@ BEGIN
   --   SET @groundId = LAST_INSERT_ID();
 
     -- Insert groundImages into the GroundImages table
-    SET @groundImagesList = groundImagesListin;
+    SET @groundImagesList = groundImagesList;
     WHILE CHAR_LENGTH(@groundImagesList) > 0 DO
         SET @imageUrl = SUBSTRING_INDEX(@groundImagesList, ',', 1);
         INSERT INTO GroundImages (groundId, imageUrl) VALUES (groundIdp, @imageUrl);
@@ -168,7 +171,7 @@ BEGIN
     END WHILE;
 
     -- Insert sportsAvailable into the SportsAvailable table
-    SET @sportsAvailableList = sportsAvailableListin;
+    SET @sportsAvailableList = sportsAvailableList;
     WHILE CHAR_LENGTH(@sportsAvailableList) > 0 DO
         SET @sportName = SUBSTRING_INDEX(@sportsAvailableList, ',', 1);
         INSERT INTO SportsAvailable (groundId, sportName) VALUES (groundIdp, @sportName);
@@ -184,18 +187,14 @@ CREATE PROCEDURE DeleteGround(
     IN groundIdp INT
 )
 BEGIN
-    -- Delete the record from the Ground table
---    DELETE FROM Ground WHERE id = groundId;
-
-    -- Delete existing GroundImages and SportsAvailable records for the given groundId
-    DELETE FROM GroundImages WHERE groundId = groundIdp;
-    DELETE FROM SportsAvailable WHERE groundId = groundIdp;
-    
-        DELETE FROM Ground WHERE id = groundIdp;
+    -- Set the groundStatus to FALSE (0) for the given groundId
+    UPDATE Ground
+    SET groundStatus = 0
+    WHERE id = groundIdp;
 END &&
 DELIMITER ;
 -- DROP PROCEDURE IF EXISTS DeleteGround;
-
+select * from  Ground;
 
 desc GroundImages;
 
@@ -208,7 +207,7 @@ FROM Ground g;
 
 -- call InsertGround();
 
-
+Select * From GroundImages;
 
 /*
  CREATE TABLE sellers (
@@ -226,43 +225,43 @@ FROM Ground g;
 */
 
 -- user model
-CREATE TABLE `user` (
+CREATE TABLE `User` (
   `id` int NOT NULL AUTO_INCREMENT,
   `first_name` varchar(35) NOT NULL,
   `last_name` varchar(35) NOT NULL,
   `email` varchar(20) NOT NULL UNIQUE,
-  `phone_number` VARCHAR(15) NOT NULL,
+  `phone_number` BIGINT  NOT NULL,
   `password` varchar(255) NOT NULL,
     `imageUrl`TEXT  NOT NULL,
   `playerstatus` BOOLEAN DEFAULT NULL,
-  `display_name` varchar(20) DEFAULT NULL,
   `age` int DEFAULT NULL,
   `gender` varchar(17)  DEFAULT NULL,
   `location` varchar(25) DEFAULT NULL,
   `timing_from` time DEFAULT NULL,
   `timing_to` time DEFAULT NULL,
   `about`TEXT DEFAULT NULL,
+  `userStatus` TINYINT DEFAULT 1,
   PRIMARY KEY (`id`)
 );
-
-CREATE TABLE UserSportSKnwon (
+select * from User;
+CREATE TABLE UserSportSKnown(
     id INT PRIMARY KEY AUTO_INCREMENT,
     userId INT DEFAULT NULL,
     sportName VARCHAR(100) DEFAULT NULL,
-    FOREIGN KEY (userId) REFERENCES user(id)
+    FOREIGN KEY (userId) REFERENCES User(id)
 );
-
+select * from UserSportSKnown;
 
 DELIMITER &&
 CREATE  PROCEDURE `InsertUser`(
     IN p_first_name VARCHAR(35),
     IN p_last_name VARCHAR(35),
     IN p_email VARCHAR(100),
-    IN p_phone_number VARCHAR(15),
+    IN p_phone_number BIGINT ,
     IN p_password VARCHAR(255),
         IN p_imageUrl TEXT,
     IN p_playerstatus BOOLEAN,
-    IN p_display_name VARCHAR(20),
+  
     IN p_age int,
     IN p_gender VARCHAR(17),
     IN p_location VARCHAR(25),
@@ -277,7 +276,7 @@ BEGIN
         SET p_age = NULL;
     END IF;
     -- Insert the data into the Ground table
-    INSERT INTO user (
+    INSERT INTO User (
        `first_name`,
         `last_name`,
         `email`,
@@ -285,7 +284,6 @@ BEGIN
         `password`,
          `imageUrl`,
         `playerstatus`,
-        `display_name`,
         `age`,
         `gender`,
         `location`,
@@ -301,7 +299,6 @@ BEGIN
         p_password,
           p_imageUrl,
         p_playerstatus,
-       IF(p_playerstatus, p_display_name, NULL),
          IF(p_playerstatus, p_age, NULL),
         IF(p_playerstatus, p_gender, NULL),
         IF(p_playerstatus, p_location, NULL),
@@ -317,11 +314,11 @@ BEGIN
     SET @sportsKnownList = sportsKnownList;
     WHILE CHAR_LENGTH(@sportsKnownList) > 0 DO
         SET @sportName = SUBSTRING_INDEX(@sportsKnownList, ',', 1);
-        INSERT INTO UserSportSKnwon (userId, sportName) VALUES (@userId, @sportName);
+        INSERT INTO UserSportSKnown (userId, sportName) VALUES (@userId, @sportName);
         SET @sportsKnownList = SUBSTRING(@sportsKnownList, CHAR_LENGTH(@sportName) + 2);
     END WHILE;
     ELSE
-        INSERT INTO UserSportSKnwon (userId, sportName) VALUES (NULL, NULL);
+        INSERT INTO UserSportSKnown (userId, sportName) VALUES (NULL, NULL);
     END IF;
 END &&
 DELIMITER ;
@@ -330,39 +327,37 @@ DELIMITER ;
 DELIMITER &&
 CREATE  PROCEDURE `UpdateUser`(
  IN userIdp INT ,
-  IN p_first_namein VARCHAR(35),
-    IN p_last_namein VARCHAR(35),
-    IN p_emailin VARCHAR(100),
-    IN p_phone_numberin VARCHAR(15),
-    IN p_passwordin VARCHAR(255),
-        IN p_imageUrlin TEXT,
-    IN p_playerstatusin BOOLEAN,
-    IN p_display_namein VARCHAR(20),
-    IN p_agein INT,
-    IN p_genderin VARCHAR(17),
-    IN p_locationin VARCHAR(25),
-    IN p_timing_fromin TIME,
-    IN p_timing_toin TIME,
-    IN p_aboutin TEXT,  
-     IN sportsKnownListin TEXT 
+  IN p_first_name VARCHAR(35),
+    IN p_last_name VARCHAR(35),
+   -- IN p_email VARCHAR(100),
+    IN p_phone_number VARCHAR(15),
+   -- IN p_password VARCHAR(255),
+        IN p_imageUrl TEXT,
+    IN p_playerstatus BOOLEAN,
+    IN p_age INT,
+    IN p_gender VARCHAR(17),
+    IN p_location VARCHAR(25),
+    IN p_timing_from TIME,
+    IN p_timing_to TIME,
+    IN p_about TEXT,  
+     IN sportsKnownList TEXT 
 )
 BEGIN
     -- Insert the data into the Ground table
-   UPDATE user SET
- first_name=p_first_namein,
-        last_name=p_last_namein,
-        email=p_emailin,
-        phone_number=p_phone_numberin,
-        password=p_passwordin,
-         imageUrl=p_imageUrlin,
-        playerstatus=p_playerstatusin,
-        display_name = IF(p_playerstatus, p_display_namein, NULL),
-        age = IF(p_playerstatus, p_agein, NULL),
-        gender = IF(p_playerstatus, p_genderin, NULL),
-        location = IF(p_playerstatus, p_locationin, NULL),
-        timing_from = IF(p_playerstatus, p_timing_fromin, NULL),
-        timing_to = IF(p_playerstatus, p_timing_toin, NULL),
-        about = IF(p_playerstatus, p_aboutin, NULL)
+   UPDATE User SET
+ first_name=p_first_name,
+        last_name=p_last_name,
+      --  email=p_email,
+        phone_number=p_phone_number,
+        -- password=p_password,
+         imageUrl=p_imageUrl,
+        playerstatus=p_playerstatus,
+        age = IF(p_playerstatus, p_age, NULL),
+        gender = IF(p_playerstatus, p_gender, NULL),
+        location = IF(p_playerstatus, p_location, NULL),
+        timing_from = IF(p_playerstatus, p_timing_from, NULL),
+        timing_to = IF(p_playerstatus, p_timing_to, NULL),
+        about = IF(p_playerstatus, p_about, NULL)
         WHERE
         id = userIdp;
     
@@ -370,10 +365,10 @@ BEGIN
  
     IF p_playerstatus THEN
     -- Insert sportsAvailable into the SportsAvailable table
-    SET @sportsKnownList = sportsKnownListin;
+    SET @sportsKnownList = sportsKnownList;
     WHILE CHAR_LENGTH(@sportsKnownList) > 0 DO
         SET @sportName = SUBSTRING_INDEX(@sportsKnownList, ',', 1);
-        INSERT INTO UserSportSKnwon (userId, sportName) VALUES (userIdp, @sportName);
+        INSERT INTO UserSportSKnown (userId, sportName) VALUES (userIdp, @sportName);
         SET @sportsKnownList = SUBSTRING(@sportsKnownList, CHAR_LENGTH(@sportName) + 2);
     END WHILE;
     END IF;
@@ -383,21 +378,45 @@ DELIMITER ;
  -- DROP PROCEDURE IF EXISTS UpdateGround;
 
 DELIMITER &&
-CREATE PROCEDURE DeleteGround(
+CREATE PROCEDURE DeleteUser(
     IN userIdp INT
 )
 BEGIN
-
-
-    DELETE FROM UserSportSKnwon WHERE userId = userIdp;
-    
-        DELETE FROM Ground WHERE id = userIdp;
+    -- Set the groundStatus to FALSE (0) for the given groundId
+    UPDATE Ground
+    SET userStatus = 0
+    WHERE id = userIdp;
 END &&
 DELIMITER ;
 
 
 SELECT
     g.*,
-    
-    (SELECT GROUP_CONCAT(sportName) FROM UserSportSKnwon sa WHERE sa.userId = g.id) AS sportNames
-FROM user g;
+    (SELECT GROUP_CONCAT(sportName) FROM UserSportSKnown sa WHERE sa.userId = g.id) AS sportNames
+FROM User g;
+
+-- groundowner table
+
+CREATE TABLE GroundOwner (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(30) NOT NULL,
+    organisationName VARCHAR(30),
+    email VARCHAR(25) NOT NULL UNIQUE,
+    phoneNumber BIGINT  NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    image TEXT,
+    status  TINYINT DEFAULT 1
+);
+SELECT COUNT(*) FROM  GroundOwner WHERE email = 'sandeo@gmqail,com';
+select * from GroundOwner;
+select * from Ground;
+select * from User;
+select * from Ground;
+
+SELECT g.*, 
+    (SELECT GROUP_CONCAT(imageUrl) FROM GroundImages gi WHERE gi.groundId = g.id) AS imageUrls, 
+    (SELECT GROUP_CONCAT(sportName) FROM SportsAvailable sa WHERE sa.groundId = g.id) AS sportNames 
+FROM Ground g 
+WHERE g.groundOwnerId =11 AND g.groundStatus = 1;
+
+

@@ -165,7 +165,7 @@ static final String USER_ABOUT="about";
 		/**
 		 * The Query for calling insertground from sql
 		 */
-		String storedProcedureCall = "{call UpdateUser(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)}";
+		String storedProcedureCall = "{call UpdateUser(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)}";
 
 		/**
 		 * Getting the ground details and inserting in sql
@@ -176,13 +176,10 @@ static final String USER_ABOUT="about";
 				callableStatement2.setInt(1, user.getUserId());
 				callableStatement2.setString(2, user.getFirstName());
 				callableStatement2.setString(3, user.getLastName());
-			
 				callableStatement2.setLong(4, user.getPhoneNumber());
-				
 				callableStatement2.setString(5, user.getImage());
 				callableStatement2.setBoolean(6, user.getPlayerStatus());
-				
-				callableStatement2.setLong(7, user.getAge());
+				callableStatement2.setInt(7, user.getAge());
 				callableStatement2.setString(8, user.getGender());
 				callableStatement2.setString(9, user.getLocation());
 				callableStatement2.setTime(10, startTimeTs2);
@@ -233,16 +230,16 @@ static final String USER_ABOUT="about";
 
 						User user = new User();
 						
-						Time startTimeSql = rs.getTime(USER_AVAIL_TIME_FROM);
-						LocalTime startTime = null;
-						if (startTimeSql != null) {
-						    startTime = startTimeSql.toLocalTime();
+						Time startTimeSqlD = rs.getTime(USER_AVAIL_TIME_FROM);
+						LocalTime startTimeD = null;
+						if (startTimeSqlD != null) {
+						    startTimeD = startTimeSqlD.toLocalTime();
 						}
 
-						Time endTimeSql = rs.getTime(USER_AVAIL_TIME_TO);
-						LocalTime endTime = null;
-						if (endTimeSql != null) {
-						    endTime = endTimeSql.toLocalTime();
+						Time endTimeSqlD = rs.getTime(USER_AVAIL_TIME_TO);
+						LocalTime endTimeD = null;
+						if (endTimeSqlD!= null) {
+						    endTimeD = endTimeSqlD.toLocalTime();
 						}
 
 
@@ -257,8 +254,8 @@ static final String USER_ABOUT="about";
 						user.setAge(rs.getInt(USER_AGE));
 						user.setGender(rs.getString(USER_GENDER));
 						user.setLocation(rs.getString(USER_LOCATION));
-						user.setTimingAvailFrom(startTime);
-						user.setTimingAvailTo(endTime);
+						user.setTimingAvailFrom(startTimeD);
+						user.setTimingAvailTo(endTimeD);
 						user.setAbout(rs.getString(USER_ABOUT));
 
 						String sportNamesdata = rs.getString("sportNames");
@@ -330,7 +327,7 @@ static final String USER_ABOUT="about";
 
 }
 	public User getUserByEmailAndPassword(String email, String enteredPassword) throws SQLException, DAOException {
-	    User user = null;
+	    User user1 = null;
 	    String selectQuery = "SELECT u.*, " +
                 "(SELECT GROUP_CONCAT(sportName) FROM UserSportSKnown sa WHERE sa.userId = u.id) AS sportNames " +
                 "FROM User u " +
@@ -345,16 +342,16 @@ static final String USER_ABOUT="about";
 	            try (ResultSet rs = pst.executeQuery()) {
 	                if (rs.next()) {
 	                	
-	                	Time startTimeSql = rs.getTime(USER_AVAIL_TIME_FROM);
-						LocalTime startTime = null;
-						if (startTimeSql != null) {
-						    startTime = startTimeSql.toLocalTime();
+	                	Time startTimeSql3 = rs.getTime(USER_AVAIL_TIME_FROM);
+						LocalTime startTime3 = null;
+						if (startTimeSql3 != null) {
+						    startTime3 = startTimeSql3.toLocalTime();
 						}
 
-						Time endTimeSql = rs.getTime(USER_AVAIL_TIME_TO);
-						LocalTime endTime = null;
-						if (endTimeSql != null) {
-						    endTime = endTimeSql.toLocalTime();
+						Time endTimeSql3= rs.getTime(USER_AVAIL_TIME_TO);
+						LocalTime endTime3 = null;
+						if (endTimeSql3 != null) {
+						    endTime3 = endTimeSql3.toLocalTime();
 						}
 
 	                    String storedHashedPassword = rs.getString(USER_PASSWORD);
@@ -362,28 +359,28 @@ static final String USER_ABOUT="about";
 	                    String enteredHashedPassword = hashPassword(enteredPassword);
 	                  
 	                    if (storedHashedPassword.equals(enteredHashedPassword)) {
-	                        user = new User();
-	                        user.setUserId(rs.getInt("id"));
-	                        user.setEmail(rs.getString(USER_EMAIL));
-	                        user.setPassword(rs.getString(USER_PASSWORD));
-	                        user.setPlayerStatus(rs.getBoolean(USER_PLAYER_STATUS));
-	                        user.setFirstName(rs.getString(USER_F_NAME));
-							user.setLastName(rs.getString(USER_L_NAME));
-						user.setPhoneNumber(rs.getLong(USER_PHONE_NO));
-							user.setPassword(rs.getString(USER_PASSWORD));
-							user.setAge(rs.getInt(USER_AGE));
-							user.setGender(rs.getString(USER_GENDER));
-							user.setLocation(rs.getString(USER_LOCATION));
-							user.setTimingAvailFrom(startTime);
-							user.setTimingAvailTo(endTime);
-							user.setAbout(rs.getString(USER_ABOUT));
+	                        user1 = new User();
+	                        user1.setUserId(rs.getInt("id"));
+	                        user1.setEmail(rs.getString(USER_EMAIL));
+	                        user1.setPassword(rs.getString(USER_PASSWORD));
+	                        user1.setPlayerStatus(rs.getBoolean(USER_PLAYER_STATUS));
+	                        user1.setFirstName(rs.getString(USER_F_NAME));
+							user1.setLastName(rs.getString(USER_L_NAME));
+						user1.setPhoneNumber(rs.getLong(USER_PHONE_NO));
+							user1.setPassword(rs.getString(USER_PASSWORD));
+							user1.setAge(rs.getInt(USER_AGE));
+							user1.setGender(rs.getString(USER_GENDER));
+							user1.setLocation(rs.getString(USER_LOCATION));
+							user1.setTimingAvailFrom(startTime3);
+							user1.setTimingAvailTo(endTime3);
+							user1.setAbout(rs.getString(USER_ABOUT));
 							
 							String sportNamesdata2 = rs.getString("sportNames");
 							if (sportNamesdata2 != null) {
 								String[] sportNames2 = sportNamesdata2.split(",");
-								user.setKnownSports(Arrays.asList(sportNames2));
+								user1.setKnownSports(Arrays.asList(sportNames2));
 							} else {
-								user.setKnownSports(new ArrayList<>());
+								user1.setKnownSports(new ArrayList<>());
 							}
 	                       
 	                    } else {
@@ -402,7 +399,7 @@ static final String USER_ABOUT="about";
 	        throw new DAOException(UserDaoErrors.READ_USER_DETAILS_ERROR);
 	    }
 	    
-	    return user;
+	    return user1;
 	}
 
 }
