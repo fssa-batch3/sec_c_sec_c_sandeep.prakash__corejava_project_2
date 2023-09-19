@@ -19,5 +19,12 @@ public class GroundConstants {
 	
     public static final int MIN_COURTS_AVAILABLE = 1;
     public static final int MAX_COURTS_AVAILABLE = 6;
+    
+    public static final int MIN_PLAYERS_AVAILABLE = 1;
+    public static final int MAX_PLAYERS_AVAILABLE = 11;
+    
+    
+	public static final double GROUNDBOOKING_MIN_PRICE = 150;
+	public static final double GROUNDBOOKING_MAX_PRICE = 8000;
 
 }

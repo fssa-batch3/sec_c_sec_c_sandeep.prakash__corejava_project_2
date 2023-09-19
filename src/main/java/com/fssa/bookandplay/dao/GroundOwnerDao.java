@@ -24,10 +24,10 @@ public class GroundOwnerDao {
 		// private constructor
 	}
 
-	
-	static final String EMAIL="email";
-	static final String PHONE_NO="phone_number";
-	static final String PASSWORD= "password";
+	static final String EMAIL = "email";
+	static final String PHONE_NO = "phone_number";
+	static final String PASSWORD = "password";
+
 	public String hashPassword(String password) throws InvalidGroundOwnerDetailException {
 		try {
 			MessageDigest md = MessageDigest.getInstance("SHA-256");
@@ -80,13 +80,11 @@ public class GroundOwnerDao {
 	}
 
 	public boolean updateGroundOwner(GroundOwner groundOwner) throws DAOException, SQLException {
-		
-		
+
 		if (groundOwner.getGroundOwnerId() <= 0) {
 			throw new InvalidGroundOwnerDetailException(GroundOwnerDetailValidationErrors.INVALID_GROUNDOWNER_ID);
 
 		}
-
 
 		/**
 		 * The Query for calling insertground from sql
@@ -104,7 +102,7 @@ public class GroundOwnerDao {
 				pst.setString(2, groundOwner.getOrganisationName());
 
 				pst.setLong(3, groundOwner.getPhoneNumber());
-				
+
 				pst.setString(4, groundOwner.getImage());
 				pst.setInt(5, groundOwner.getGroundOwnerId());
 				pst.executeUpdate();
@@ -164,18 +162,14 @@ public class GroundOwnerDao {
 		return groundOwners;
 
 	}
-	
-	
-		
-	
-	
+
 	public boolean isEmailExist(String email) throws SQLException, DAOException {
 
 		/**
 		 * The Query for calling insertground from sql
 		 */
-		 boolean exists = false;
-		 String query = "SELECT COUNT(*) FROM GroundOwner WHERE email = ?";
+		boolean exists = false;
+		String query = "SELECT COUNT(*) FROM GroundOwner WHERE email = ?";
 		/**
 		 * Getting the ground details and inserting in sql
 		 */
@@ -185,64 +179,99 @@ public class GroundOwnerDao {
 				pst.setString(1, email);
 				try (ResultSet rs = pst.executeQuery()) {
 					if (rs.next()) {
-	                    int count = rs.getInt(1);
-	                    exists = count > 0;
-	                }
+						int count = rs.getInt(1);
+						exists = count > 0;
+					}
+				}
 			}
-		}
-		}catch (SQLException e) {
+		} catch (SQLException e) {
 
 			throw new DAOException(GroundOwnerDaoErrors.READ_GROUNDOWNER_EMAIL_ERROR);
 		}
 
-			 return exists;
+		return exists;
 
-
-}
-	public GroundOwner getGroundOwnerByEmailAndPassword(String email, String enteredPassword) throws SQLException, DAOException {
-	    GroundOwner go = null;
-	    String query = "SELECT * FROM GroundOwner WHERE email = ?";
-	    
-	    try (Connection con = ConnectionUtil.getConnection()) {
-	        try (PreparedStatement pst = con.prepareStatement(query)) {
-	            pst.setString(1, email);
-	            
-	            try (ResultSet rs = pst.executeQuery()) {
-	                if (rs.next()) {
-	                    String storedHashedPassword = rs.getString(PASSWORD);
-	                  
-	                    String enteredHashedPassword = hashPassword(enteredPassword);
-	                  
-	                    if (storedHashedPassword.equals(enteredHashedPassword)) {
-	                        go = new GroundOwner();
-	                        go.setGroundOwnerId(rs.getInt("id"));
-	                        go.setEmail(rs.getString(EMAIL));
-	                        go.setPassword(rs.getString(PASSWORD));
-	                        go.setName(rs.getString("name"));
-	                        go.setOrganisationName(rs.getString("organisationName"));
-	                        go.setPhoneNumber(rs.getLong("phoneNumber"));
-	                       
-	                    } else {
-	                        throw new DAOException(GroundOwnerDaoErrors.READ_GROUNDOWNER_EMAIL_ERROR);
-	                    }
-	                } else {
-	                    throw new DAOException(GroundOwnerDaoErrors.READ_GROUND_OWNER_PASS_ERROR);
-	                }
-	            }
-	        }
-	    } catch (SQLException e) {
-	      
-	    	/**e.printStackTrace();
-	    	 * 
-	    	 */
-	        
-	        throw new DAOException(GroundOwnerDaoErrors.READ_GROUNDOWNER_DETAILS_ERROR);
-	    }
-	    
-	    return go;
 	}
 
-	
-	
+	public GroundOwner getGroundOwnerByEmailAndPassword(String email, String enteredPassword)
+			throws SQLException, DAOException {
+		GroundOwner go = null;
+		String query = "SELECT * FROM GroundOwner WHERE email = ?";
+
+		try (Connection con = ConnectionUtil.getConnection()) {
+			try (PreparedStatement pst = con.prepareStatement(query)) {
+				pst.setString(1, email);
+
+				try (ResultSet rs = pst.executeQuery()) {
+					if (rs.next()) {
+						String storedHashedPassword = rs.getString(PASSWORD);
+
+						String enteredHashedPassword = hashPassword(enteredPassword);
+
+						if (storedHashedPassword.equals(enteredHashedPassword)) {
+							go = new GroundOwner();
+							go.setGroundOwnerId(rs.getInt("id"));
+							go.setEmail(rs.getString(EMAIL));
+							go.setPassword(rs.getString(PASSWORD));
+							go.setName(rs.getString("name"));
+							go.setOrganisationName(rs.getString("organisationName"));
+							go.setPhoneNumber(rs.getLong("phoneNumber"));
+
+						} else {
+							throw new DAOException(GroundOwnerDaoErrors.READ_GROUNDOWNER_EMAIL_ERROR);
+						}
+					} else {
+						throw new DAOException(GroundOwnerDaoErrors.READ_GROUND_OWNER_PASS_ERROR);
+					}
+				}
+			}
+		} catch (SQLException e) {
+
+			/**
+			 * e.printStackTrace();
+			 * 
+			 */
+
+			throw new DAOException(GroundOwnerDaoErrors.READ_GROUNDOWNER_DETAILS_ERROR);
+		}
+
+		return go;
+	}
+
+	public GroundOwner getGroundOwnerById(int id) throws SQLException, DAOException {
+		GroundOwner go = null;
+		String query = "SELECT * FROM GroundOwner WHERE id = ?";
+
+		try (Connection con = ConnectionUtil.getConnection()) {
+			try (PreparedStatement pst = con.prepareStatement(query)) {
+				pst.setInt(1, id);
+
+				try (ResultSet rs = pst.executeQuery()) {
+					if (rs.next()) {
+
+						go = new GroundOwner();
+						go.setGroundOwnerId(rs.getInt("id"));
+						go.setEmail(rs.getString(EMAIL));
+						go.setPassword(rs.getString(PASSWORD));
+						go.setName(rs.getString("name"));
+						go.setOrganisationName(rs.getString("organisationName"));
+						go.setPhoneNumber(rs.getLong("phoneNumber"));
+
+					}
+
+				}
+			}
+		} catch (SQLException e) {
+
+			/**
+			 * e.printStackTrace();
+			 * 
+			 */
+
+			throw new DAOException(GroundOwnerDaoErrors.READ_GROUNDOWNER_DETAILS_ERROR);
+		}
+
+		return go;
+	}
 
 }

@@ -62,4 +62,12 @@ public class GroundOwnerService {
 
 	}
 	
+	
+	
+	public GroundOwner getgroundOwnerById(int id) throws DAOException, SQLException {
+
+		return 	groundOwnerDao.getGroundOwnerById(id);
+
+	}
+	
 }

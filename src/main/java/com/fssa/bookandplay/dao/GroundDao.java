@@ -306,7 +306,7 @@ public class GroundDao {
 						
 	
 						
-
+						ground.setGroundOwnerId(rs.getInt("groundOwnerId"));
 						ground.setgroundId(groundId);
 						ground.setGroundName(rs.getString(COLUMN_GROUND_NAME));
 						ground.setGroundMainArea(rs.getString(COLUMN_GROUND_MAIN_AREA));

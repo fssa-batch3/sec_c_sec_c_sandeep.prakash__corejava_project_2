@@ -1,6 +1,7 @@
 package com.fssa.bookandplay.service;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import com.fssa.bookandplay.dao.UserDao;
 import com.fssa.bookandplay.exceptions.DAOException;
@@ -75,5 +76,18 @@ public class UserService {
 		return 	ud.getUserByEmailAndPassword(email, password);
 
 	}
+	
+	
+	public User getUserId(int id) throws DAOException, SQLException {
+
+		return 	ud.	getUserById(id);
+
+	}
+	public List<User> getAllPlayerStatus() throws DAOException, SQLException {
+		return 	ud.getAllPlayer();
+		
+	}
+	
+	
 	
 }

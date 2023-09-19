@@ -12,6 +12,7 @@ import java.util.List;
  */
 
 public class Ground {
+
 	@Override
 	public String toString() {
 		return "Ground [groundId=" + groundId + ", groundName=" + groundName + ", groundMainArea=" + groundMainArea
@@ -19,7 +20,7 @@ public class Ground {
 				+ district + ", groundImages=" + groundImages + ", sportsAvailable=" + sportsAvailable + ", startTime="
 				+ startTime + ", endTime=" + endTime + ", groundRules=" + groundRules + ", price=" + price
 				+ ", increasingPriceForExtraHours=" + increasingPriceForExtraHours + ", courtsAvailable="
-				+ courtsAvailable + "]";
+				+ courtsAvailable + ", groundOwnerId=" + groundOwnerId + "]";
 	}
 
 	private int groundId;

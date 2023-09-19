@@ -34,7 +34,7 @@ import com.fssa.bookandplay.util.Logger;
 				.aboutBuilder("HelloWorld").imageBuilder("https://example.com/image1.jpg").build();
          return user1;
 	 }
- 
+ 	
  
  
 User getUserOnly() {
@@ -99,4 +99,34 @@ return user1;
 				
 			
 		}
+		
+		
+		
+		@Test
+		void testGetUserId() throws DAOException, SQLException {
+
+			User user=userService.getUserId(1);
+			assertNotNull(user); 
+				logger.info( user);
+				
+				
+			
+		}
+		
+
+
+		@Test
+		void testGetUserPlayer() throws DAOException, SQLException {
+			List<User> userPlayerList = userService.getAllPlayerStatus();
+			 assertNotNull(userPlayerList); 
+			for (User upl : userPlayerList) {
+
+				logger.info(upl);
+
+			}
+
+
+		}
+	 
+		
 }

@@ -402,4 +402,162 @@ static final String USER_ABOUT="about";
 	    return user1;
 	}
 
+	
+	public User getUserById(int id) throws SQLException, DAOException {
+	    User user1 = null;
+	    String selectQuery = "SELECT u.*, " +
+                "(SELECT GROUP_CONCAT(sportName) FROM UserSportSKnown sa WHERE sa.userId = u.id) AS sportNames " +
+                "FROM User u " +
+                "WHERE u.id = ?";
+	    
+	    
+	    
+	    try (Connection con = ConnectionUtil.getConnection()) {
+	        try (PreparedStatement pst = con.prepareStatement(selectQuery)) {
+	            pst.setInt(1, id);
+	            
+	            try (ResultSet rs = pst.executeQuery()) {
+	                if (rs.next()) {
+	                	
+	                	Time startTimeSql3 = rs.getTime(USER_AVAIL_TIME_FROM);
+						LocalTime startTime3 = null;
+						if (startTimeSql3 != null) {
+						    startTime3 = startTimeSql3.toLocalTime();
+						}
+
+						Time endTimeSql3= rs.getTime(USER_AVAIL_TIME_TO);
+						LocalTime endTime3 = null;
+						if (endTimeSql3 != null) {
+						    endTime3 = endTimeSql3.toLocalTime();
+						}
+
+	           
+	                        user1 = new User();
+	                        user1.setUserId(rs.getInt("id"));
+	                        user1.setEmail(rs.getString(USER_EMAIL));
+	                        user1.setPassword(rs.getString(USER_PASSWORD));
+	                        user1.setPlayerStatus(rs.getBoolean(USER_PLAYER_STATUS));
+	                        user1.setFirstName(rs.getString(USER_F_NAME));
+							user1.setLastName(rs.getString(USER_L_NAME));
+						user1.setPhoneNumber(rs.getLong(USER_PHONE_NO));
+							user1.setPassword(rs.getString(USER_PASSWORD));
+							user1.setAge(rs.getInt(USER_AGE));
+							user1.setGender(rs.getString(USER_GENDER));
+							user1.setLocation(rs.getString(USER_LOCATION));
+							user1.setTimingAvailFrom(startTime3);
+							user1.setTimingAvailTo(endTime3);
+							user1.setAbout(rs.getString(USER_ABOUT));
+							
+							String sportNamesdata2 = rs.getString("sportNames");
+							if (sportNamesdata2 != null) {
+								String[] sportNames2 = sportNamesdata2.split(",");
+								user1.setKnownSports(Arrays.asList(sportNames2));
+							} else {
+								user1.setKnownSports(new ArrayList<>());
+							}
+	                       
+	                   
+	            }
+	        }
+	        }
+	    } catch (SQLException e) {
+	    	/**
+	        e.printStackTrace();
+	        */
+	        
+	        throw new DAOException(UserDaoErrors.READ_USER_DETAILS_ERROR);
+	    }
+	    
+	    return user1;
+
+}
+	
+	
+	public   List<User> getAllPlayer() throws DAOException, SQLException {
+
+		List<User> userList = new ArrayList<>();
+
+		/**
+		 * The Query for selecting all grounddetails from all the table
+		 */
+
+	    String selectQuery = "SELECT u.*, " +
+                "(SELECT GROUP_CONCAT(sportName) FROM UserSportSKnown sa WHERE sa.userId = u.id) AS sportNames " +
+                "FROM User u " +
+                "WHERE u.playerstatus = 1";
+
+		try (Connection con = ConnectionUtil.getConnection()) {
+
+			try (PreparedStatement preparedStatement = con.prepareStatement(selectQuery)) {
+				try (ResultSet rs = preparedStatement.executeQuery()) {
+
+					while (rs.next()) {
+						int userId = rs.getInt("id");
+
+						User user = new User();
+						
+						Time startTimeSqlD = rs.getTime(USER_AVAIL_TIME_FROM);
+						LocalTime startTimeD = null;
+						if (startTimeSqlD != null) {
+						    startTimeD = startTimeSqlD.toLocalTime();
+						}
+
+						Time endTimeSqlD = rs.getTime(USER_AVAIL_TIME_TO);
+						LocalTime endTimeD = null;
+						if (endTimeSqlD!= null) {
+						    endTimeD = endTimeSqlD.toLocalTime();
+						}
+
+
+						user.setUserId(userId);
+						user.setFirstName(rs.getString(USER_F_NAME));
+						user.setLastName(rs.getString(USER_L_NAME));
+						user.setEmail(rs.getString(USER_EMAIL));
+						user.setPhoneNumber(rs.getLong(USER_PHONE_NO));
+						user.setPassword(rs.getString(USER_PASSWORD));
+						user.setPlayerStatus(rs.getBoolean(USER_PLAYER_STATUS));
+					
+						user.setAge(rs.getInt(USER_AGE));
+						user.setGender(rs.getString(USER_GENDER));
+						user.setLocation(rs.getString(USER_LOCATION));
+						user.setTimingAvailFrom(startTimeD);
+						user.setTimingAvailTo(endTimeD);
+						user.setAbout(rs.getString(USER_ABOUT));
+
+						String sportNamesdata = rs.getString("sportNames");
+						if (sportNamesdata != null) {
+							String[] sportNames = sportNamesdata.split(",");
+							user.setKnownSports(Arrays.asList(sportNames));
+						} else {
+							user.setKnownSports(new ArrayList<>());
+						}
+						logger.info(rs.getString(USER_F_NAME));
+						logger.info(rs.getString(USER_L_NAME));
+						logger.info(rs.getString(USER_EMAIL));
+						logger.info(rs.getLong(USER_PHONE_NO));
+						logger.info(rs.getString(USER_PASSWORD));
+						logger.info(rs.getBoolean(USER_PLAYER_STATUS));
+						
+						logger.info(rs.getInt(USER_AGE));
+						logger.info(rs.getString(USER_GENDER));
+						logger.info(rs.getString(USER_LOCATION));
+
+						logger.info(rs.getTime(USER_AVAIL_TIME_FROM));
+						logger.info(rs.getTime(USER_AVAIL_TIME_TO));
+						// add ground object
+						userList.add(user);
+					}
+				}
+			}
+
+		}
+
+		catch (SQLException e) {
+			throw new DAOException(UserDaoErrors.READ_USER_DETAILS_ERROR);
+		}
+
+		return userList;
+	}
+
+	
 }
