@@ -113,7 +113,7 @@ public class GroundDao {
 		/**
 		 * If the ground id is invalid
 		 */
-		if (ground.getgroundId() <= 0) {
+		if (ground.getGroundId() <= 0) {
 			throw new InvalidGroundDetailException(GroundValidatorsErrors.INVALID_PRODUCT_ID);
 
 		}
@@ -133,7 +133,7 @@ public class GroundDao {
 		try (Connection con = ConnectionUtil.getConnection()) {
 			try (CallableStatement callableStatement2 = con.prepareCall(storedProcedureCall)) {
 
-				callableStatement2.setInt(1, ground.getgroundId());
+				callableStatement2.setInt(1, ground.getGroundId());
 				callableStatement2.setString(2, ground.getGroundName());
 				callableStatement2.setString(3, ground.getGroundMainArea());
 				callableStatement2.setString(4, ground.getGroundAddress());
@@ -219,14 +219,14 @@ public class GroundDao {
 				try (ResultSet rs = preparedStatement.executeQuery()) {
 
 					while (rs.next()) {
-						int groundId = rs.getInt("id");
+						//int groundId = rs.getInt("id");
 
 						Ground ground1 = new Ground();
 						Time startTimeSql3 = rs.getTime(COLUMN_START_TIME);
 						LocalTime startTime3 = startTimeSql3.toLocalTime();
 						Time endTimeSql3 = rs.getTime(COLUMN_END_TIME);
 						LocalTime endTime3= endTimeSql3.toLocalTime();
-						ground1.setgroundId(groundId);
+						ground1.setGroundId(rs.getInt("id"));
 						ground1.setGroundName(rs.getString(COLUMN_GROUND_NAME));
 						ground1.setGroundMainArea(rs.getString(COLUMN_GROUND_MAIN_AREA));
 						ground1.setGroundAddress(rs.getString(COLUMN_GROUND_ADDRESS));
@@ -307,7 +307,7 @@ public class GroundDao {
 	
 						
 						ground.setGroundOwnerId(rs.getInt("groundOwnerId"));
-						ground.setgroundId(groundId);
+						ground.setGroundId(groundId);
 						ground.setGroundName(rs.getString(COLUMN_GROUND_NAME));
 						ground.setGroundMainArea(rs.getString(COLUMN_GROUND_MAIN_AREA));
 						ground.setGroundAddress(rs.getString(COLUMN_GROUND_ADDRESS));
@@ -382,7 +382,7 @@ public class GroundDao {
 
 						Time endTimeSql5 = rs.getTime(COLUMN_END_TIME);
 						LocalTime endTime5 = endTimeSql5.toLocalTime();
-                 ground2.setgroundId(groundId);
+                 ground2.setGroundId(groundId);
              	ground2.setGroundName(rs.getString(COLUMN_GROUND_NAME));
 				ground2.setGroundMainArea(rs.getString(COLUMN_GROUND_MAIN_AREA));
 				ground2.setGroundAddress(rs.getString(COLUMN_GROUND_ADDRESS));

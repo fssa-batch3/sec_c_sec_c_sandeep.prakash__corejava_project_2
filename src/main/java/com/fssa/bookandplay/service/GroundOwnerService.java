@@ -3,6 +3,7 @@ package com.fssa.bookandplay.service;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.fssa.bookandplay.dao.GroundDao;
 import com.fssa.bookandplay.dao.GroundOwnerDao;
 import com.fssa.bookandplay.exceptions.DAOException;
 import com.fssa.bookandplay.model.GroundOwner;
@@ -18,6 +19,7 @@ public class GroundOwnerService {
 	
 	GroundOwnerDetailValidator groundOwnerVal=new GroundOwnerDetailValidator();
 	GroundOwnerDao groundOwnerDao =new GroundOwnerDao();
+	GroundDao groundDao=new GroundDao();
 	
 	
 	
@@ -68,6 +70,17 @@ public class GroundOwnerService {
 
 		return 	groundOwnerDao.getGroundOwnerById(id);
 
+	}
+	
+	
+	public boolean checkGroundOwnerExistInGround(int id) throws DAOException, SQLException {
+		
+		if(groundDao.isGroundOwnerExist(id)){
+			return true;
+		}
+		return false;
+		
+		
 	}
 	
 }

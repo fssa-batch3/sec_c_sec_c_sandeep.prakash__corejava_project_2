@@ -100,7 +100,7 @@ public class GroundBuilder {
 
 	public Ground build() {
         Ground ground = new Ground();
-       ground.setgroundId(groundIdForBuilder);
+       ground.setGroundId(groundIdForBuilder);
         ground.setGroundName(groundNameForBuilder);
         ground.setGroundMainArea(groundMainAreaForBuilder);
         ground.setGroundAddress(groundAddressForBuilder);

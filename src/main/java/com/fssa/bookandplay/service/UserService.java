@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.fssa.bookandplay.dao.UserDao;
 import com.fssa.bookandplay.exceptions.DAOException;
+import com.fssa.bookandplay.exceptions.InvalidUserDetailException;
 import com.fssa.bookandplay.model.User;
 import com.fssa.bookandplay.validator.UserValidator;
 
@@ -20,7 +21,7 @@ public class UserService {
 	/**
 	 * The add user
 	 */
-	public boolean addUserPlayer(User user) throws DAOException, SQLException {
+	public boolean addUserPlayer(User user) throws DAOException, SQLException,InvalidUserDetailException {
 		if (ul.validateUserPlayer(user)&& !ud.isUserEmailExist(user.getEmail())) {
 			ud.addUser(user);
 			return true;

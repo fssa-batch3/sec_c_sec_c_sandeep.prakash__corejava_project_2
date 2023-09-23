@@ -26,7 +26,7 @@ public class GroundBookingService {
 	public boolean addGroundBooking(GroundBooking groundBooking) throws DAOException, SQLException {
 		if (groundbookingvalidate.validateBooking(groundBooking)) {
 			groundbookingdao.addGroundBooking(groundBooking);
-			logger.info("succcccccc da vennnaa");
+			logger.info("success");
 			return true;
 	
 

@@ -78,7 +78,7 @@ public class TestGroundDao {
 
 	public static Ground InvalidGround() {
 		Ground ground = new Ground();
-		ground.setgroundId(-1);
+		ground.setGroundId(-1);
 		return ground;
 	}
 
@@ -126,7 +126,7 @@ public class TestGroundDao {
 	void testInValidUpdateGround1() throws SQLException, DAOException {
 		try {
 			Ground ground = new Ground();
-			ground.setgroundId(-1);
+			ground.setGroundId(-1);
 			groundDao.updateGround(ground);
 		} catch (InvalidGroundDetailException ex) {
 			Assertions.assertEquals(GroundValidatorsErrors.INVALID_PRODUCT_ID, ex.getMessage());
@@ -149,7 +149,7 @@ public class TestGroundDao {
 
 	void testInValidDeleteGround() throws SQLException, InvalidGroundDetailException, DAOException {
 		try {
-			groundDao.deleteGround(InvalidGround().getgroundId());
+			groundDao.deleteGround(InvalidGround().getGroundId());
 		} catch (InvalidGroundDetailException ex) {
 			Assertions.assertEquals(GroundValidatorsErrors.INVALID_PRODUCT_ID, ex.getMessage());
 

@@ -1,7 +1,7 @@
 -- desc groundimages;
--- DROP DATABASE IF  EXISTS bookandplaybackend;
--- CREATE DATABASE IF NOT EXISTS bookandplaybackend;
-use sandeep_prakash_corejava_project;
+DROP DATABASE IF  EXISTS bookandplaybackend2;
+CREATE DATABASE IF NOT EXISTS bookandplaybackend2;
+use bookandplaybackend2;
 CREATE TABLE Ground (
   `id` int NOT NULL AUTO_INCREMENT,
   `groundName` varchar(255)UNIQUE NOT NULL,
@@ -126,7 +126,6 @@ BEGIN
 END &&
 DELIMITER ;
 
-
 DELIMITER &&
 CREATE  PROCEDURE `UpdateGround`(
  IN groundIdp INT ,
@@ -225,6 +224,10 @@ Select * From GroundImages;
 */
 
 -- user model
+
+-- user model
+
+-- user model
 CREATE TABLE `User` (
   `id` int NOT NULL AUTO_INCREMENT,
   `first_name` varchar(35) NOT NULL,
@@ -261,7 +264,6 @@ CREATE  PROCEDURE `InsertUser`(
     IN p_password VARCHAR(255),
         IN p_imageUrl TEXT,
     IN p_playerstatus BOOLEAN,
-  
     IN p_age int,
     IN p_gender VARCHAR(17),
     IN p_location VARCHAR(25),
@@ -329,10 +331,8 @@ CREATE  PROCEDURE `UpdateUser`(
  IN userIdp INT ,
   IN p_first_name VARCHAR(35),
     IN p_last_name VARCHAR(35),
-   -- IN p_email VARCHAR(100),
     IN p_phone_number VARCHAR(15),
-   -- IN p_password VARCHAR(255),
-        IN p_imageUrl TEXT,
+    IN p_imageUrl TEXT,
     IN p_playerstatus BOOLEAN,
     IN p_age INT,
     IN p_gender VARCHAR(17),
@@ -347,9 +347,7 @@ BEGIN
    UPDATE User SET
  first_name=p_first_name,
         last_name=p_last_name,
-      --  email=p_email,
         phone_number=p_phone_number,
-        -- password=p_password,
          imageUrl=p_imageUrl,
         playerstatus=p_playerstatus,
         age = IF(p_playerstatus, p_age, NULL),
@@ -361,7 +359,7 @@ BEGIN
         WHERE
         id = userIdp;
     
-    DELETE FROM UserSportSKnwon WHERE userId = userIdp;
+    DELETE FROM UserSportSKnown WHERE userId = userIdp;
  
     IF p_playerstatus THEN
     -- Insert sportsAvailable into the SportsAvailable table
@@ -383,7 +381,7 @@ CREATE PROCEDURE DeleteUser(
 )
 BEGIN
     -- Set the groundStatus to FALSE (0) for the given groundId
-    UPDATE Ground
+    UPDATE User
     SET userStatus = 0
     WHERE id = userIdp;
 END &&
@@ -392,8 +390,9 @@ DELIMITER ;
 
 SELECT
     g.*,
-    (SELECT GROUP_CONCAT(sportName) FROM UserSportSKnown sa WHERE sa.userId = g.id) AS sportNames
-FROM User g;
+    
+    (SELECT GROUP_CONCAT(sportName) FROM UserSportSKnwon sa WHERE sa.userId = g.id) AS sportNames
+FROM user g;
 
 -- groundowner table
 
@@ -418,5 +417,187 @@ SELECT g.*,
     (SELECT GROUP_CONCAT(sportName) FROM SportsAvailable sa WHERE sa.groundId = g.id) AS sportNames 
 FROM Ground g 
 WHERE g.groundOwnerId =11 AND g.groundStatus = 1;
+
+-- Booking Table
+CREATE TABLE GroundBooking (
+    bookingId INT PRIMARY KEY AUTO_INCREMENT,
+    bookingDate DATE NOT NULL,
+    bookingDuration VARCHAR(55) NOT NULL,
+    bookingSports VARCHAR(55) NOT NULL,
+    bookingStatus TINYINT DEFAULT 1,
+    userBookingStatus TINYINT DEFAULT 1,
+    selectedCourts VARCHAR(55) NOT NULL,
+    selectedPlayers INT NOT NULL,
+    bookedAt BIGINT,
+    groundPrice DOUBLE NOT NULL,
+    groundId INT NOT NULL,
+    requestUserId INT NOT NULL,
+    sellerId INT NOT NULL,
+    FOREIGN KEY (groundId) REFERENCES Ground(id), 
+    FOREIGN KEY (requestUserId) REFERENCES User(id), 
+    FOREIGN KEY (sellerId) REFERENCES GroundOwner(id)
+);
+CREATE TABLE Payment (
+    paymentId INT PRIMARY KEY AUTO_INCREMENT,
+    bookingId INT NOT NULL,
+    paymentDate DATE NOT NULL,
+    paymentAmount DOUBLE NOT NULL,
+    paymentMethod VARCHAR(25) NOT NULL,
+    FOREIGN KEY (bookingId) REFERENCES GroundBooking(bookingId)
+);
+CREATE TABLE BookingTime (
+  bookingTimeId INT PRIMARY KEY AUTO_INCREMENT,
+    bookingId INT,
+    bookingTime TEXT  NOT NULL,
+    FOREIGN KEY (bookingId) REFERENCES GroundBooking(bookingId)
+);
+select * from GroundBooking;
+select * from ground;
+select * from Payment;
+select * from BookingTime;
+select * from User;
+select * from GroundOwner;
+SELECT COUNT(*) AS count
+FROM GroundBooking gb
+JOIN BookingTime bt ON gb.bookingId = bt.bookingId
+WHERE gb.bookingDate = '2023-09-17'
+  AND bt.bookingTime IN ('12:00 PM-1:00 PM')
+  AND gb.selectedCourts = 'Court 1'
+  AND gb.groundId = 1;
+
+DELIMITER &&
+CREATE PROCEDURE `InsertGroundBooking`(
+    IN bookingDate DATE,
+    IN bookingDuration VARCHAR(55),
+    IN bookingSports VARCHAR(55),
+    IN selectedCourts VARCHAR(55),
+    IN selectedPlayers INT,
+    IN bookedAt BIGINT,
+    IN groundPrice DOUBLE,
+    IN groundId INT,
+    IN requestUserId INT,
+    IN sellerId INT,
+    IN paymentDate DATE,
+    IN paymentAmount DOUBLE,
+    IN paymentMethod VARCHAR(25),
+    IN bookingTimeList TEXT -- Comma-separated list of booking times
+)
+BEGIN
+    -- Insert the data into the GroundBooking table
+    INSERT INTO GroundBooking (
+        bookingDate,
+        bookingDuration,
+        bookingSports,
+        selectedCourts,
+        selectedPlayers,
+        bookedAt,
+        groundPrice,
+        groundId,
+        requestUserId,
+        sellerId
+    ) VALUES (
+        bookingDate,
+        bookingDuration,
+        bookingSports,
+        selectedCourts,
+        selectedPlayers,
+        bookedAt,
+        groundPrice,
+        groundId,
+        requestUserId,
+        sellerId
+    );
+
+    -- Get the auto-generated bookingId
+    SET @bookingId = LAST_INSERT_ID();
+
+    -- Insert the payment information into the Payment table
+    INSERT INTO Payment (
+        bookingId,
+        paymentDate,
+        paymentAmount,
+        paymentMethod
+    ) VALUES (
+        @bookingId,
+        paymentDate,
+        paymentAmount,
+        paymentMethod
+    );
+
+    -- Insert booking times into the BookingTime table
+    SET @bookingTimeList = bookingTimeList;
+    WHILE CHAR_LENGTH(@bookingTimeList) > 0 DO
+        SET @bookingTime = SUBSTRING_INDEX(@bookingTimeList, ',', 1);
+        INSERT INTO BookingTime (bookingId, bookingTime) VALUES (@bookingId, @bookingTime);
+        SET @bookingTimeList = SUBSTRING(@bookingTimeList, CHAR_LENGTH(@bookingTime) + 2);
+    END WHILE;
+END &&
+DELIMITER ;
+
+
+
+
+
+DELIMITER &&
+CREATE PROCEDURE `GetGroundBookingById`(
+    IN bookingId INT
+)
+BEGIN
+    -- Retrieve the booking details from the GroundBooking table
+    SELECT * FROM GroundBooking WHERE bookingId = bookingId;
+
+    -- Retrieve payment information for the booking
+    SELECT * FROM Payment WHERE bookingId = bookingId;
+
+    -- Retrieve booking times for the booking
+    SELECT * FROM BookingTime WHERE bookingId = bookingId;
+END &&
+DELIMITER ;
+
+
+
+
+-- request
+CREATE TABLE Friend_requests (
+    request_id INT AUTO_INCREMENT PRIMARY KEY,
+    sender_id INT NOT NULL,
+    receiver_id INT NOT NULL,
+    status ENUM('Pending', 'Accepted', 'Rejected') NOT NULL DEFAULT 'Pending',
+    sent_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_sender FOREIGN KEY (sender_id) REFERENCES User(id),
+    CONSTRAINT fk_receiver FOREIGN KEY (receiver_id) REFERENCES User(id)
+);
+select * from Friend_requests;
+select * from User;
+
+SELECT fr.*, u.*
+FROM Friend_requests fr
+JOIN User u ON fr.sender_id = u.id
+WHERE fr.receiver_id = 3 AND fr.status = 'Accepted';
+
+
+SELECT COUNT(*)
+FROM Friend_requests
+WHERE ((sender_id = 5 AND receiver_id = 3) OR (sender_id = 3 AND receiver_id = 5))
+AND status = 'Accepted';
+
+
+
+
+
+
+
+
+
+CREATE TABLE messages (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    sender_id INT NOT NULL,
+    receiver_id INT NOT NULL,
+    text TEXT NOT NULL,
+    timestamp BIGINT NOT NULL,
+    FOREIGN KEY (sender_id) REFERENCES User(id),
+    FOREIGN KEY (receiver_id) REFERENCES User(id)
+);
+
 
 

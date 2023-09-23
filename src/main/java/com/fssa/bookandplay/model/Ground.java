@@ -13,16 +13,6 @@ import java.util.List;
 
 public class Ground {
 
-	@Override
-	public String toString() {
-		return "Ground [groundId=" + groundId + ", groundName=" + groundName + ", groundMainArea=" + groundMainArea
-				+ ", groundAddress=" + groundAddress + ", groundLocationLink=" + groundLocationLink + ", district="
-				+ district + ", groundImages=" + groundImages + ", sportsAvailable=" + sportsAvailable + ", startTime="
-				+ startTime + ", endTime=" + endTime + ", groundRules=" + groundRules + ", price=" + price
-				+ ", increasingPriceForExtraHours=" + increasingPriceForExtraHours + ", courtsAvailable="
-				+ courtsAvailable + ", groundOwnerId=" + groundOwnerId + "]";
-	}
-
 	private int groundId;
 	private String groundName;
 	private String groundMainArea;
@@ -38,10 +28,13 @@ public class Ground {
 	private double increasingPriceForExtraHours;
 	private int courtsAvailable;
 	private int groundOwnerId;
+	private GroundOwner groundOwner;
 	
 	
 
 	
+	
+
 	
 	/**
 	 * Constructor 1
@@ -75,8 +68,19 @@ public class Ground {
 	 * Constructor 2 for id
 	 */
 
-	
 
+
+
+
+	@Override
+	public String toString() {
+		return "Ground [groundId=" + groundId + ", groundName=" + groundName + ", groundMainArea=" + groundMainArea
+				+ ", groundAddress=" + groundAddress + ", groundLocationLink=" + groundLocationLink + ", district="
+				+ district + ", groundImages=" + groundImages + ", sportsAvailable=" + sportsAvailable + ", startTime="
+				+ startTime + ", endTime=" + endTime + ", groundRules=" + groundRules + ", price=" + price
+				+ ", increasingPriceForExtraHours=" + increasingPriceForExtraHours + ", courtsAvailable="
+				+ courtsAvailable + ", groundOwnerId=" + groundOwnerId + ", groundOwner=" + groundOwner + "]";
+	}
 
 	/**
 	public Ground(int groundId, String groundName, String groundMainArea, String groundAddress,
@@ -117,13 +121,19 @@ public class Ground {
 	 * Setters and Getters Method
 	 */
 
+	public GroundOwner getGroundOwner() {
+		return groundOwner;
+	}
+
+	public void setGroundOwner(GroundOwner groundOwner) {
+		this.groundOwner = groundOwner;
+	}
 	
-	
-	public void setgroundId(int groundId) {
+	public void setGroundId(int groundId) {
 		this.groundId = groundId;
 	}
 
-	public int getgroundId() {
+	public int getGroundId() {
 		return groundId;
 	}
 
