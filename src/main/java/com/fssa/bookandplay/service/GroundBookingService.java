@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.fssa.bookandplay.dao.GroundBookingDao;
 import com.fssa.bookandplay.exceptions.DAOException;
-import com.fssa.bookandplay.model.Ground;
+import com.fssa.bookandplay.exceptions.InvalidGroundBookingDetailException;
 import com.fssa.bookandplay.model.GroundBooking;
 import com.fssa.bookandplay.util.Logger;
 import com.fssa.bookandplay.validator.GroundBookingValidator;
@@ -23,7 +23,7 @@ public class GroundBookingService {
 	/**
 	 * The add groundbooking
 	 */
-	public boolean addGroundBooking(GroundBooking groundBooking) throws DAOException, SQLException {
+	public boolean addGroundBooking(GroundBooking groundBooking) throws DAOException, SQLException,InvalidGroundBookingDetailException {
 		if (groundbookingvalidate.validateBooking(groundBooking)) {
 			groundbookingdao.addGroundBooking(groundBooking);
 			logger.info("success");

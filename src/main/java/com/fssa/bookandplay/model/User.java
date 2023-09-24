@@ -23,6 +23,9 @@ public class User {
     private String about;
     private String image;
     
+    
+    
+    
 
 
 	@Override

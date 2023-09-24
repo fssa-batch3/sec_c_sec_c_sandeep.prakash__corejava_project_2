@@ -7,7 +7,20 @@ public class ChatByPlayer {
     private int id;
     private int senderId;
     private int receiverId;
-    private List<Message> messages;
+    private List<Message> sentMessages;
+    private List<Message> receivedMessages;
+	public List<Message> getSentMessages() {
+		return sentMessages;
+	}
+	public void setSentMessages(List<Message> sentMessages) {
+		this.sentMessages = sentMessages;
+	}
+	public List<Message> getReceivedMessages() {
+		return receivedMessages;
+	}
+	public void setReceivedMessages(List<Message> receivedMessages) {
+		this.receivedMessages = receivedMessages;
+	}
 	public int getId() {
 		return id;
 	}
@@ -26,12 +39,12 @@ public class ChatByPlayer {
 	public void setReceiverId(int receiverId) {
 		this.receiverId = receiverId;
 	}
-	public List<Message> getMessages() {
-		return messages;
+	@Override
+	public String toString() {
+		return "ChatByPlayer [id=" + id + ", senderId=" + senderId + ", receiverId=" + receiverId + ", sentMessages="
+				+ sentMessages + ", receivedMessages=" + receivedMessages + "]";
 	}
-	public void setMessages(List<Message> messages) {
-		this.messages = messages;
-	}
+
 
 
 

@@ -17,6 +17,7 @@ import com.fssa.bookandplay.errors.GroundValidatorsErrors;
 import com.fssa.bookandplay.exceptions.DAOException;
 import com.fssa.bookandplay.exceptions.InvalidGroundDetailException;
 import com.fssa.bookandplay.model.Ground;
+import com.fssa.bookandplay.model.GroundOwner;
 import com.fssa.bookandplay.util.ConnectionUtil;
 import com.fssa.bookandplay.util.Logger;
 
@@ -28,11 +29,21 @@ public class GroundDao {
 	public GroundDao() {
 		// private constructor
 	}
+
 	static final String SELECT_G = "SELECT g.*, ";
-	static final String SELECT_IMAGE_URLS_AND_SPORT_NAMES =
+	static final String SELECT_IMAGE_URLS_AND_SPORT_NAMES1 =
 	        "(SELECT GROUP_CONCAT(imageUrl) FROM GroundImages gi WHERE gi.groundId = g.id) AS imageUrls, " +
 	        "(SELECT GROUP_CONCAT(sportName) FROM SportsAvailable sa WHERE sa.groundId = g.id) AS sportNames ";
-	static final String FROM_GROUND = "FROM Ground g ";
+	
+
+    static final String SELECT_IMAGE_URLS_AND_SPORT_NAMES =
+            "(SELECT GROUP_CONCAT(imageUrl) FROM GroundImages gi WHERE gi.groundId = g.id) AS imageUrls, " +
+            "(SELECT GROUP_CONCAT(sportName) FROM SportsAvailable sa WHERE sa.groundId = g.id) AS sportNames, ";
+    static final String SELECT_OWNER_INFO =
+            "go.id AS ownerId, go.name AS ownerName, go.organisationName AS ownerOrganisationName, " +
+            "go.email AS ownerEmail, go.phoneNumber AS ownerPhoneNumber, go.image AS ownerImage ";
+    static final String FROM_GROUND = "FROM Ground g ";
+    static final String JOIN_GROUND_OWNER = "LEFT JOIN GroundOwner go ON g.groundOwnerId = go.id ";
 	  static final String COLUMN_GROUND_NAME = "groundName";
 	  
 	     static final String COLUMN_GROUND_MAIN_AREA = "groundMainArea";
@@ -209,7 +220,7 @@ public class GroundDao {
 		 * The Query for selecting all grounddetails from all the table
 		 */
 		 String selectQuery = SELECT_G +
-			        SELECT_IMAGE_URLS_AND_SPORT_NAMES +
+			        SELECT_IMAGE_URLS_AND_SPORT_NAMES1 +
 			        FROM_GROUND +
 			        "WHERE g.groundStatus = 1";
 
@@ -281,11 +292,12 @@ public class GroundDao {
 		/**
 		 * The Query for selecting all grounddetails from all the table
 		 */
-
-		String selectQuery = SELECT_G +
-		        SELECT_IMAGE_URLS_AND_SPORT_NAMES +
-		        FROM_GROUND +
-		        "WHERE g.id = ? AND g.groundStatus = 1";
+		  String selectQuery = SELECT_G +
+		            SELECT_IMAGE_URLS_AND_SPORT_NAMES +
+		            SELECT_OWNER_INFO +
+		            FROM_GROUND +
+		            JOIN_GROUND_OWNER +
+		            "WHERE g.id = ? AND g.groundStatus = 1";
 			Ground ground =null;
 
 		try (Connection con = ConnectionUtil.getConnection()) {
@@ -304,9 +316,20 @@ public class GroundDao {
 						Time endTimeSql4 = rs.getTime(COLUMN_END_TIME);
 						LocalTime endTime4 = endTimeSql4.toLocalTime();
 						
-	
-						
-						ground.setGroundOwnerId(rs.getInt("groundOwnerId"));
+
+	                 
+
+	                    ground.setGroundOwnerId(rs.getInt("groundOwnerId"));
+	                    // Retrieve GroundOwner information
+	                    GroundOwner groundOwner = new GroundOwner();
+	                    groundOwner.setGroundOwnerId(rs.getInt("ownerId"));
+	                    groundOwner.setName(rs.getString("ownerName"));
+	                    groundOwner.setOrganisationName(rs.getString("ownerOrganisationName"));
+	                    groundOwner.setEmail(rs.getString("ownerEmail"));
+	                    groundOwner.setPhoneNumber(rs.getLong("ownerPhoneNumber"));
+	                    groundOwner.setImage(rs.getString("ownerImage"));
+	                    ground.setGroundOwner(groundOwner);
+	                    
 						ground.setGroundId(groundId);
 						ground.setGroundName(rs.getString(COLUMN_GROUND_NAME));
 						ground.setGroundMainArea(rs.getString(COLUMN_GROUND_MAIN_AREA));
@@ -336,7 +359,7 @@ public class GroundDao {
 							ground.setSportsAvailable(new ArrayList<>());
 						}
 
-						// add ground object
+						  
 					
 					}
 				}
@@ -359,10 +382,11 @@ public class GroundDao {
 		 * The Query for selecting all grounddetails from all the table
 		 */
 
-		String selectQuery =  SELECT_G +
-		        SELECT_IMAGE_URLS_AND_SPORT_NAMES +
+		String selectQuery = SELECT_G +
+		        SELECT_IMAGE_URLS_AND_SPORT_NAMES1 +
 		        FROM_GROUND +
 		        "WHERE g.groundOwnerId = ? AND g.groundStatus = 1";
+
 			Ground ground2 =null;
 
 		try (Connection con = ConnectionUtil.getConnection()) {

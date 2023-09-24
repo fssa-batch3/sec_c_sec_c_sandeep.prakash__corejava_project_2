@@ -30,4 +30,8 @@ public class Message {
 		public void setTimestamp(long timestamp) {
 			this.timestamp = timestamp;
 		}
+		@Override
+		public String toString() {
+			return "Message [id=" + id + ", text=" + text + ", sender=" + sender + ", timestamp=" + timestamp + "]";
+		}
 }

@@ -35,7 +35,7 @@ public class UserValidator {
 		locationValidator(user.getLocation());
 		timeAvailFromValidator(user.getTimingAvailFrom());
 		timeAvailToValidator(user.getTimingAvailTo());
-		aboutUserValidator(user.getAbout());
+		//aboutUserValidator(user.getAbout());
 		userImageValidator(user.getImage());
 		return true;
 	}
