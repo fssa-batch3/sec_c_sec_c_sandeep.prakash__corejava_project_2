@@ -6,6 +6,7 @@ import java.util.List;
 import com.fssa.bookandplay.dao.GroundDao;
 import com.fssa.bookandplay.dao.GroundOwnerDao;
 import com.fssa.bookandplay.exceptions.DAOException;
+import com.fssa.bookandplay.exceptions.InvalidGroundOwnerDetailException;
 import com.fssa.bookandplay.model.GroundOwner;
 import com.fssa.bookandplay.validator.GroundOwnerDetailValidator;
 
@@ -27,7 +28,7 @@ public class GroundOwnerService {
 	/**
 	 * The add user
 	 */
-	public boolean addgroundOwner(GroundOwner groundOwner) throws DAOException, SQLException {
+	public boolean addgroundOwner(GroundOwner groundOwner) throws DAOException, SQLException,InvalidGroundOwnerDetailException {
 		if (groundOwnerVal.validateGroundOwner(groundOwner) && !groundOwnerDao.isEmailExist(groundOwner.getEmail()) ) {
 			groundOwnerDao.addGroundOwner(groundOwner);
 			return true;
@@ -39,8 +40,8 @@ public class GroundOwnerService {
 	/**
 	 * The update user
 	 */
-	public boolean updategroundOwner(GroundOwner groundOwner) throws DAOException, SQLException {
-		if (groundOwnerVal.validateGroundOwner(groundOwner)) {
+	public boolean updategroundOwner(GroundOwner groundOwner) throws DAOException, SQLException ,InvalidGroundOwnerDetailException{
+		if (groundOwnerVal.validateUpdateGroundOwner(groundOwner)) {
 			groundOwnerDao.updateGroundOwner(groundOwner);
 		}
 		return true;

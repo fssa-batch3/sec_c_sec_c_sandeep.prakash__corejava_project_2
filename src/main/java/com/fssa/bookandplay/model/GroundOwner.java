@@ -27,15 +27,12 @@ public class GroundOwner {
 	 *
 	 */
 
-	public GroundOwner(int groundOwnerId, String name, String organisationName, String email, long phoneNumber,
-			String password, String image) {
+	public GroundOwner(int groundOwnerId, String name, String organisationName,  long phoneNumber,String image) {
 		super();
 		this.groundOwnerId = groundOwnerId;
 		this.name = name;
 		this.organisationName = organisationName;
-		this.email = email;
 		this.phoneNumber = phoneNumber;
-		this.password = password;
 		this.image = image;
 	}
 	/**

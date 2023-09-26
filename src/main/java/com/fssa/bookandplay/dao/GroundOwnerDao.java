@@ -12,6 +12,7 @@ import java.util.List;
 
 import com.fssa.bookandplay.errors.GroundOwnerDaoErrors;
 import com.fssa.bookandplay.errors.GroundOwnerDetailValidationErrors;
+import com.fssa.bookandplay.errors.UserDaoErrors;
 import com.fssa.bookandplay.exceptions.DAOException;
 import com.fssa.bookandplay.exceptions.InvalidGroundOwnerDetailException;
 import com.fssa.bookandplay.exceptions.InvalidUserDetailException;
@@ -168,7 +169,7 @@ public class GroundOwnerDao {
 		/**
 		 * The Query for calling insertground from sql
 		 */
-		boolean exists = false;
+	
 		String query = "SELECT COUNT(*) FROM GroundOwner WHERE email = ?";
 		/**
 		 * Getting the ground details and inserting in sql
@@ -180,17 +181,22 @@ public class GroundOwnerDao {
 				try (ResultSet rs = pst.executeQuery()) {
 					if (rs.next()) {
 						int count = rs.getInt(1);
-						exists = count > 0;
-					}
+							if (count == 1) {
+							throw new DAOException(GroundOwnerDaoErrors.CHECK_USER_EMAIL_ERROR);
+						} else {
+							return false;
+						}
 				}
 			}
-		} catch (SQLException e) {
+		} 
+		}catch (SQLException e) {
 
 			throw new DAOException(GroundOwnerDaoErrors.READ_GROUNDOWNER_EMAIL_ERROR);
 		}
 
-		return exists;
+		return true;
 
+	
 	}
 
 	public GroundOwner getGroundOwnerByEmailAndPassword(String email, String enteredPassword)

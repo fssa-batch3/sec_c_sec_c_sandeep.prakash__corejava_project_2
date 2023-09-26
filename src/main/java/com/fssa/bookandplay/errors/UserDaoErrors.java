@@ -23,4 +23,7 @@ public class UserDaoErrors {
 	
 	public static final String READ_USER_EMAIL_ERROR = "Invalid password. Please check your password and try again.";
 	public static final String READ_USER_PASS_ERROR = "User not found with the provided email.";
+	
+	
+	public static final String CHECK_USER_EMAIL_ERROR = "The email Id is already taken";
 }

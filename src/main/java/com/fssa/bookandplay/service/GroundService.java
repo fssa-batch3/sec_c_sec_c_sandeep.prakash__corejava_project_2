@@ -6,6 +6,7 @@ import java.util.List;
 import com.fssa.bookandplay.dao.GroundDao;
 import com.fssa.bookandplay.dao.GroundOwnerDao;
 import com.fssa.bookandplay.exceptions.DAOException;
+import com.fssa.bookandplay.exceptions.InvalidGroundDetailException;
 import com.fssa.bookandplay.model.Ground;
 import com.fssa.bookandplay.validator.GroundValidator;
 
@@ -26,7 +27,7 @@ public class GroundService {
 	/**
 	 * The add ground
 	 */
-	public boolean addGround(Ground ground) throws DAOException, SQLException {
+	public boolean addGround(Ground ground) throws DAOException, SQLException,InvalidGroundDetailException {
 		if (groundValidator.validate(ground) && (!groundDao.isGroundOwnerExist(ground.getGroundOwnerId()))) {
 				groundDao.addGround(ground);
 				return true;
@@ -41,7 +42,7 @@ public class GroundService {
 	/**
 	 * The update ground
 	 */
-	public boolean updateGround(Ground ground) throws DAOException, SQLException {
+	public boolean updateGround(Ground ground) throws DAOException, SQLException,InvalidGroundDetailException {
 		if (groundValidator.validate(ground)) {
 			groundDao.updateGround(ground);
 		}
@@ -52,7 +53,7 @@ public class GroundService {
 	/**
 	 * The delete ground
 	 */
-	public boolean deleteGround(int groundId) throws DAOException, SQLException {
+	public boolean deleteGround(int groundId) throws DAOException, SQLException,InvalidGroundDetailException {
 
 		if (groundValidator.groundIdValidator(groundId)) {
 			groundDao.deleteGround(groundId);

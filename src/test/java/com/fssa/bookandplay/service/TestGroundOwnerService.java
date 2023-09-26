@@ -26,7 +26,7 @@ class TestGroundOwnerService {
 	
 	GroundOwner getOwnerDetailWithId() {
 
-		GroundOwner user1 = new GroundOwner(1,"Ramesh", "Sanity", "sasndeepU@gmail.com", 9878456899l, "sand@U2208892*7",
+		GroundOwner user1 = new GroundOwner(1,"Ramesh", "Sanity", 9878456899l, 
 				"https://example.com/image1.jpg");
 		return user1;
 	}

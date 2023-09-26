@@ -22,5 +22,7 @@ public class GroundOwnerDaoErrors {
 	public static final String READ_GROUNDOWNER_EMAIL_ERROR = "Invalid password. Please check your password and try again.";
 	public static final String READ_GROUND_OWNER_PASS_ERROR = "User not found with the provided email.";
 	
+	public static final String CHECK_USER_EMAIL_ERROR = "The email Id is already taken";
+	
 	
 }

@@ -32,7 +32,20 @@ public class GroundOwnerDetailValidator {
 		return true;
 	}
 
-	
+	public boolean validateUpdateGroundOwner(GroundOwner groundOwner) throws InvalidGroundOwnerDetailException {
+		if (groundOwner == null) {
+			throw new InvalidGroundOwnerDetailException(GroundOwnerDetailValidationErrors.INVALID_OBJECT_NULL);
+		}
+
+		nameValidator(groundOwner.getName());
+		organisationNameValidator(groundOwner.getOrganisationName());
+		
+		phoneNumberValidator(groundOwner.getPhoneNumber());
+
+		imageValidator(groundOwner.getImage());
+		return true;
+	}
+
 	
 	/**
 	 * UserFirstname Validator

@@ -266,7 +266,7 @@ public class UserValidator {
 		/**
 		 * sportsAvailable empty check
 		 */
-		if (sportsKnown.isEmpty()) {
+		if (sportsKnown==null ) {
 			throw new InvalidUserDetailException(UserValidationErrors.INVALID_SPORTSTYPE);
 		}
 

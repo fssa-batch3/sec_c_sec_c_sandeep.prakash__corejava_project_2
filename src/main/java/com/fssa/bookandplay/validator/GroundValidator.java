@@ -44,6 +44,28 @@ public class GroundValidator {
 		return true;
 
 	}
+	
+	
+
+	public boolean updateValidate(Ground ground) throws InvalidGroundDetailException {
+		if (ground == null) {
+			throw new InvalidGroundDetailException(GroundValidatorsErrors.INVALID_OBJECT_NULL);
+		}
+		groundNameValidator(ground.getGroundName());
+		groundAreaValidator(ground.getGroundMainArea());
+		groundAddressValidator(ground.getGroundAddress());
+		groundImagesValidator(ground.getGroundImages());
+		sportsAvailableValidator(ground.getSportsAvailable());
+		startTimeValidator(ground.getStartTime());
+		endTimeValidator(ground.getEndTime());
+		groundRulesValidator(ground.getGroundRules());
+		priceValidator(ground.getPrice());
+		increasingPriceForExtraHoursValidator(ground.getIncreasingPriceForExtraHours());
+		courtsAvailableValidator(ground.getCourtsAvailable());
+		
+		return true;
+
+	}
 
 	/**
 	 * Ground name Validator
