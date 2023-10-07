@@ -1,7 +1,7 @@
 -- desc groundimages;
-DROP DATABASE IF  EXISTS bookandplaybackend2;
-CREATE DATABASE IF NOT EXISTS bookandplaybackend2;
-use bookandplaybackend2;
+-- DROP DATABASE IF  EXISTS bookandplaybackend;
+-- CREATE DATABASE IF NOT EXISTS bookandplaybackend;
+use sandeep_prakash_corejava_project;
 CREATE TABLE Ground (
   `id` int NOT NULL AUTO_INCREMENT,
   `groundName` varchar(255)UNIQUE NOT NULL,
@@ -125,6 +125,7 @@ BEGIN
     END WHILE;
 END &&
 DELIMITER ;
+
 
 DELIMITER &&
 CREATE  PROCEDURE `UpdateGround`(
@@ -452,7 +453,6 @@ CREATE TABLE BookingTime (
     FOREIGN KEY (bookingId) REFERENCES GroundBooking(bookingId)
 );
 select * from GroundBooking;
-select * from ground;
 select * from Payment;
 select * from BookingTime;
 select * from User;
@@ -582,22 +582,25 @@ WHERE ((sender_id = 5 AND receiver_id = 3) OR (sender_id = 3 AND receiver_id = 5
 AND status = 'Accepted';
 
 
-
-
-
-
-
-
-
 CREATE TABLE messages (
     id INT AUTO_INCREMENT PRIMARY KEY,
     sender_id INT NOT NULL,
     receiver_id INT NOT NULL,
     text TEXT NOT NULL,
     timestamp BIGINT NOT NULL,
+    is_deleted TINYINT DEFAULT 0,
     FOREIGN KEY (sender_id) REFERENCES User(id),
     FOREIGN KEY (receiver_id) REFERENCES User(id)
 );
+
+
+select * from messages;
+
+SELECT sender_id, receiver_id, text, timestamp
+FROM messages;
+
+SELECT * FROM messages WHERE sender_id = 1;
+
 
 
 
