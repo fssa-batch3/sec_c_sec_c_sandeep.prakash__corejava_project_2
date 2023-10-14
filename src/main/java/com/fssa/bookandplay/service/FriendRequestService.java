@@ -36,6 +36,17 @@ public class FriendRequestService {
 		
 		
 	}
+	
+	
+	public boolean checkFriendRequestAccept(int senderId, int receiverId) throws DAOException, SQLException {
+		
+		if(friendRequestDao.hasSentFriendRequestAccept(senderId, receiverId)){
+			return true;
+		}
+		return false;
+		
+		
+	}
 
 	public boolean hasFriendAlready(int senderId, int receiverId) throws DAOException, SQLException {
 		

@@ -87,6 +87,43 @@ public class FriendRequestDao {
 
 	
 	
+	public boolean hasSentFriendRequestAccept(int senderId, int receiverId) throws SQLException, DAOException {
+
+		/**
+		 * The Query for calling insertground from sql
+		 */
+
+		String sql = "SELECT COUNT(*) FROM Friend_requests WHERE sender_id = ? AND receiver_id = ? AND status = 'Accepted'";
+
+
+		/**
+		 * Getting the ground details and inserting in sql
+		 */
+		try (Connection con = ConnectionUtil.getConnection()) {
+
+			try (PreparedStatement pst = con.prepareStatement(sql)) {
+
+				pst.setInt(1, senderId);
+				pst.setInt(2, receiverId);
+
+				try (ResultSet rs = pst.executeQuery()) {
+					if (rs.next()) {
+						int count = rs.getInt(1);
+						return count > 0;
+					}
+				}
+			}
+		} catch (SQLException e) {
+
+			throw new DAOException(FriendRequestDaoErrors.INSERT_FRIENDREEQUEST_ERROR);
+		}
+
+		return false;
+
+	}
+
+	
+
 	
 	public boolean areMutuallyFriends(int userId1, int userId2) throws SQLException, DAOException {
 	    String sql = "SELECT COUNT(*) FROM Friend_requests " +

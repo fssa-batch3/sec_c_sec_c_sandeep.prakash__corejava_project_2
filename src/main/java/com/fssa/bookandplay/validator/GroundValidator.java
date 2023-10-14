@@ -238,7 +238,7 @@ public class GroundValidator {
 		/**
 		 * sportsAvailable empty check
 		 */
-		if (sportsAvailable.isEmpty()) {
+		if (sportsAvailable==null) {
 			throw new InvalidGroundDetailException(GroundValidatorsErrors.INVALID_SPORTSTYPE);
 		}
 

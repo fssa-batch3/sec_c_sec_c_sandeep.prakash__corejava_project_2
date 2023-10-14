@@ -16,7 +16,7 @@ public class UserRegexPattern {
 			+ "gender questioning|gender nonconforming|other)$";
 	public static final String USER_KNOWNSPORTS_REGEX = "^[a-zA-Z ]{2,35}$";
 	public static final String USER_LOCATION_REGEX = "^[a-zA-Z ]{2,35}$";
-	public static final String USER_ABOUT_REGEX =  "^[a-zA-Z0-9\\\\\\\\p{Punct}\\\\\\\\s]{10,250}$"; 
+	public static final String USER_ABOUT_REGEX = "^[A-Za-z0-9\\s\\p{P}]{7,300}$";
 	 public static final String USER_IMAGE_REGEX = "(?i)\\b((https?|ftp)://)?[a-z0-9-]+(\\.[a-z0-9-]+)+([/?].*)?\\.(jpg|jpeg|gif|png|bmp)\\b";
 	 
 }

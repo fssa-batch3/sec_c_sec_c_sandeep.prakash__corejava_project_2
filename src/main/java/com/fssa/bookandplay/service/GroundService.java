@@ -43,7 +43,7 @@ public class GroundService {
 	 * The update ground
 	 */
 	public boolean updateGround(Ground ground) throws DAOException, SQLException,InvalidGroundDetailException {
-		if (groundValidator.validate(ground)) {
+		if (groundValidator.updateValidate(ground)) {
 			groundDao.updateGround(ground);
 		}
 		return true;

@@ -17,7 +17,8 @@ public class ChatService {
 	ChatMessageValidator cmv = new ChatMessageValidator();
 	ChatDao cmdao = new ChatDao();
 
-	public boolean addChatg(ChatByPlayer chat) throws DAOException, SQLException {
+	
+	public boolean addChat(ChatByPlayer chat) throws DAOException, SQLException {
 		if (cmdao.addChat(chat)) {
 
 			return true;
