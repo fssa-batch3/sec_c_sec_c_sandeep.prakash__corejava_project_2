@@ -1,6 +1,6 @@
 # BookandPlay Backend CoreJava Project
 
-# bookandplayBackend
+# BookandPlay Backend
  This repository includes backendworks core java
 # Book and Play 
 Hi This project was developed using HTML, CSS,JavaScript,Java ,MYSql,Servlet,JDBC and JSP
