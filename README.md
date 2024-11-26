@@ -12,6 +12,20 @@ Hi This project was developed using HTML, CSS,JavaScript,Java ,MYSql,Servlet,JDB
 - Sending data using post method 
 - Hashed the password in the database
 
+### Code Quality
+SonarCloud
+Code Smells, Bugs
+
+### Tools
+GIT, GitHub, GitHub Issues
+Eclipse, Tomcat, Maven, VSCode
+
+
+### BookandPlay Project Hosting on AWS
+Deployed the BookandPlay project on AWS to explore cloud hosting.
+Unhosted it due to high costs, gaining insights into cloud resource management and cost optimization.
+
+
 
 Welcome to the **Book and Play** platform!
 
