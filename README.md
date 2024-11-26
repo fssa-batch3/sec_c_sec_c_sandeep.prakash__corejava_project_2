@@ -68,3 +68,12 @@ To enhance user interaction, the platform provides a chat feature. Users can com
 
 ![image](https://github.com/fssa-batch3/sec_c_sec_c_sandeep.prakash__corejava_project_2/assets/116252886/55e32314-2dde-48ec-910e-a2f64ed81352)
 
+
+
+
+
+
+### ER Diagram Data Base of Book and play
+
+<img width="988" alt="booandplayer" src="https://github.com/user-attachments/assets/2b8b59d4-f59a-437b-93c7-d85734e4a2db">
+
